@@ -1,6 +1,4 @@
 #include "employee.h"
-#include <iostream>
-using namespace std;
 
 void Employee::setEmpId(int emp_id){
     this->emp_id = emp_id;
