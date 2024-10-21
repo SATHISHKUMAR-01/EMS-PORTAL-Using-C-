@@ -6,8 +6,12 @@ class Employee {
     private:
     int emp_id;
     int age;
+    string dob;
     string name;
     string role;
+    string fatherName;
+    string department;
+    string dateOfJoin;
 
     public:
     // Set Methods
