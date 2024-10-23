@@ -5,7 +5,7 @@ void Employee::setEmpId(int emp_id){
 }
 
 void Employee::setAge(int age){
-    this->age = age;
+    this.age = age;
 }
 
 void Employee::setName(string name){
