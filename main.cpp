@@ -2,9 +2,16 @@
 #include "messages.h"
 
 //g++ -std=c++11 main.cpp && ./a.out
-//g++ main.cpp && ./a.out
+//g++ employee.cpp main.cpp && ./a.out
 
 #define EDIT_EMP_ID 1
+#define EDIT_NAME 2
+#define EDIT_FATHER_NAME 3
+#define EDIT_DOB 4
+#define EDIT_AGE 5
+#define EDIT_ROLE 6
+#define EDIT_DEPARTMENT 7
+#define EDIT_DATE_OF_JOIN 8
 
 void frontPage(){
     cout << "\n" << WELCOME_MESSAGE << " " << APP_NAME << endl;
@@ -54,6 +61,21 @@ void loginPage(bool *isContinue, bool *isAdminLogin, bool *isEmpLogin){
     cout << BORDER_LINES <<  endl;
 }
 
+void displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin){
+    cout << "\n" << BORDER_LINES <<  endl;
+    cout << "      Summary of New Employee Details" << endl;
+    cout << BORDER_LINES <<  endl;
+    cout << "   Employee Id   : " << emp_id << endl;
+    cout << "   Name          : " << name << endl;
+    cout << "   Father's Name : " << fatherName << endl;
+    cout << "   Date of Birth : " << dob << endl;
+    cout << "   Age           : " << age << endl;
+    cout << "   Role          : " << role << endl;
+    cout << "   Department    : " << department << endl;
+    cout << "   Date of Join  : " << dateOfJoin << endl;
+    cout << BORDER_LINES <<  endl;
+}
+
 void addEmployeeData(Employee emp){
     int emp_id, age;
     string dob, name, role, fatherName, department, dateOfJoin;
@@ -76,18 +98,7 @@ void addEmployeeData(Employee emp){
     cout << "\nEnter the Date of Join (DD/MM/YYYY) : ";
     cin >> dateOfJoin;
 
-    cout << "\n" << BORDER_LINES <<  endl;
-    cout << "      Summary of New Employee Details" << endl;
-    cout << BORDER_LINES <<  endl;
-    cout << "   Employee Id   : " << emp_id << endl;
-    cout << "   Name          : " << name << endl;
-    cout << "   Father's Name : " << fatherName << endl;
-    cout << "   Date of Birth : " << dob << endl;
-    cout << "   Age           : " << age << endl;
-    cout << "   Role          : " << role << endl;
-    cout << "   Department    : " << department << endl;
-    cout << "   Date of Join  : " << dateOfJoin << endl;
-    cout << BORDER_LINES <<  endl;
+    displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin);
 
     cout << "\nEnter 1 to save the data\nEnter 2 to edit any value\n\nEnter your choice - ";
     cin >> resp;
@@ -98,34 +109,89 @@ void addEmployeeData(Employee emp){
     }
 
     if (resp == "1"){
-        cout << "Data Saved" << endl;
-    }else if (resp == "2"){
-        int editKey;
         cout << "\n" << BORDER_LINES <<  endl;
-        cout << "   Which field you want to change ?\n\n";
-        cout << "     Enter 1 to edit employee ID" << endl;
-        cout << "     Enter 2 to edit name" << endl;
-        cout << "     Enter 3 to edit father's name" << endl;
-        cout << "     Enter 4 to edit date of birth" << endl;
-        cout << "     Enter 5 to edit Age" << endl;
-        cout << "     Enter 6 to edit Role" << endl;
-        cout << "     Enter 7 to edit Department" << endl;
-        cout << "     Enter 8 to edit Date of Join" << endl;
+        cout << "     Data Saved Successfully !!! " << endl;
         cout << BORDER_LINES <<  endl;
-        cout << "Enter your choice - ";
-        cin >> editKey;
+    }else if (resp == "2"){
+        do {
+            int editKey;
+            cout << "\n" << BORDER_LINES <<  endl;
+            cout << "   Which field you want to change ?\n\n";
+            cout << "     Enter 1 to edit employee ID" << endl;
+            cout << "     Enter 2 to edit name" << endl;
+            cout << "     Enter 3 to edit father's name" << endl;
+            cout << "     Enter 4 to edit date of birth" << endl;
+            cout << "     Enter 5 to edit Age" << endl;
+            cout << "     Enter 6 to edit Role" << endl;
+            cout << "     Enter 7 to edit Department" << endl;
+            cout << "     Enter 8 to edit Date of Join" << endl;
+            cout << BORDER_LINES <<  endl;
+            cout << "Enter your choice - ";
+            cin >> editKey;
 
-        switch (editKey){
-            case EDIT_EMP_ID:
-                cout << "\nOld employee ID : " << emp_id << endl;
-                cout << "Enter the new value : ";
-                cin  >> emp_id;
-                cout << "Updated Data " << endl;
-                break;
-            default:
-                cout << "Select def ID : " << endl;
-                break;
-        }
+            switch (editKey){
+                case EDIT_EMP_ID:
+                    cout << "\nOld employee ID : " << emp_id << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> emp_id;
+                    break;
+                case EDIT_NAME:
+                    cout << "\nOld Name : " << name << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> name;
+                    break;
+                case EDIT_FATHER_NAME:
+                    cout << "\nOld Father's name : " << fatherName << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> fatherName;
+                    break;
+                case EDIT_DOB:
+                    cout << "\nOld Date of Birth : " << dob << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> dob;
+                    break;
+                case EDIT_AGE:
+                    cout << "\nOld Age : " << age << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> age;
+                    break;
+                case EDIT_ROLE:
+                    cout << "\nOld Role : " << role << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> role;
+                    break;
+                case EDIT_DEPARTMENT:
+                    cout << "\nOld Department : " << department << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> department;
+                    break;
+                case EDIT_DATE_OF_JOIN:
+                    cout << "\nOld Date Of Join : " << dateOfJoin << endl;
+                    cout << "Enter the new value : ";
+                    cin  >> dateOfJoin;
+                    break;
+                default:
+                    cout << "Wrong Value Entered" << endl;
+                    break;
+            }
+            displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin);
+            cout << "\nEnter 1 to save the data\nEnter 2 to edit any value\n\nEnter your choice - ";
+            cin >> resp;
+
+            while ((resp != "1" && resp != "2")){
+                cout << "\nWrong input given !!! Enter 1 or 2 - ";
+                cin >> resp;
+            }
+        }while(resp == "2");
+
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "         Data Saved Successfully !!!" << endl;
+        cout << BORDER_LINES <<  endl;
+
+        emp.setEmpId(emp_id);
+        emp.setAge(age);
+        emp.setName(name);
+        emp.setRole(role);
     }
 }
 
