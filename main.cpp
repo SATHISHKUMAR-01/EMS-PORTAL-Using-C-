@@ -184,14 +184,18 @@ void addEmployeeData(Employee emp){
             }
         }while(resp == "2");
 
-        cout << "\n" << BORDER_LINES <<  endl;
-        cout << "         Data Saved Successfully !!!" << endl;
-        cout << BORDER_LINES <<  endl;
-
         emp.setEmpId(emp_id);
         emp.setAge(age);
         emp.setName(name);
         emp.setRole(role);
+        emp.setFatherName(fatherName);
+        emp.setDepartment(department);
+        emp.setDateOfJoin(dateOfJoin);
+        emp.setDob(dob);
+
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "         Data Saved Successfully !!!" << endl;
+        cout << BORDER_LINES <<  endl;
     }
 }
 
@@ -220,16 +224,36 @@ void adminLogin(Employee emp){
     }
 }
 
-
+void employeeLogin(Employee emp){
+    cout << "\n" << BORDER_LINES <<  endl;
+    cout << "          Welcome to Employee Login" << endl;
+    cout << BORDER_LINES <<  endl;
+    int emp_id;
+    cout << "\nEnter your employee ID : ";
+    cin  >> emp_id;
+    cout << "\nLoading" << endl;
+    sleep(2);
+    for (int index = 0 ; index < 3 ; index++){
+        sleep(1);
+        cout << "." << endl;
+    }
+    if(emp.getEmpId() == emp_id){
+        cout << "Value present";
+    }else{
+        cout << "Value not present";
+    }
+}
 
 int main(){
-    Employee emp;
+    Employee emp(123, 22, "Raj Kumar", "Intern", "09/09/1999", "Arun", "Engineering", "08/04/2023");
     bool isContinue, isAdminLogin, isEmpLogin;
     isContinue = isAdminLogin = isEmpLogin  = false ;
     frontPage();
     loginPage(&isContinue, &isAdminLogin, &isEmpLogin);
     if (isAdminLogin){
         adminLogin(emp);
+    } else if (isEmpLogin){
+        employeeLogin(emp);
     }
     return 0;
 }
