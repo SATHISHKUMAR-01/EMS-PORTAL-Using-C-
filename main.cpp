@@ -238,9 +238,16 @@ void employeeLogin(Employee emp){
         cout << "." << endl;
     }
     if(emp.getEmpId() == emp_id){
-        cout << "Value present";
+        cout << "Hi, " << emp.getName() << endl;
+
+        cout << "Enter 1 for View Attendance " << endl;
+        cout << "Enter 2 for Apply Leave " << endl;
+        cout << "Enter 3 for Leave Balance " << endl;
+        cout << "Enter 4 for Payslip " << endl;
+        cout << "Enter 5 for Upcoming Holidays " << endl;
+            
     }else{
-        cout << "Value not present";
+        cout << "Employee Data not found !!!" << endl;
     }
 }
 
