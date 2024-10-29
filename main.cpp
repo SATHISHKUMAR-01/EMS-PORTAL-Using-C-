@@ -1,7 +1,7 @@
 #include "employee.h"
 #include "messages.h"
 
-//g++ -std=c++11 main.cpp && ./a.out
+//g++ -std=c++11 employee.cpp main.cpp && ./a.out
 //g++ employee.cpp main.cpp && ./a.out
 
 #define EDIT_EMP_ID 1
@@ -252,15 +252,57 @@ void employeeLogin(Employee emp){
 }
 
 int main(){
-    Employee emp(123, 22, "Raj Kumar", "Intern", "09/09/1999", "Arun", "Engineering", "08/04/2023");
-    bool isContinue, isAdminLogin, isEmpLogin;
-    isContinue = isAdminLogin = isEmpLogin  = false ;
-    frontPage();
-    loginPage(&isContinue, &isAdminLogin, &isEmpLogin);
-    if (isAdminLogin){
-        adminLogin(emp);
-    } else if (isEmpLogin){
-        employeeLogin(emp);
+    Employee emp;
+    int count;
+    cout << "Enter number of employee data you want to store : ";
+    cin >> count;
+    emp_details details[count];
+    for(int i=0 ; i<count ; i++){
+
+        int emp_id, age;
+        string dob, name, role, fatherName, department, dateOfJoin;
+        string resp;
+
+        cout << "\nEnter the employee ID : ";
+        cin >> emp_id;
+        cout << "\nEnter the name of the employee : ";
+        cin >> name;
+        cout << "\nEnter the father's name : ";
+        cin >> fatherName;
+        cout << "\nEnter the age : ";
+        cin >> age;
+        cout << "\nEnter the Date of Birth (DD/MM/YYYY) : ";
+        cin >> dob;
+        cout << "\nEnter the employee role : ";
+        cin >> role;
+        cout << "\nEnter the department belongs to : ";
+        cin >> department;
+        cout << "\nEnter the Date of Join (DD/MM/YYYY) : ";
+        cin >> dateOfJoin;
+
+        details[i].emp_id = emp_id;
+        details[i].name = name;
+        details[i].age = age;
+        details[i].fatherName = fatherName;
+        details[i].dob = dob;
+        details[i].role = role;
+        details[i].department = department;
+        details[i].dateOfJoin = dateOfJoin;
+
+        emp.addEmployee(details[i]);
     }
+
+    emp.displayEmployee();
+
+    // Employee emp(123, 22, "Raj Kumar", "Intern", "09/09/1999", "Arun", "Engineering", "08/04/2023");
+    // bool isContinue, isAdminLogin, isEmpLogin;
+    // isContinue = isAdminLogin = isEmpLogin  = false ;
+    // frontPage();
+    // loginPage(&isContinue, &isAdminLogin, &isEmpLogin);
+    // if (isAdminLogin){
+    //     adminLogin(emp);
+    // } else if (isEmpLogin){
+    //     employeeLogin(emp);
+    // }
     return 0;
 }

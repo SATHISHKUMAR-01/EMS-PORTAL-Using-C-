@@ -1,15 +1,15 @@
 #include "employee.h"
 
-Employee::Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin){
-    this->emp_id = emp_id;
-    this->age = age;
-    this->name = name;
-    this->role = role;
-    this->dob = dob;
-    this->fatherName = fatherName;
-    this->department = department;
-    this->dateOfJoin = dateOfJoin;
-}
+// Employee::Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin){
+//     this->emp_id = emp_id;
+//     this->age = age;
+//     this->name = name;
+//     this->role = role;
+//     this->dob = dob;
+//     this->fatherName = fatherName;
+//     this->department = department;
+//     this->dateOfJoin = dateOfJoin;
+// }
 
 void Employee::setEmpId(int emp_id){
     this->emp_id = emp_id;
@@ -73,4 +73,18 @@ string Employee::getDepartment(){
 
 string Employee::getDateOfJoin(){
     return dateOfJoin;
+}
+
+void Employee::addEmployee(struct emp_details details){
+    employee.push_back(details);
+}
+
+void Employee::displayEmployee(){
+    cout << "\nEmployee List:\n";
+    for (const auto& emp : employee) {
+        cout << "ID: " << emp.emp_id 
+            << ", Age: " << emp.age
+            << ", Name: " << emp.name 
+            << ", Role: " << emp.role << endl;
+    }
 }

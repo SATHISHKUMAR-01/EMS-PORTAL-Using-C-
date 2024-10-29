@@ -2,23 +2,33 @@
 #define EMPLOYEE_H
 #include "headers.h"
 
+struct emp_details {
+    int emp_id;
+    int age;
+    string dob;
+    string name;
+    string role;
+    string fatherName;
+    string department;
+    string dateOfJoin;
+};
+
 class Employee {
     private:
-    struct emp_details {
-        int emp_id;
-        int age;
-        string dob;
-        string name;
-        string role;
-        string fatherName;
-        string department;
-        string dateOfJoin;
-    };
-    
-    public:
 
+    int emp_id;
+    int age;
+    string dob;
+    string name;
+    string role;
+    string fatherName;
+    string department;
+    string dateOfJoin;
+
+    vector<emp_details> employee;
+    public:
      // Set Methods
-    Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin);
+    //Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin);
     void setEmpId(int emp_id);
     void setAge(int age);
     void setName(string name);
@@ -37,6 +47,9 @@ class Employee {
     string getFatherName();
     string getDepartment();
     string getDateOfJoin();
+
+    void addEmployee(struct emp_details details);
+    void displayEmployee();
 };
 
 #endif
