@@ -27,8 +27,7 @@ class Employee {
 
     vector<emp_details> employee;
     public:
-     // Set Methods
-    //Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin);
+    // Set Methods
     void setEmpId(int emp_id);
     void setAge(int age);
     void setName(string name);
@@ -50,6 +49,7 @@ class Employee {
 
     void addEmployee(struct emp_details details);
     void displayEmployee();
+    void diplaySpecificEmployee(int emp_id);
 };
 
 #endif

@@ -1,15 +1,5 @@
 #include "employee.h"
-
-// Employee::Employee(int emp_id, int age, string name, string role, string dob, string fatherName, string department, string dateOfJoin){
-//     this->emp_id = emp_id;
-//     this->age = age;
-//     this->name = name;
-//     this->role = role;
-//     this->dob = dob;
-//     this->fatherName = fatherName;
-//     this->department = department;
-//     this->dateOfJoin = dateOfJoin;
-// }
+#include "messages.h"
 
 void Employee::setEmpId(int emp_id){
     this->emp_id = emp_id;
@@ -80,11 +70,40 @@ void Employee::addEmployee(struct emp_details details){
 }
 
 void Employee::displayEmployee(){
-    cout << "\nEmployee List:\n";
+    cout << "\n       Company --- Employee Details\n";
     for (const auto& emp : employee) {
-        cout << "ID: " << emp.emp_id 
-            << ", Age: " << emp.age
-            << ", Name: " << emp.name 
-            << ", Role: " << emp.role << endl;
+        cout << BORDER_LINES <<  endl;
+        cout << "   Employee Id   : " << emp.emp_id << endl;
+        cout << "   Name          : " << emp.name << endl;
+        cout << "   Father's Name : " << emp.fatherName << endl;
+        cout << "   Date of Birth : " << emp.dob << endl;
+        cout << "   Age           : " << emp.age << endl;
+        cout << "   Role          : " << emp.role << endl;
+        cout << "   Department    : " << emp.department << endl;
+        cout << "   Date of Join  : " << emp.dateOfJoin << endl;
+        cout << BORDER_LINES <<  endl;
     }
+}
+
+void Employee::diplaySpecificEmployee(int emp_id){
+    bool dataFound = false;
+    cout << "\n Employee Details - ID : " << emp_id << endl;
+    cout << BORDER_LINES <<  endl;
+    for (const auto& emp : employee) {
+        if (emp_id == emp.emp_id){
+            cout << "   Name          : " << emp.name << endl;
+            cout << "   Father's Name : " << emp.fatherName << endl;
+            cout << "   Date of Birth : " << emp.dob << endl;
+            cout << "   Age           : " << emp.age << endl;
+            cout << "   Role          : " << emp.role << endl;
+            cout << "   Department    : " << emp.department << endl;
+            cout << "   Date of Join  : " << emp.dateOfJoin << endl;
+            dataFound = true;
+            break;
+        }
+    }
+    if(!dataFound){
+        cout << "     Employee Data not found !!!  "; << endl;
+    }
+    cout << BORDER_LINES <<  endl;
 }
