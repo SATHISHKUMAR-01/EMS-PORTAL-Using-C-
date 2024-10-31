@@ -50,6 +50,7 @@ class Employee {
     void addEmployee(struct emp_details details);
     void displayEmployee();
     void diplaySpecificEmployee(int emp_id);
+    emp_details* getEmployee(int emp_id);
 };
 
 #endif

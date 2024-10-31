@@ -87,7 +87,7 @@ void Employee::displayEmployee(){
 
 void Employee::diplaySpecificEmployee(int emp_id){
     bool dataFound = false;
-    cout << "\n Employee Details - ID : " << emp_id << endl;
+    cout << "\n     Employee Details - ID : " << emp_id << endl;
     cout << BORDER_LINES <<  endl;
     for (const auto& emp : employee) {
         if (emp_id == emp.emp_id){
@@ -103,7 +103,16 @@ void Employee::diplaySpecificEmployee(int emp_id){
         }
     }
     if(!dataFound){
-        cout << "     Employee Data not found !!!  "; << endl;
+        cout << "     Employee Data not found !!!  " << endl;
     }
     cout << BORDER_LINES <<  endl;
+}
+
+emp_details* Employee::getEmployee(int emp_id){
+    for (auto& emp : employee) {
+        if (emp_id == emp.emp_id){
+            return &emp;
+        }
+    }
+    return nullptr;
 }
