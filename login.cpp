@@ -206,23 +206,6 @@ void Login::addEmployeeData(Employee& emp){
     }
 }
 
-void Login::updateEmployeeData(Employee& emp){
-    int emp_id;
-    cout << "Enter the employee id : ";
-    cin  >> emp_id;
-
-    emp_details* details = emp.getEmployee(emp_id);
-    
-    if (details == nullptr) {
-        cout << BORDER_LINES <<  endl;
-        cout << "      Employee not found " << endl;
-        cout << BORDER_LINES <<  endl;
-        return;
-    }
-
-    details->emp_id = 12;
-}
-
 void Login::adminLogin(Employee& emp){
     string resp;
     bool addEntry, updateEntry;
@@ -241,7 +224,7 @@ void Login::adminLogin(Employee& emp){
         }else if (resp == "2"){
             cout << "           Updating Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
-            updateEmployeeData(emp);
+            emp.updateEmployeeData(emp);
         }else if (resp == "3"){
             cout << "         Displaying all Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
@@ -259,7 +242,3 @@ void Login::adminLogin(Employee& emp){
         }
     }while(resp != "5");
 }
-
-
-
-
