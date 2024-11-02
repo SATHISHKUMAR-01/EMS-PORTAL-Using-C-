@@ -50,10 +50,12 @@ void Login::loginPage(bool *isContinue, bool *isAdminLogin, bool *isEmpLogin){
 }
 
 void Login::employeeLogin(Employee& emp){
+    int emp_id;
+    string resp;
     cout << "\n" << BORDER_LINES <<  endl;
     cout << "          Welcome to Employee Login" << endl;
     cout << BORDER_LINES <<  endl;
-    int emp_id;
+    
     cout << "\nEnter your employee ID : ";
     cin  >> emp_id;
     cout << "\nLoading" << endl;
@@ -62,6 +64,27 @@ void Login::employeeLogin(Employee& emp){
         sleep(1);
         cout << "." << endl;
     }
+    emp_details* details = emp.getEmployee(emp_id);
+    
+    if (details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "      Employee not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
+    cout << "\nWelcome, " << emp.getName(details) << endl;
+
+    do{
+        cout << "\nEnter 1 to view holiday planners\nEnter 2 to view leave balances\nEnter 3 to apply for a leave\nEnter 4 to view payslip\nEnter 5 to view the people in the company\nEnter 6 to exit\n\nEnter your choice - " << endl;
+        cin >> resp;
+
+        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
+            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 - ";
+            cin >> resp;
+        }
+
+    }while(resp != "6");
 }
 
 void Login::displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin){
