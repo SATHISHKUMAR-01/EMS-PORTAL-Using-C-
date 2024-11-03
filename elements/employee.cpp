@@ -189,9 +189,22 @@ void Employee::updateEmployeeData(Employee& emp){
 
 emp_details* Employee::getEmployee(int emp_id){
     for (auto& emp : employee) {
-        if (emp_id == emp.emp_id){
+        if (emp_id == getEmpId(&emp)){
             return &emp;
         }
     }
     return nullptr;
+}
+
+bool Employee::isAdmin(int emp_id){
+    for (auto& id : adminId) {
+        if (id == emp_id){
+            return true;
+        }
+    }
+    return false;
+}
+
+void Employee::addAdminId(int id){
+    adminId.push_back(id);
 }

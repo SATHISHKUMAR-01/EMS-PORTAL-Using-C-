@@ -16,8 +16,33 @@ struct emp_details {
 class Employee {
     private:
     vector<emp_details> employee;
+    vector<int> adminId;
     
     public:
+
+    Employee(){
+        emp_details info[2];
+        info[0].emp_id = 1;
+        info[0].age = 22;
+        info[0].dob = "01/03/1998";
+        info[0].name = "Rahul";
+        info[0].role = "Admin";
+        info[0].department = "Engineering";
+        info[0].fatherName = "Harish";
+        info[0].dateOfJoin = "03/12/2021";
+        employee.push_back(info[0]);
+
+        info[1].emp_id = 2;
+        info[1].age = 21;
+        info[1].dob = "01/12/2000";
+        info[1].name = "Francis";
+        info[1].role = "HR";
+        info[1].department = "Engineering";
+        info[1].fatherName = "Venkatesh";
+        info[1].dateOfJoin = "03/02/2023";
+        employee.push_back(info[1]);
+    }
+
     // Set Methods
     void setEmpId(struct emp_details *detail, int emp_id);
     void setAge(struct emp_details *detail, int age);
@@ -43,6 +68,8 @@ class Employee {
     void diplaySpecificEmployee(int emp_id);
     void updateEmployeeData(Employee& emp);
     emp_details* getEmployee(int emp_id);
+    bool isAdmin(int emp_id);
+    void addAdminId(int id);
 };
 
 #endif

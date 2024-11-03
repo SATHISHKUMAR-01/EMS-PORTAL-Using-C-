@@ -232,6 +232,23 @@ void Login::addEmployeeData(Employee& emp){
 void Login::adminLogin(Employee& emp){
     string resp;
     bool addEntry, updateEntry;
+
+    int emp_id;
+    cout << "\n" << BORDER_LINES <<  endl;
+    cout << "          Welcome to Admin Login" << endl;
+    cout << BORDER_LINES <<  endl;
+    
+    cout << "\nEnter your employee ID : ";
+    cin  >> emp_id;
+    bool isAdmin = emp.isAdmin(emp_id);
+
+    if(!isAdmin){
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "          Admin not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
     do {
         cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\n\nEnter your choice - ";
         cin >> resp;

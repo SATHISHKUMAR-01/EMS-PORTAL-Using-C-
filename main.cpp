@@ -13,6 +13,7 @@ int main(){
         isContinue = isAdminLogin = isEmpLogin  = false ;
         log.loginPage(&isContinue, &isAdminLogin, &isEmpLogin);
         if (isAdminLogin){
+            emp.addAdminId(1);
             log.adminLogin(emp);
         } else if (isEmpLogin){
             log.employeeLogin(emp);
