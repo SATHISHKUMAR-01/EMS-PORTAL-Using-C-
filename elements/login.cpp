@@ -76,7 +76,7 @@ void Login::employeeLogin(Employee& emp){
     cout << "\nWelcome, " << emp.getName(details) << endl;
 
     do{
-        cout << "\nEnter 1 to view holiday planners\nEnter 2 to view leave balances\nEnter 3 to apply for a leave\nEnter 4 to view payslip\nEnter 5 to view the people in the company\nEnter 6 to exit\n\nEnter your choice - " << endl;
+        cout << "\nEnter 1 to view holiday planners\nEnter 2 to view leave balances\nEnter 3 to apply for a leave\nEnter 4 to view payslip\nEnter 5 to view the people in the company\nEnter 6 to exit\n\nEnter your choice - ";
         cin >> resp;
 
         while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
@@ -84,6 +84,21 @@ void Login::employeeLogin(Employee& emp){
             cin >> resp;
         }
 
+        cout << "\n" << BORDER_LINES <<  endl;
+        if(resp == "1"){
+            showHolidays();
+            cout << BORDER_LINES <<  endl;
+        }else if(resp == "2"){
+
+        }else if(resp == "3"){
+            
+        }else if(resp == "4"){
+            
+        }else if(resp == "5"){
+            
+        }else if(resp == "6"){
+            
+        }
     }while(resp != "6");
 }
 
@@ -250,10 +265,10 @@ void Login::adminLogin(Employee& emp){
     }
 
     do {
-        cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\n\nEnter your choice - ";
+        cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\nEnter 6 to grant leave to employee\n\nEnter your choice - ";
         cin >> resp;
-        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5")){
-            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 - ";
+        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
+            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 - ";
             cin >> resp;
         }
         cout << "\n" << BORDER_LINES <<  endl;
@@ -279,6 +294,22 @@ void Login::adminLogin(Employee& emp){
         }else if (resp == "5"){
             cout << "           Exiting Admin Login    " << endl;
             cout << BORDER_LINES <<  endl;
+        }else if (resp == "6"){
+            cout << "           Granting Leave to employees    " << endl;
+            cout << BORDER_LINES <<  endl;
+            emp.grantLeaveToEmployee();
         }
     }while(resp != "5");
+}
+
+void Login::addHoliday(string name, string date){
+    holidayCalendar[name] = date;
+}
+
+void Login::showHolidays(){
+    cout << "          HOLIDAY CALENDAR  -  2024   " <<  endl;
+    cout << BORDER_LINES <<  endl;
+    for (auto it = holidayCalendar.begin(); it != holidayCalendar.end(); ++it) {
+        cout << "      " << it->first << " : " << it->second << '\n';
+    }
 }

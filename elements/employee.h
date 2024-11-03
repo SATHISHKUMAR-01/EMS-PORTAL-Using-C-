@@ -13,10 +13,21 @@ struct emp_details {
     string dateOfJoin;
 };
 
+struct leaveData {
+    int workFromHome;
+    int vacationLeave;
+    int annualLeave;
+    int teamOff;
+    int paternityLeave;
+    int maternityLeave;
+    int marriageLeave;
+};
+
 class Employee {
     private:
     vector<emp_details> employee;
     vector<int> adminId;
+    map<int, leaveData> LeaveMap;
     
     public:
 
@@ -70,6 +81,7 @@ class Employee {
     emp_details* getEmployee(int emp_id);
     bool isAdmin(int emp_id);
     void addAdminId(int id);
+    void grantLeaveToEmployee();
 };
 
 #endif

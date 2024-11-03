@@ -208,3 +208,56 @@ bool Employee::isAdmin(int emp_id){
 void Employee::addAdminId(int id){
     adminId.push_back(id);
 }
+
+void Employee::grantLeaveToEmployee(){
+    string resp;
+    int workFromHome, vacationLeave, annualLeave, teamOff, paternityLeave, maternityLeave, marriageLeave;
+    leaveData *leave;
+    do{
+        cout << "\nEnter 1 to grant default leaves for all employees\nEnter 2 to grant leave to a specific employee\nEnter 3 to grant specific leave type to all employees\nEnter 4 to exit\n\nEnter your choice - ";
+        cin >> resp;
+
+        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4")){
+            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 - ";
+            cin >> resp;
+        }
+
+        if(resp == "1"){
+            cout << "\n" << BORDER_LINES <<  endl;
+            cout << "   Adding default leaves to all employees" << endl;
+            cout << BORDER_LINES <<  endl;
+
+            cout << "\nNote : Enter the default count for all leave types" << endl;
+            cout << "\nEnter the work from home(WFH) count -  ";
+            cin  >> workFromHome;
+            cout << "\nEnter the vacation leave count      -  ";
+            cin  >> vacationLeave;
+            cout << "\nEnter the annual leave count        -  ";
+            cin  >> annualLeave;
+            cout << "\nEnter the team time off count       -  ";
+            cin  >> teamOff;
+            cout << "\nEnter the paternity leave count     -  ";
+            cin  >> paternityLeave;
+            cout << "\nEnter the maternity leave count     -  ";
+            cin  >> maternityLeave;
+            cout << "\nEnter the marriage leave count      -  ";
+            cin  >> marriageLeave;
+
+            leave->workFromHome = workFromHome;
+            leave->annualLeave = annualLeave;
+            leave->vacationLeave = vacationLeave;
+            leave->teamOff = teamOff;
+            leave->paternityLeave = paternityLeave;
+            leave->marriageLeave = marriageLeave;
+            leave->maternityLeave = maternityLeave;
+
+        }else if (resp == "2"){
+
+        }else if (resp == "3"){
+
+        }else if (resp == "4"){
+
+        }
+
+    }while(resp != "4");
+}
