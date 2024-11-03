@@ -1,8 +1,7 @@
-#include "employee.h"
-#include "messages.h"
-#include "login.h"
+#include "./elements/employee.h"
+#include "./elements/login.h"
 
-//g++ -std=c++11 login.cpp employee.cpp main.cpp && ./a.out
+//g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
 //g++ employee.cpp main.cpp && ./a.out
 
 int main(){
