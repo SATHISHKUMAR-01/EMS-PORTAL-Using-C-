@@ -20,7 +20,7 @@ class Login{
     }
     void frontPage();
     void loginPage(bool *isContinue, bool *isAdminLogin, bool *isEmpLogin);
-    void displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin);
+    void displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin, string sex);
     void adminLogin(Employee& emp);
     void employeeLogin(Employee& emp);
     void addEmployeeData(Employee& emp);

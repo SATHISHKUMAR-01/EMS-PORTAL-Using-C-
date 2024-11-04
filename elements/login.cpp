@@ -90,7 +90,7 @@ void Login::employeeLogin(Employee& emp){
             cout << BORDER_LINES <<  endl;
         }else if(resp == "2"){
             leaveData *leaveBalance = emp.viewLeaveBalance(emp_id);
-            cout << "                   Leave Balances" << endl;
+            cout << "           Leave Balances" << endl;
             cout << BORDER_LINES <<  endl;
             if (leaveBalance != nullptr) {
                 cout << "   Work From Home    :  " << leaveBalance->workFromHome << endl;
@@ -109,9 +109,12 @@ void Login::employeeLogin(Employee& emp){
         }else if(resp == "4"){
             
         }else if(resp == "5"){
-            
+            cout << "        People in the Company " << endl;
+            cout << BORDER_LINES <<  endl;
+            emp.showPeopleData();
         }else if(resp == "6"){
-            
+            cout << "           Exiting Employee Login    " << endl;
+            cout << BORDER_LINES <<  endl;
         }
     }while(resp != "6");
 }

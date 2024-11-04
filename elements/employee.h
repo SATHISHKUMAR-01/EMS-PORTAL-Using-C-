@@ -2,6 +2,14 @@
 #define EMPLOYEE_H
 #include "../libraries/headers.h"
 
+#define ADD_WFH 1
+#define ADD_ANNUAL_LEAVE 2
+#define ADD_VACATION_LEAVE 3
+#define ADD_TEAM_OFF 4
+#define ADD_MATERNITY_LEAVE 5
+#define ADD_PATERNITY_LEAVE 6
+#define ADD_MARRIAGE_LEAVE 7
+
 struct emp_details {
     int emp_id;
     int age;
@@ -110,6 +118,8 @@ class Employee {
     void addAdminId(int id);
     void grantLeaveToEmployee();
     leaveData* viewLeaveBalance(int emp_id);
+    void addExtraLeaveToAll(int leaveType, int count);
+    void showPeopleData();
 };
 
 #endif
