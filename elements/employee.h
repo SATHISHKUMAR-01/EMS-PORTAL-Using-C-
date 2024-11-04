@@ -52,6 +52,8 @@ class Employee {
         info[1].fatherName = "Venkatesh";
         info[1].dateOfJoin = "03/02/2023";
         employee.push_back(info[1]);
+
+        defaultInternWFH = defaultSeniorWFH = defaultManagerWFH = defaultVacationLeave = defaultAnnualLeave = defaultTeamOff =  defaultPaternityLeave = defaultMaternityLeave = defaultMarriageLeave = 0;
     }
 
     // Set Methods
@@ -102,6 +104,7 @@ class Employee {
     bool isAdmin(int emp_id);
     void addAdminId(int id);
     void grantLeaveToEmployee();
+    leaveData* viewLeaveBalance(int emp_id);
 };
 
 #endif

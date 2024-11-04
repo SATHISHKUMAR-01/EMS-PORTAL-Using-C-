@@ -300,7 +300,7 @@ void Employee::grantLeaveToEmployee(){
 
         if(resp == "1"){
             cout << "\n" << BORDER_LINES <<  endl;
-            cout << "   Adding default leave count for all leave types" << endl;
+            cout << "Adding default leave count for all leave types" << endl;
             cout << BORDER_LINES <<  endl;
 
             cout << "\nEnter the work from home(WFH) count for Intern   -  ";
@@ -333,7 +333,37 @@ void Employee::grantLeaveToEmployee(){
             setMarriageLeave(marriageLeave);
 
         }else if (resp == "2"){
+            cout << "\n" << BORDER_LINES <<  endl;
+            cout << "   Granting default leave to all employees " << endl;
+            cout << BORDER_LINES <<  endl;
+            leaveData leaveDetails;
+            for (auto& emp : employee) {
+                int emp_id = getEmpId(&emp);
+                string role = getRole(&emp);
 
+                if (LeaveMap.find(emp_id) != LeaveMap.end()){
+                    cout << "   Default Leave Already Granted for ID -  " << emp_id << endl;
+                    continue;
+                }
+
+                if(role == "Intern"){
+                    leaveDetails.workFromHome = defaultInternWFH;
+                }else if(role == "Senior"){
+                    leaveDetails.workFromHome = defaultSeniorWFH;
+                }else if(role == "Mananger"){
+                    leaveDetails.workFromHome = defaultManagerWFH;
+                }
+                leaveDetails.annualLeave = defaultAnnualLeave;
+                leaveDetails.vacationLeave = defaultVacationLeave;
+                leaveDetails.teamOff = defaultTeamOff;
+                leaveDetails.paternityLeave = defaultPaternityLeave;
+                leaveDetails.maternityLeave = defaultMaternityLeave;
+                leaveDetails.marriageLeave = defaultMarriageLeave;
+
+                LeaveMap[emp_id] = leaveDetails;
+                cout << "   Default Leave Granted for ID -  " << emp_id << endl;
+            }
+            cout << "   Completed Sucessfully !!! " << endl;
         }else if (resp == "3"){
 
         }else if (resp == "4"){
@@ -345,4 +375,13 @@ void Employee::grantLeaveToEmployee(){
         }
 
     }while(resp != "6");
+}
+
+leaveData* Employee::viewLeaveBalance(int emp_id){
+    try {
+        leaveData *leaveBalances = &LeaveMap.at(emp_id);
+        return leaveBalances;
+    } catch (const out_of_range& e) {
+        return nullptr;
+    }
 }

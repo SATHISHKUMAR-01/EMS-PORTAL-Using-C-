@@ -89,7 +89,21 @@ void Login::employeeLogin(Employee& emp){
             showHolidays();
             cout << BORDER_LINES <<  endl;
         }else if(resp == "2"){
-
+            leaveData *leaveBalance = emp.viewLeaveBalance(emp_id);
+            cout << "                   Leave Balances" << endl;
+            cout << BORDER_LINES <<  endl;
+            if (leaveBalance != nullptr) {
+                cout << "   Work From Home    :  " << leaveBalance->workFromHome << endl;
+                cout << "   Annual Leave      :  " << leaveBalance->annualLeave << endl;
+                cout << "   Vacation Leave    :  " << leaveBalance->vacationLeave << endl;
+                cout << "   Team Time Off     :  " << leaveBalance->teamOff << endl;
+                cout << "   Maternity Leave   :  " << leaveBalance->maternityLeave << endl;
+                cout << "   Paternity Leave   :  " << leaveBalance->paternityLeave << endl;
+                cout << "   Marriage Leave    :  " << leaveBalance->marriageLeave << endl;
+            }else{
+                cout << "               Record not found !!!  " << endl;
+            }
+            cout << BORDER_LINES <<  endl;
         }else if(resp == "3"){
             
         }else if(resp == "4"){
