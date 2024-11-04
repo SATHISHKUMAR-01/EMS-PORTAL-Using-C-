@@ -265,10 +265,14 @@ void Login::adminLogin(Employee& emp){
     }
 
     do {
-        cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\nEnter 6 to grant leave to employee\n\nEnter your choice - ";
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "         Admin Operations   " << endl;
+        cout << BORDER_LINES <<  endl;
+        
+        cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\nEnter 6 to grant leave to employee\nEnter 7 to view the leave counts for all leave types\n\nEnter your choice - ";
         cin >> resp;
-        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
-            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 - ";
+        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6" && resp != "7")){
+            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 or 7 - ";
             cin >> resp;
         }
         cout << "\n" << BORDER_LINES <<  endl;
@@ -298,7 +302,20 @@ void Login::adminLogin(Employee& emp){
             cout << "           Granting Leave to employees    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.grantLeaveToEmployee();
+        }else if (resp == "7"){
+            cout << "           Default Leave counts   " << endl;
+            cout << BORDER_LINES <<  endl;
+            cout << "   Intern Work from Home    -  " << emp.getInternWorkFromHome() << endl;
+            cout << "   Senior Work from Home    -  " << emp.getSeniorWorkFromHome() << endl;
+            cout << "   Manager Work from Home   -  " << emp.getManagerWorkFromHome() << endl;
+            cout << "   Annual Leave             -  " << emp.getAnnualLeave() << endl;
+            cout << "   Vacation Leave           -  " << emp.getAnnualLeave() << endl;
+            cout << "   Team Time Off            -  " << emp.getTeamOff() << endl;
+            cout << "   Maternity Leave          -  " << emp.getMaternityLeave() << endl;
+            cout << "   Paternity Leave          -  " << emp.getPaternityLeave() << endl;
+            cout << "   Marriage Leave           -  " << emp.getMarriageLeave() << endl;
         }
+
     }while(resp != "5");
 }
 

@@ -28,17 +28,17 @@ class Employee {
     vector<emp_details> employee;
     vector<int> adminId;
     map<int, leaveData> LeaveMap;
-    
-    public:
+    int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
+    public:
     Employee(){
         emp_details info[2];
         info[0].emp_id = 1;
         info[0].age = 22;
         info[0].dob = "01/03/1998";
         info[0].name = "Rahul";
-        info[0].role = "Admin";
-        info[0].department = "Engineering";
+        info[0].role = "Intern";
+        info[0].department = "Admin";
         info[0].fatherName = "Harish";
         info[0].dateOfJoin = "03/12/2021";
         employee.push_back(info[0]);
@@ -47,8 +47,8 @@ class Employee {
         info[1].age = 21;
         info[1].dob = "01/12/2000";
         info[1].name = "Francis";
-        info[1].role = "HR";
-        info[1].department = "Engineering";
+        info[1].role = "Senior";
+        info[1].department = "HR";
         info[1].fatherName = "Venkatesh";
         info[1].dateOfJoin = "03/02/2023";
         employee.push_back(info[1]);
@@ -64,6 +64,16 @@ class Employee {
     void setDepartment(struct emp_details *detail, string department);
     void setDateOfJoin(struct emp_details *detail, string dateOfJoin);
 
+    void setSeniorWorkFromHome(int workFromHome);
+    void setInternWorkFromHome(int workFromHome);
+    void setManagerWorkFromHome(int workFromHome);
+    void setVacationLeave(int vacationLeave);
+    void setAnnualLeave(int annualLeave);
+    void setTeamOff(int teamOff);
+    void setPaternityLeave(int paternityLeave);
+    void setMaternityLeave(int maternityLeave);
+    void setMarriageLeave(int marriageLeave);
+
     //Get Methods
     int getEmpId(struct emp_details *detail);
     int getAge(struct emp_details *detail);
@@ -73,6 +83,16 @@ class Employee {
     string getFatherName(struct emp_details *detail);
     string getDepartment(struct emp_details *detail);
     string getDateOfJoin(struct emp_details *detail);
+
+    int getSeniorWorkFromHome();
+    int getInternWorkFromHome();
+    int getManagerWorkFromHome();
+    int getVacationLeave();
+    int getAnnualLeave();
+    int getTeamOff();
+    int getPaternityLeave();
+    int getMaternityLeave();
+    int getMarriageLeave();
 
     void addEmployee(struct emp_details details);
     void displayEmployee();

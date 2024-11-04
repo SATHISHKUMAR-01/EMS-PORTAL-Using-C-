@@ -33,6 +33,42 @@ void Employee::setDateOfJoin(struct emp_details *detail, string dateOfJoin){
     detail->dateOfJoin = dateOfJoin;
 }
 
+void Employee::setInternWorkFromHome(int workFromHome){
+    defaultInternWFH = workFromHome;
+}
+
+void Employee::setSeniorWorkFromHome(int workFromHome){
+    defaultSeniorWFH = workFromHome;
+}
+
+void Employee::setManagerWorkFromHome(int workFromHome){
+    defaultManagerWFH = workFromHome;
+}
+
+void Employee::setVacationLeave(int vacationLeave){
+    defaultVacationLeave = vacationLeave;
+}
+
+void Employee::setAnnualLeave(int annualLeave){
+    defaultAnnualLeave = annualLeave;
+}
+
+void Employee::setTeamOff(int teamOff){
+    defaultTeamOff = teamOff;
+}
+
+void Employee::setPaternityLeave(int paternityLeave){
+    defaultPaternityLeave = paternityLeave;
+}
+
+void Employee::setMaternityLeave(int maternityLeave){
+    defaultMaternityLeave = maternityLeave;
+}
+
+void Employee::setMarriageLeave(int marriageLeave){
+    defaultMarriageLeave = marriageLeave;
+}
+
 int Employee::getEmpId(struct emp_details *detail){
     return detail->emp_id;
 }
@@ -63,6 +99,42 @@ string Employee::getDepartment(struct emp_details *detail){
 
 string Employee::getDateOfJoin(struct emp_details *detail){
     return detail->dateOfJoin;
+}
+
+int Employee::getInternWorkFromHome(){
+    return defaultInternWFH;
+}
+
+int Employee::getSeniorWorkFromHome(){
+    return defaultSeniorWFH;
+}
+
+int Employee::getManagerWorkFromHome(){
+    return defaultManagerWFH;
+}
+
+int Employee::getVacationLeave(){
+    return defaultVacationLeave;
+}
+
+int Employee::getAnnualLeave(){
+    return defaultAnnualLeave;
+}
+
+int Employee::getTeamOff(){
+    return defaultTeamOff;
+}
+
+int Employee::getPaternityLeave(){
+    return defaultPaternityLeave;
+}
+
+int Employee::getMaternityLeave(){
+    return defaultMaternityLeave;
+}
+
+int Employee::getMarriageLeave(){
+    return defaultMarriageLeave;
 }
 
 void Employee::addEmployee(struct emp_details details){
@@ -211,25 +283,32 @@ void Employee::addAdminId(int id){
 
 void Employee::grantLeaveToEmployee(){
     string resp;
-    int workFromHome, vacationLeave, annualLeave, teamOff, paternityLeave, maternityLeave, marriageLeave;
-    leaveData *leave;
+    int internWorkFromHome, seniorWorkFromHome, managerWorkFromHome, vacationLeave, annualLeave, teamOff, paternityLeave, maternityLeave, marriageLeave;
+    leaveData leave;
     do{
-        cout << "\nEnter 1 to grant default leaves for all employees\nEnter 2 to grant leave to a specific employee\nEnter 3 to grant specific leave type to all employees\nEnter 4 to exit\n\nEnter your choice - ";
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "         Leave Operations   " << endl;
+        cout << BORDER_LINES <<  endl;
+
+        cout << "\nEnter 1 to set default leave count for all leave types\nEnter 2 to grant default leaves for all employees\nEnter 3 to grant default leaves for specific employee\nEnter 4 to grant specific leave type to an employee\nEnter 5 to grant specific leave type to all employees\nEnter 6 to exit\n\nEnter your choice - ";
         cin >> resp;
 
-        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4")){
-            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 - ";
+        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
+            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 - ";
             cin >> resp;
         }
 
         if(resp == "1"){
             cout << "\n" << BORDER_LINES <<  endl;
-            cout << "   Adding default leaves to all employees" << endl;
+            cout << "   Adding default leave count for all leave types" << endl;
             cout << BORDER_LINES <<  endl;
 
-            cout << "\nNote : Enter the default count for all leave types" << endl;
-            cout << "\nEnter the work from home(WFH) count -  ";
-            cin  >> workFromHome;
+            cout << "\nEnter the work from home(WFH) count for Intern   -  ";
+            cin  >> internWorkFromHome;
+            cout << "\nEnter the work from home(WFH) count for Senior   -  ";
+            cin  >> seniorWorkFromHome;
+            cout << "\nEnter the work from home(WFH) count for Manager  -  ";
+            cin  >> managerWorkFromHome;
             cout << "\nEnter the vacation leave count      -  ";
             cin  >> vacationLeave;
             cout << "\nEnter the annual leave count        -  ";
@@ -243,13 +322,15 @@ void Employee::grantLeaveToEmployee(){
             cout << "\nEnter the marriage leave count      -  ";
             cin  >> marriageLeave;
 
-            leave->workFromHome = workFromHome;
-            leave->annualLeave = annualLeave;
-            leave->vacationLeave = vacationLeave;
-            leave->teamOff = teamOff;
-            leave->paternityLeave = paternityLeave;
-            leave->marriageLeave = marriageLeave;
-            leave->maternityLeave = maternityLeave;
+            setInternWorkFromHome(internWorkFromHome);
+            setSeniorWorkFromHome(seniorWorkFromHome);
+            setManagerWorkFromHome(managerWorkFromHome);
+            setAnnualLeave(annualLeave);
+            setVacationLeave(vacationLeave);
+            setTeamOff(teamOff);
+            setPaternityLeave(paternityLeave);
+            setMaternityLeave(maternityLeave);
+            setMarriageLeave(marriageLeave);
 
         }else if (resp == "2"){
 
@@ -257,7 +338,11 @@ void Employee::grantLeaveToEmployee(){
 
         }else if (resp == "4"){
 
+        }else if (resp == "5"){
+
+        }else if (resp == "6"){
+
         }
 
-    }while(resp != "4");
+    }while(resp != "6");
 }
