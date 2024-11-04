@@ -69,6 +69,10 @@ void Employee::setMarriageLeave(int marriageLeave){
     defaultMarriageLeave = marriageLeave;
 }
 
+void Employee::setSex(struct emp_details *detail, string sex){
+    detail->sex = sex;
+}
+
 int Employee::getEmpId(struct emp_details *detail){
     return detail->emp_id;
 }
@@ -137,6 +141,10 @@ int Employee::getMarriageLeave(){
     return defaultMarriageLeave;
 }
 
+string Employee::getSex(struct emp_details *detail){
+    return detail->sex
+}
+
 void Employee::addEmployee(struct emp_details details){
     employee.push_back(details);
 }
@@ -147,6 +155,7 @@ void Employee::displayEmployee(){
         cout << BORDER_LINES <<  endl;
         cout << "   Employee Id   : " << getEmpId(&emp) << endl;
         cout << "   Name          : " << getName(&emp) << endl;
+        cout << "   Sex           : " << getSex(&emp) << endl;
         cout << "   Father's Name : " << getFatherName(&emp) << endl;
         cout << "   Date of Birth : " << getDob(&emp) << endl;
         cout << "   Age           : " << getAge(&emp) << endl;
@@ -164,6 +173,7 @@ void Employee::diplaySpecificEmployee(int emp_id){
     for (auto& emp : employee) {
         if (emp_id == getEmpId(&emp) ){
             cout << "   Name          : " << getName(&emp) << endl;
+            cout << "   Sex           : " << getSex(&emp) << endl;
             cout << "   Father's Name : " << getFatherName(&emp) << endl;
             cout << "   Date of Birth : " << getDob(&emp) << endl;
             cout << "   Age           : " << getAge(&emp) << endl;
@@ -340,6 +350,7 @@ void Employee::grantLeaveToEmployee(){
             for (auto& emp : employee) {
                 int emp_id = getEmpId(&emp);
                 string role = getRole(&emp);
+                string sex = getRole(&emp);
 
                 if (LeaveMap.find(emp_id) != LeaveMap.end()){
                     cout << "   Default Leave Already Granted for ID -  " << emp_id << endl;
@@ -356,8 +367,12 @@ void Employee::grantLeaveToEmployee(){
                 leaveDetails.annualLeave = defaultAnnualLeave;
                 leaveDetails.vacationLeave = defaultVacationLeave;
                 leaveDetails.teamOff = defaultTeamOff;
-                leaveDetails.paternityLeave = defaultPaternityLeave;
-                leaveDetails.maternityLeave = defaultMaternityLeave;
+
+                if(sex == "Male"){
+                    leaveDetails.paternityLeave = defaultPaternityLeave;
+                }else if(sex == "Female"){
+                    leaveDetails.maternityLeave = defaultMaternityLeave;
+                }
                 leaveDetails.marriageLeave = defaultMarriageLeave;
 
                 LeaveMap[emp_id] = leaveDetails;

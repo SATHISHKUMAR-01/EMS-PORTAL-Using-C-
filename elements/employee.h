@@ -11,6 +11,7 @@ struct emp_details {
     string fatherName;
     string department;
     string dateOfJoin;
+    string sex;
 };
 
 struct leaveData {
@@ -41,6 +42,7 @@ class Employee {
         info[0].department = "Admin";
         info[0].fatherName = "Harish";
         info[0].dateOfJoin = "03/12/2021";
+        info[0].sex = "Male";
         employee.push_back(info[0]);
 
         info[1].emp_id = 2;
@@ -51,6 +53,7 @@ class Employee {
         info[1].department = "HR";
         info[1].fatherName = "Venkatesh";
         info[1].dateOfJoin = "03/02/2023";
+        info[1].sex = "Female";
         employee.push_back(info[1]);
 
         defaultInternWFH = defaultSeniorWFH = defaultManagerWFH = defaultVacationLeave = defaultAnnualLeave = defaultTeamOff =  defaultPaternityLeave = defaultMaternityLeave = defaultMarriageLeave = 0;
@@ -65,6 +68,7 @@ class Employee {
     void setFatherName(struct emp_details *detail, string fatherName);
     void setDepartment(struct emp_details *detail, string department);
     void setDateOfJoin(struct emp_details *detail, string dateOfJoin);
+    void setSex(struct emp_details *detail, string sex);
 
     void setSeniorWorkFromHome(int workFromHome);
     void setInternWorkFromHome(int workFromHome);
@@ -85,6 +89,7 @@ class Employee {
     string getFatherName(struct emp_details *detail);
     string getDepartment(struct emp_details *detail);
     string getDateOfJoin(struct emp_details *detail);
+    string getSex(struct emp_details *detail);
 
     int getSeniorWorkFromHome();
     int getInternWorkFromHome();

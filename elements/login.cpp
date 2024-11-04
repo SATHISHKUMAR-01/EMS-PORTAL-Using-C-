@@ -116,12 +116,13 @@ void Login::employeeLogin(Employee& emp){
     }while(resp != "6");
 }
 
-void Login::displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin){
+void Login::displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin, string sex){
     cout << "\n" << BORDER_LINES <<  endl;
     cout << "      Summary of New Employee Details" << endl;
     cout << BORDER_LINES <<  endl;
     cout << "   Employee Id   : " << emp_id << endl;
     cout << "   Name          : " << name << endl;
+    cout << "   Sex           : " << sex << endl;
     cout << "   Father's Name : " << fatherName << endl;
     cout << "   Date of Birth : " << dob << endl;
     cout << "   Age           : " << age << endl;
@@ -133,7 +134,7 @@ void Login::displayEmployeeData(int emp_id, int age, string name, string dob, st
 
 void Login::addEmployeeData(Employee& emp){
     int emp_id, age, count;
-    string dob, name, role, fatherName, department, dateOfJoin;
+    string dob, name, role, fatherName, department, dateOfJoin, sex;
 
     cout << "\nEnter the count of employee data you want to add : ";
     cin >> count;
@@ -149,16 +150,18 @@ void Login::addEmployeeData(Employee& emp){
         cin >> fatherName;
         cout << "\nEnter the age : ";
         cin >> age;
+        cout << "\nEnter the sex (Male/Female/Others) : ";
+        cin >> sex;
         cout << "\nEnter the Date of Birth (DD/MM/YYYY) : ";
         cin >> dob;
-        cout << "\nEnter the employee role : ";
+        cout << "\nEnter the employee role (Intern/Senior/Manager) : ";
         cin >> role;
-        cout << "\nEnter the department belongs to : ";
+        cout << "\nEnter the department belongs to (Admin/HR/IT/Engineering) : ";
         cin >> department;
         cout << "\nEnter the Date of Join (DD/MM/YYYY) : ";
         cin >> dateOfJoin;
 
-        displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin);
+        displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin,sex);
 
         cout << "\nEnter 1 to save the data\nEnter 2 to edit any value\n\nEnter your choice - ";
         cin >> resp;
@@ -181,6 +184,7 @@ void Login::addEmployeeData(Employee& emp){
                 cout << "     Enter 6 to edit Role" << endl;
                 cout << "     Enter 7 to edit Department" << endl;
                 cout << "     Enter 8 to edit Date of Join" << endl;
+                cout << "     Enter 9 to edit sex" << endl;
                 cout << BORDER_LINES <<  endl;
                 cout << "Enter your choice - ";
                 cin >> editKey;
@@ -213,12 +217,12 @@ void Login::addEmployeeData(Employee& emp){
                         break;
                     case EDIT_ROLE:
                         cout << "\nOld Role : " << role << endl;
-                        cout << "Enter the new value : ";
+                        cout << "Enter the new value (Intern/Senior/Manager) : ";
                         cin  >> role;
                         break;
                     case EDIT_DEPARTMENT:
                         cout << "\nOld Department : " << department << endl;
-                        cout << "Enter the new value : ";
+                        cout << "Enter the new value (Admin/HR/IT/Engineering) : ";
                         cin  >> department;
                         break;
                     case EDIT_DATE_OF_JOIN:
@@ -226,11 +230,16 @@ void Login::addEmployeeData(Employee& emp){
                         cout << "Enter the new value : ";
                         cin  >> dateOfJoin;
                         break;
+                    case EDIT_SEX:
+                        cout << "\nOld Sex : " << sex << endl;
+                        cout << "Enter the new value (Male/Female/Others) : ";
+                        cin  >> sex;
+                        break;
                     default:
                         cout << "Wrong Value Entered" << endl;
                         break;
                 }
-                displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin);
+                displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin,sex);
                 cout << "\nEnter 1 to save the data\nEnter 2 to edit any value\n\nEnter your choice - ";
                 cin >> resp;
 
@@ -249,6 +258,7 @@ void Login::addEmployeeData(Employee& emp){
         details[index].role = role;
         details[index].department = department;
         details[index].dateOfJoin = dateOfJoin;
+        details[index].sex = sex;
 
         emp.addEmployee(details[index]);
 
