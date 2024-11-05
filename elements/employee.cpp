@@ -350,8 +350,7 @@ void Employee::grantLeaveToEmployee(){
             for (auto& emp : employee) {
                 int emp_id = getEmpId(&emp);
                 string role = getRole(&emp);
-                string sex = getRole(&emp);
-
+                string sex = getSex(&emp);
                 if (LeaveMap.find(emp_id) != LeaveMap.end()){
                     cout << "   Default Leave Already Granted for ID -  " << emp_id << endl;
                     continue;
@@ -370,8 +369,10 @@ void Employee::grantLeaveToEmployee(){
 
                 if(sex == "Male"){
                     leaveDetails.paternityLeave = defaultPaternityLeave;
+                    leaveDetails.maternityLeave = 0;
                 }else if(sex == "Female"){
                     leaveDetails.maternityLeave = defaultMaternityLeave;
+                    leaveDetails.paternityLeave = 0;
                 }
                 leaveDetails.marriageLeave = defaultMarriageLeave;
 
