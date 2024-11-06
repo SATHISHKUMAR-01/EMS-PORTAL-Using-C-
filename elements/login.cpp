@@ -68,7 +68,7 @@ void Login::employeeLogin(Employee& emp){
     
     if (details == nullptr) {
         cout << BORDER_LINES <<  endl;
-        cout << "      Employee not found " << endl;
+        cout << "           Employee not found " << endl;
         cout << BORDER_LINES <<  endl;
         return;
     }
@@ -101,7 +101,7 @@ void Login::employeeLogin(Employee& emp){
                 cout << "   Paternity Leave   :  " << leaveBalance->paternityLeave << endl;
                 cout << "   Marriage Leave    :  " << leaveBalance->marriageLeave << endl;
             }else{
-                cout << "               Record not found !!!  " << endl;
+                cout << "           Record not found !!!  " << endl;
             }
             cout << BORDER_LINES <<  endl;
         }else if(resp == "3"){
@@ -109,7 +109,7 @@ void Login::employeeLogin(Employee& emp){
         }else if(resp == "4"){
             
         }else if(resp == "5"){
-            cout << "        People in the Company " << endl;
+            cout << "           People in the Company " << endl;
             cout << BORDER_LINES <<  endl;
             emp.showPeopleData();
         }else if(resp == "6"){
@@ -286,14 +286,14 @@ void Login::adminLogin(Employee& emp){
 
     if(!isAdmin){
         cout << "\n" << BORDER_LINES <<  endl;
-        cout << "          Admin not found " << endl;
+        cout << "              Admin not found " << endl;
         cout << BORDER_LINES <<  endl;
         return;
     }
 
     do {
         cout << "\n" << BORDER_LINES <<  endl;
-        cout << "         Admin Operations   " << endl;
+        cout << "            Admin Operations   " << endl;
         cout << BORDER_LINES <<  endl;
         
         cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\nEnter 6 to grant leave to employee\nEnter 7 to view the leave counts for all leave types\n\nEnter your choice - ";

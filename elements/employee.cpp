@@ -297,7 +297,7 @@ void Employee::grantLeaveToEmployee(){
     leaveData leave;
     do{
         cout << "\n" << BORDER_LINES <<  endl;
-        cout << "         Leave Operations   " << endl;
+        cout << "             Leave Operations   " << endl;
         cout << BORDER_LINES <<  endl;
 
         cout << "\nEnter 1 to set default leave count for all leave types\nEnter 2 to grant default leaves for all employees\nEnter 3 to grant default leaves for specific employee\nEnter 4 to grant specific leave type to an employee\nEnter 5 to grant specific leave type to all employees\nEnter 6 to exit\n\nEnter your choice - ";
@@ -390,38 +390,43 @@ void Employee::grantLeaveToEmployee(){
             cin  >> emp_id;
             leaveData leaveDetails;
             emp_details* details = getEmployee(emp_id);
-
+            bool employeeFound = true;
             if (details == nullptr) {
                 cout << BORDER_LINES <<  endl;
                 cout << "      Employee not found " << endl;
                 cout << BORDER_LINES <<  endl;
-                goto end;
+                employeeFound = false;
             }
 
-            if(getRole(details) == "Intern"){
-                leaveDetails.workFromHome = defaultInternWFH;
-            }else if(getRole(details) == "Senior"){
-                leaveDetails.workFromHome = defaultSeniorWFH;
-            }else if(getRole(details) == "Mananger"){
-                leaveDetails.workFromHome = defaultManagerWFH;
+            if(employeeFound){
+                if(getRole(details) == "Intern"){
+                    leaveDetails.workFromHome = defaultInternWFH;
+                }else if(getRole(details) == "Senior"){
+                    leaveDetails.workFromHome = defaultSeniorWFH;
+                }else if(getRole(details) == "Mananger"){
+                    leaveDetails.workFromHome = defaultManagerWFH;
+                }
+                leaveDetails.annualLeave = defaultAnnualLeave;
+                leaveDetails.vacationLeave = defaultVacationLeave;
+                leaveDetails.teamOff = defaultTeamOff;
+
+                if(getRole(details) == "Male"){
+                    leaveDetails.paternityLeave = defaultPaternityLeave;
+                }else if(getRole(details) == "Female"){
+                    leaveDetails.maternityLeave = defaultMaternityLeave;
+                }
+                leaveDetails.marriageLeave = defaultMarriageLeave;
+
+                LeaveMap[emp_id] = leaveDetails;
+                cout << BORDER_LINES <<  endl;
+                cout << "   Default Leave Granted for ID -  " << emp_id << endl;
+                cout << "      Completed Sucessfully !!! " << endl;
+                cout << BORDER_LINES <<  endl;
+            }else {
+                cout << BORDER_LINES <<  endl;
+                cout << "       Operation failed !!! " << endl;
+                cout << BORDER_LINES <<  endl;
             }
-            leaveDetails.annualLeave = defaultAnnualLeave;
-            leaveDetails.vacationLeave = defaultVacationLeave;
-            leaveDetails.teamOff = defaultTeamOff;
-
-            if(getRole(details) == "Male"){
-                leaveDetails.paternityLeave = defaultPaternityLeave;
-            }else if(getRole(details) == "Female"){
-                leaveDetails.maternityLeave = defaultMaternityLeave;
-            }
-            leaveDetails.marriageLeave = defaultMarriageLeave;
-
-            LeaveMap[emp_id] = leaveDetails;
-            cout << "   Default Leave Granted for ID -  " << emp_id << endl;
-            cout << "      Completed Sucessfully !!! " << endl;
-
-            end:
-                cout << " Operation failed !!! " << endl;
         }else if (resp == "4"){
             cout << "\n" << BORDER_LINES <<  endl;
             cout << "   Granting specific leave to specific employee " << endl;
@@ -445,49 +450,57 @@ void Employee::grantLeaveToEmployee(){
             cout << "\n" << BORDER_LINES <<  endl;
             switch(choice){
                 case ADD_WFH:
-                    cout << " Selected Leave Type - Work from home " << endl;
+                    cout << "     Selected Leave Type - Work from home " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->workFromHome+=count;
                     break;
                 case ADD_ANNUAL_LEAVE:
-                    cout << " Selected Leave Type - Annual Leave " << endl;
+                    cout << "     Selected Leave Type - Annual Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->annualLeave+=count;
                     break;
                 case ADD_VACATION_LEAVE:
-                    cout << " Selected Leave Type - Vacation Leave " << endl;
+                    cout << "     Selected Leave Type - Vacation Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->vacationLeave+=count;
                     break;
                 case ADD_TEAM_OFF:
-                    cout << " Selected Leave Type - Team Time Off " << endl;
+                    cout << "     Selected Leave Type - Team Time Off " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->teamOff+=count;
                     break;
                 case ADD_MATERNITY_LEAVE:
-                    cout << " Selected Leave Type - Maternity Leave " << endl;
+                    cout << "     Selected Leave Type - Maternity Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->maternityLeave+=count;
                     break;
                 case ADD_PATERNITY_LEAVE:
-                    cout << " Selected Leave Type - Paternity Leave " << endl;
+                    cout << "     Selected Leave Type - Paternity Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->paternityLeave+=count;
                     break;
                 case ADD_MARRIAGE_LEAVE:
-                    cout << " Selected Leave Type - Marriage Leave " << endl;
+                    cout << "     Selected Leave Type - Marriage Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     leaveHistory->marriageLeave+=count;
                     break;
                 default:
                     cout << " Wrong Type !!! " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     break;
             }
 
@@ -510,49 +523,57 @@ void Employee::grantLeaveToEmployee(){
             cout << "\n" << BORDER_LINES <<  endl;
             switch(choice){
                 case ADD_WFH:
-                    cout << " Selected Leave Type - Work from home " << endl;
+                    cout << "     Selected Leave Type - Work from home " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_WFH,count);
                     break;
                 case ADD_ANNUAL_LEAVE:
-                    cout << " Selected Leave Type - Annual Leave " << endl;
+                    cout << "     Selected Leave Type - Annual Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_ANNUAL_LEAVE,count);
                     break;
                 case ADD_VACATION_LEAVE:
-                    cout << " Selected Leave Type - Vacation Leave " << endl;
+                    cout << "     Selected Leave Type - Vacation Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_VACATION_LEAVE,count);
                     break;
                 case ADD_TEAM_OFF:
-                    cout << " Selected Leave Type - Team Time Off " << endl;
+                    cout << "     Selected Leave Type - Team Time Off " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_TEAM_OFF,count);
                     break;
                 case ADD_MATERNITY_LEAVE:
-                    cout << " Selected Leave Type - Maternity Leave " << endl;
+                    cout << "     Selected Leave Type - Maternity Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_MATERNITY_LEAVE,count);
                     break;
                 case ADD_PATERNITY_LEAVE:
-                    cout << " Selected Leave Type - Paternity Leave " << endl;
+                    cout << "     Selected Leave Type - Paternity Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_PATERNITY_LEAVE,count);
                     break;
                 case ADD_MARRIAGE_LEAVE:
-                    cout << " Selected Leave Type - Marriage Leave " << endl;
+                    cout << "     Selected Leave Type - Marriage Leave " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     cout << "\nEnter the count of additional leave you want to add : ";
                     cin  >> count;
                     addExtraLeaveToAll(ADD_MARRIAGE_LEAVE,count);
                     break;
                 default:
                     cout << " Wrong Type !!! " << endl;
+                    cout <<  BORDER_LINES <<  endl;
                     break;
             }
         }else if (resp == "6"){
