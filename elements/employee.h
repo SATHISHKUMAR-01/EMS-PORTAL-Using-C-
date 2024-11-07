@@ -32,11 +32,40 @@ struct leaveData {
     int marriageLeave;
 };
 
+struct manager_details {
+    int emp_id;
+    vector<int> project_id;
+    int team_member_count;
+    vector<int> team_members_id;
+};
+
+struct project_details {
+    int project_id;
+    string project_name;
+    string customer_name;
+    int team_member_count;
+    vector<int> team_members_id;
+};
+
+struct leave_details {
+    string leave_type;
+    string reason;
+    string start_date;
+    string end_date;
+    int number_of_days;
+    string leave_status;
+};
+
 class Employee {
     private:
     vector<emp_details> employee;
     vector<int> adminId;
     map<int, leaveData> LeaveMap;
+    vector<manager_details> manager_data;
+    vector<project_details> project_data;
+    map<int, int> emp_to_manager_map;
+    map<int, int> emp_to_project_map;
+    map<int, leave_details> leave_data;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:

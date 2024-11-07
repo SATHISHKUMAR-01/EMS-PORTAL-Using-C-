@@ -51,7 +51,7 @@ void Login::loginPage(bool *isContinue, bool *isAdminLogin, bool *isEmpLogin){
 
 void Login::employeeLogin(Employee& emp){
     int emp_id;
-    string resp;
+    int resp;
     cout << "\n" << BORDER_LINES <<  endl;
     cout << "          Welcome to Employee Login" << endl;
     cout << BORDER_LINES <<  endl;
@@ -73,22 +73,42 @@ void Login::employeeLogin(Employee& emp){
         return;
     }
 
-    cout << "\nWelcome, " << emp.getName(details) << endl;
+    cout << "\nWelcome, " << emp.getName(details) << "\n" << endl;
+
+    string options[] = {
+        "Enter 1 to view holiday planners",
+        "Enter 2 to view leave balances",
+        "Enter 3 to apply for a leave",
+        "Enter 4 to view payslip",
+        "Enter 5 to view the people in the company",
+        "Enter 6 to exit",
+        "Enter 7 to view project and manager info"
+    };
+
+    int numOptions = sizeof(options) / sizeof(options[0]);
 
     do{
-        cout << "\nEnter 1 to view holiday planners\nEnter 2 to view leave balances\nEnter 3 to apply for a leave\nEnter 4 to view payslip\nEnter 5 to view the people in the company\nEnter 6 to exit\n\nEnter your choice - ";
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "           Employee Operations   " << endl;
+        cout << BORDER_LINES << "\n" << endl;
+
+        for (int index = 0 ; index < numOptions; index++){
+            cout << options[index] << endl;
+        }
+
+        cout << "\n\nEnter your choice - ";
         cin >> resp;
 
-        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6")){
-            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 - ";
+        while ( (resp < 1 || resp > numOptions)){
+            cout << "\nWrong input given !!! Enter value from 1 to "<< numOptions << " - ";
             cin >> resp;
         }
 
         cout << "\n" << BORDER_LINES <<  endl;
-        if(resp == "1"){
+        if(resp == 1){
             showHolidays();
             cout << BORDER_LINES <<  endl;
-        }else if(resp == "2"){
+        }else if(resp == 2){
             leaveData *leaveBalance = emp.viewLeaveBalance(emp_id);
             cout << "           Leave Balances" << endl;
             cout << BORDER_LINES <<  endl;
@@ -104,19 +124,19 @@ void Login::employeeLogin(Employee& emp){
                 cout << "           Record not found !!!  " << endl;
             }
             cout << BORDER_LINES <<  endl;
-        }else if(resp == "3"){
+        }else if(resp == 3){
             
-        }else if(resp == "4"){
+        }else if(resp == 4){
             
-        }else if(resp == "5"){
+        }else if(resp == 5){
             cout << "           People in the Company " << endl;
             cout << BORDER_LINES <<  endl;
             emp.showPeopleData();
-        }else if(resp == "6"){
+        }else if(resp == 6){
             cout << "           Exiting Employee Login    " << endl;
             cout << BORDER_LINES <<  endl;
         }
-    }while(resp != "6");
+    }while(resp != 6);
 }
 
 void Login::displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin, string sex){
@@ -272,7 +292,7 @@ void Login::addEmployeeData(Employee& emp){
 }
 
 void Login::adminLogin(Employee& emp){
-    string resp;
+    int resp;
     bool addEntry, updateEntry;
 
     int emp_id;
@@ -291,45 +311,71 @@ void Login::adminLogin(Employee& emp){
         return;
     }
 
+    string options[] = {
+        "Enter 1 to add new employee data",
+        "Enter 2 to update existing employee data",
+        "Enter 3 to view all employee details",
+        "Enter 4 to view specific employee details",
+        "Enter 5 to exit",
+        "Enter 6 to grant leave to employee",
+        "Enter 7 to view the leave counts for all leave types",
+        "Enter 8 to add new manager",
+        "Enter 9 to remove manager details",
+        "Enter 10 to view list of managers in the company",
+        "Enter 11 to view update manager details",
+        "Enter 12 to add new project",
+        "Enter 13 to remove project details",
+        "Enter 14 to view list of  projects in the company",
+        "Enter 15 to view update project details",
+        "Enter 16 to map employee to the manager",
+        "Enter 17 to map employee to the project"
+    };
+
+    int numOptions = sizeof(options) / sizeof(options[0]);
+
     do {
         cout << "\n" << BORDER_LINES <<  endl;
         cout << "            Admin Operations   " << endl;
-        cout << BORDER_LINES <<  endl;
-        
-        cout <<"\nEnter 1 to add new employee data\nEnter 2 to update existing employee data\nEnter 3 to view all employee details\nEnter 4 to view specific employee details\nEnter 5 to exit\nEnter 6 to grant leave to employee\nEnter 7 to view the leave counts for all leave types\n\nEnter your choice - ";
+        cout << BORDER_LINES << "\n" << endl;
+
+        for (int index = 0 ; index < numOptions; index++){
+            cout << options[index] << endl;
+        }
+
+        cout <<"\n\nEnter your choice - ";
         cin >> resp;
-        while ((resp != "1" && resp != "2" && resp != "3" && resp != "4" && resp != "5" && resp != "6" && resp != "7")){
-            cout << "\nWrong input given !!! Enter 1 or 2 or 3 or 4 or 5 or 6 or 7 - ";
+        while ( (resp < 1 || resp > numOptions)){
+            cout << "\nWrong input given !!! Enter value from 1 to "<< numOptions << " - ";
             cin >> resp;
         }
         cout << "\n" << BORDER_LINES <<  endl;
-        if (resp == "1") {
+        if (resp == 1) {
             cout << "           Adding new Employee Data     " << endl;
             cout << BORDER_LINES <<  endl;
             addEmployeeData(emp);
-        }else if (resp == "2"){
+        }else if (resp == 2){
             cout << "           Updating Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.updateEmployeeData(emp);
-        }else if (resp == "3"){
+        }else if (resp == 3){
             cout << "         Displaying all Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.displayEmployee();
-        }else if (resp == "4"){
+        }else if (resp == 4){
             int emp_id;
             cout << "       Displaying specific Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             cout << "Enter the employee id : ";
             cin  >> emp_id;
             emp.diplaySpecificEmployee(emp_id);
-        }else if (resp == "5"){
+        }else if (resp == 5){
             cout << "           Exiting Admin Login    " << endl;
             cout << BORDER_LINES <<  endl;
-        }else if (resp == "6"){
+        }else if (resp == 6){
             cout << "           Granting Leave to employees    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.grantLeaveToEmployee();
-        }else if (resp == "7"){
+        }else if (resp == 7){
             cout << "           Default Leave counts   " << endl;
             cout << BORDER_LINES <<  endl;
             cout << "   Intern Work from Home    -  " << emp.getInternWorkFromHome() << endl;
@@ -343,7 +389,7 @@ void Login::adminLogin(Employee& emp){
             cout << "   Marriage Leave           -  " << emp.getMarriageLeave() << endl;
         }
 
-    }while(resp != "5");
+    }while(resp != 5);
 }
 
 void Login::addHoliday(string name, string date){
