@@ -34,6 +34,7 @@ struct leaveData {
 
 struct manager_details {
     int emp_id;
+    int number_of_projects;
     vector<int> project_id;
     int team_member_count;
     vector<int> team_members_id;

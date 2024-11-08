@@ -1,4 +1,5 @@
 #include "login.h"
+#include "admin.h"
 #include "../libraries/messages.h"
 
 void Login::frontPage(){
@@ -294,6 +295,7 @@ void Login::addEmployeeData(Employee& emp){
 void Login::adminLogin(Employee& emp){
     int resp;
     bool addEntry, updateEntry;
+    Admin admin;
 
     int emp_id;
     cout << "\n" << BORDER_LINES <<  endl;
@@ -387,6 +389,35 @@ void Login::adminLogin(Employee& emp){
             cout << "   Maternity Leave          -  " << emp.getMaternityLeave() << endl;
             cout << "   Paternity Leave          -  " << emp.getPaternityLeave() << endl;
             cout << "   Marriage Leave           -  " << emp.getMarriageLeave() << endl;
+        }else if (resp == 8){
+            cout << "         Adding new manager data   " << endl;
+            cout << BORDER_LINES <<  endl;
+            admin.addManagerData(emp);
+
+        }else if (resp == 9){
+            cout << "         Remove manager details   " << endl;
+            cout << BORDER_LINES <<  endl;
+            
+        }else if (resp == 10){
+            cout << "         View Manager details   " << endl;
+            cout << BORDER_LINES <<  endl;
+            
+        }else if (resp == 11){
+            cout << "         Update manager details   " << endl;
+            cout << BORDER_LINES <<  endl;
+            
+        }else if (resp == 12){
+            
+        }else if (resp == 13){
+            
+        }else if (resp == 14){
+            
+        }else if (resp == 15){
+            
+        }else if (resp == 16){
+            
+        }else if (resp == 17){
+            
         }
 
     }while(resp != 5);
