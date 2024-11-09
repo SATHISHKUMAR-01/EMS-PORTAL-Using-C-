@@ -396,7 +396,7 @@ void Login::adminLogin(Employee& emp){
         }else if (resp == 9){
             cout << "         Remove Manager data   " << endl;
             cout << BORDER_LINES <<  endl;
-            
+            admin.removeManagerData(emp);
         }else if (resp == 10){
             cout << "         Viewing Manager details   " << endl;
             cout << BORDER_LINES <<  endl;

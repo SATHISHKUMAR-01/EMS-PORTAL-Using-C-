@@ -39,6 +39,10 @@ struct manager_details {
     vector<int> project_id;
     int team_member_count;
     vector<int> team_members_id;
+
+    bool operator==(const manager_details& other) const {
+        return emp_id == other.emp_id;
+    }
 };
 
 struct project_details {
