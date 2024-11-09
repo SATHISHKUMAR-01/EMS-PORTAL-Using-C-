@@ -660,3 +660,20 @@ void Employee::showPeopleData(){
         cout << BORDER_LINES <<  endl;
     }
 }
+
+void Employee::saveManagerData(struct manager_details details){
+    manager_data.push_back(details);
+}
+
+vector<manager_details>& Employee::getManagerData(){
+    return manager_data;
+}
+
+manager_details* Employee::getSpecificManagerData(int emp_id){
+    for (auto& manager : manager_data) {
+        if (emp_id == manager.emp_id){
+            return &manager;
+        }
+    }
+    return nullptr;
+}

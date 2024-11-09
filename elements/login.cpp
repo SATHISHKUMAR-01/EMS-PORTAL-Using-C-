@@ -393,19 +393,18 @@ void Login::adminLogin(Employee& emp){
             cout << "         Adding new manager data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.addManagerData(emp);
-
         }else if (resp == 9){
-            cout << "         Remove manager details   " << endl;
+            cout << "         Remove Manager data   " << endl;
             cout << BORDER_LINES <<  endl;
             
         }else if (resp == 10){
-            cout << "         View Manager details   " << endl;
+            cout << "         Viewing Manager details   " << endl;
             cout << BORDER_LINES <<  endl;
-            
+            admin.viewManagerDetails(emp);
         }else if (resp == 11){
-            cout << "         Update manager details   " << endl;
+            cout << "         Updating Manager details   " << endl;
             cout << BORDER_LINES <<  endl;
-            
+            admin.updateManagerData(emp);
         }else if (resp == 12){
             
         }else if (resp == 13){

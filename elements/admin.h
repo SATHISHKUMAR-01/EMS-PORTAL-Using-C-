@@ -7,9 +7,8 @@ class Admin : Employee{
 
     public:
     void addManagerData(Employee& emp);
-    void updateManagerData();
-    void viewManagerDetails();
-    void removeManagerData();
-
+    void updateManagerData(Employee& emp);
+    void viewManagerDetails(Employee& emp);
+    void removeManagerData(Employee& emp);
 };
 #endif

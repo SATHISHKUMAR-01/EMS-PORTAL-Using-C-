@@ -34,6 +34,7 @@ struct leaveData {
 
 struct manager_details {
     int emp_id;
+    string name;
     int number_of_projects;
     vector<int> project_id;
     int team_member_count;
@@ -150,6 +151,9 @@ class Employee {
     leaveData* viewLeaveBalance(int emp_id);
     void addExtraLeaveToAll(int leaveType, int count);
     void showPeopleData();
+    void saveManagerData(struct manager_details details);
+    vector<manager_details>& getManagerData();
+    manager_details* getSpecificManagerData(int emp_id);
 };
 
 #endif

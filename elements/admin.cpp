@@ -6,9 +6,13 @@ void Admin::addManagerData(Employee& emp){
     manager_details details;
 
     int emp_id, number_of_projects, proj_id, team_members, member_id;
+    string name;
 
     cout << "Enter the employee ID - ";
     cin  >> emp_id;
+
+    cout << "Enter the manager name - ";
+    cin  >> name;
 
     cout << "Enter the number of project managed - ";
     cin  >> number_of_projects;
@@ -33,18 +37,57 @@ void Admin::addManagerData(Employee& emp){
     details.emp_id = emp_id;
     details.number_of_projects = number_of_projects;
     details.team_member_count = team_members;
+    details.name = name;
 
-    emp.saveManagerData(&details);
+    emp.saveManagerData(details);
 }
 
-void Admin::updateManagerData(){
+void Admin::updateManagerData(Employee& emp){
+    int emp_id;
 
+    cout << "Enter the employee id of the manager : ";
+    cin  >> emp_id;
+
+    manager_details* details = getEmployee(emp_id);
+
+    if (details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "     Manager not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
+    cout << "Which field you want to update or edit ? " << endl;
+
+    string options = {
+        "Enter 1 to edit/update employee ID",
+        "Enter 2 to "
+    }
 }
 
-void Admin::viewManagerDetails(){
+void Admin::viewManagerDetails(Employee& emp){
+    vector<manager_details> &manager_info = emp.getManagerData();
 
+    for (auto& manager : manager_info) {
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "Employee ID                 :  " << manager.emp_id << endl;
+        cout << "Manager Name                :  " << manager.name << endl;
+        cout << "\nNumber of projects managed  :  " << manager.number_of_projects << endl;
+        cout << "Project IDs are             :  ";
+        for (int project_id : manager.project_id ) {
+            cout << project_id << " ";
+        }
+        
+        cout << "\n\nNumber of team members      :  " << manager.number_of_projects << endl;
+        cout << "Employee IDs are              :  ";
+        for (int member_id : manager.team_members_id ) {
+            cout << member_id << " ";
+        }
+
+        cout << "\n" << BORDER_LINES <<  endl;
+    }
 }
 
-void Admin::removeManagerData(){
+void Admin::removeManagerData(Employee& emp){
 
 }
