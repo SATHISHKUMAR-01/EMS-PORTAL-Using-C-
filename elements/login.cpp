@@ -77,13 +77,16 @@ void Login::employeeLogin(Employee& emp){
     cout << "\nWelcome, " << emp.getName(details) << "\n" << endl;
 
     string options[] = {
-        "Enter 1 to view holiday planners",
-        "Enter 2 to view leave balances",
-        "Enter 3 to apply for a leave",
-        "Enter 4 to view payslip",
-        "Enter 5 to view the people in the company",
-        "Enter 6 to exit",
-        "Enter 7 to view project and manager info"
+        "Enter 01 to view holiday planners",
+        "Enter 02 to view leave balances",
+        "Enter 03 to apply for a leave",
+        "Enter 04 to view payslip",
+        "Enter 05 to view the people in the company",
+        "Enter 06 to exit",
+        "Enter 07 to view project and manager info",
+        "Enter 08 to approve leave requests",
+        "Enter 09 to submit self-review",
+        "Enter 10 to approve the self-review of the employee",
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -314,15 +317,15 @@ void Login::adminLogin(Employee& emp){
     }
 
     string options[] = {
-        "Enter 1 to add new employee data",
-        "Enter 2 to update existing employee data",
-        "Enter 3 to view all employee details",
-        "Enter 4 to view specific employee details",
-        "Enter 5 to exit",
-        "Enter 6 to grant leave to employee",
-        "Enter 7 to view the leave counts for all leave types",
-        "Enter 8 to add new manager",
-        "Enter 9 to remove manager details",
+        "Enter 01 to add new employee data",
+        "Enter 02 to update existing employee data",
+        "Enter 03 to view all employee details",
+        "Enter 04 to view specific employee details",
+        "Enter 05 to exit",
+        "Enter 06 to grant leave to employee",
+        "Enter 07 to view the leave counts for all leave types",
+        "Enter 08 to add new manager",
+        "Enter 09 to remove manager details",
         "Enter 10 to view list of managers in the company",
         "Enter 11 to view update manager details",
         "Enter 12 to add new project",
@@ -330,7 +333,8 @@ void Login::adminLogin(Employee& emp){
         "Enter 14 to view list of  projects in the company",
         "Enter 15 to update project details",
         "Enter 16 to map employee to the manager",
-        "Enter 17 to map employee to the project"
+        "Enter 17 to map employee to the project",
+        "Enter 18 to view project and manager details of an employee"
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -422,8 +426,24 @@ void Login::adminLogin(Employee& emp){
             cout << BORDER_LINES <<  endl;
             admin.updateProjectData(emp);
         }else if (resp == 16){
-            
+            cout << "         Mapping employee to manager  " << endl;
+            cout << BORDER_LINES <<  endl;
+            int emp_id,manager_id;
+            cout << "Enter the engineer - employee id  :  ";
+            cin  >> emp_id;
+            cout << "\nEnter the manager - employee id   :  ";
+            cin  >> manager_id;
+            emp.mapEmployeeToManager(emp_id, manager_id);
         }else if (resp == 17){
+            cout << "         Mapping employee to project  " << endl;
+            cout << BORDER_LINES <<  endl;
+            int emp_id,project_id;
+            cout << "Enter the employee id  :  ";
+            cin  >> emp_id;
+            cout << "Enter the project id   :  ";
+            cin  >> project_id;
+            emp.mapEmployeeToProject(emp_id, project_id);
+        }else if (resp == 18){
             
         }
 

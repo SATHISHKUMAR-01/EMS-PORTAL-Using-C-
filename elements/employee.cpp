@@ -694,3 +694,11 @@ project_details* Employee::getSpecificProjectData(int proj_id){
     }
     return nullptr;
 }
+
+void Employee::mapEmployeeToManager(int emp_id, int manager_id){
+    emp_to_manager_map[emp_id] = manager_id;
+}
+
+void Employee::mapEmployeeToProject(int emp_id, int project_id){
+    emp_to_project_map[emp_id] = project_id;
+}

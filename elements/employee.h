@@ -165,6 +165,8 @@ class Employee {
     void saveProjectData(struct project_details details);
     vector<project_details>& getProjectData();
     project_details* getSpecificProjectData(int proj_id);
+    void mapEmployeeToManager(int emp_id, int manager_id);
+    void mapEmployeeToProject(int emp_id, int project_id);
 };
 
 #endif
