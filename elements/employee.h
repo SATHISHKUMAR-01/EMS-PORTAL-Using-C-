@@ -51,6 +51,10 @@ struct project_details {
     string customer_name;
     int team_member_count;
     vector<int> team_members_id;
+
+    bool operator==(const project_details& other) const {
+        return project_id == other.project_id;
+    }
 };
 
 struct leave_details {
@@ -158,6 +162,9 @@ class Employee {
     void saveManagerData(struct manager_details details);
     vector<manager_details>& getManagerData();
     manager_details* getSpecificManagerData(int emp_id);
+    void saveProjectData(struct project_details details);
+    vector<project_details>& getProjectData();
+    project_details* getSpecificProjectData(int proj_id);
 };
 
 #endif

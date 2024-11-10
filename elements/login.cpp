@@ -328,7 +328,7 @@ void Login::adminLogin(Employee& emp){
         "Enter 12 to add new project",
         "Enter 13 to remove project details",
         "Enter 14 to view list of  projects in the company",
-        "Enter 15 to view update project details",
+        "Enter 15 to update project details",
         "Enter 16 to map employee to the manager",
         "Enter 17 to map employee to the project"
     };
@@ -406,13 +406,21 @@ void Login::adminLogin(Employee& emp){
             cout << BORDER_LINES <<  endl;
             admin.updateManagerData(emp);
         }else if (resp == 12){
-            
+            cout << "         Adding new project data   " << endl;
+            cout << BORDER_LINES <<  endl;
+            admin.addProjectData(emp);
         }else if (resp == 13){
-            
+            cout << "         Viewing Project details   " << endl;
+            cout << BORDER_LINES <<  endl;
+            admin.removeProjectData(emp);
         }else if (resp == 14){
-            
+            cout << "         Updating Project details   " << endl;
+            cout << BORDER_LINES <<  endl;
+            admin.viewProjectDetails(emp);
         }else if (resp == 15){
-            
+            cout << "         Remove Project data   " << endl;
+            cout << BORDER_LINES <<  endl;
+            admin.updateProjectData(emp);
         }else if (resp == 16){
             
         }else if (resp == 17){

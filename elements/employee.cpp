@@ -677,3 +677,20 @@ manager_details* Employee::getSpecificManagerData(int emp_id){
     }
     return nullptr;
 }
+
+void Employee::saveProjectData(struct project_details details){
+    project_data.push_back(details);
+}
+
+vector<project_details>& Employee::getProjectData(){
+    return project_data;
+}
+
+project_details* Employee::getSpecificProjectData(int proj_id){
+    for (auto& project : project_data) {
+        if (proj_id == project.project_id ){
+            return &project;
+        }
+    }
+    return nullptr;
+}

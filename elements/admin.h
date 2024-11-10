@@ -10,5 +10,10 @@ class Admin : Employee{
     void updateManagerData(Employee& emp);
     void viewManagerDetails(Employee& emp);
     void removeManagerData(Employee& emp);
+
+    void addProjectData(Employee& emp);
+    void updateProjectData(Employee& emp);
+    void viewProjectDetails(Employee& emp);
+    void removeProjectData(Employee& emp);
 };
 #endif

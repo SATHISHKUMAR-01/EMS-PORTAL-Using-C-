@@ -175,3 +175,148 @@ void Admin::removeManagerData(Employee& emp){
         }
     }
 }
+
+void Admin::addProjectData(Employee& emp){
+    project_details details;
+
+    int project_id, team_members, member_id;
+    string project_name, customer_name;
+
+    cout << "Enter the Project ID     : ";
+    cin  >> project_id;
+
+    cout << "Enter the Project name   : ";
+    cin  >> project_name;
+
+    cout << "Enter the Customer name  : ";
+    cin  >> customer_name;
+
+    cout << "\nEnter the team members count  : ";
+    cin  >> team_members;
+
+    cout << "\n<----- Add the " << team_members << " employee IDs ----->\n" << endl;
+    for (int index = 0 ; index < team_members ; index++){
+        cout << "Enter the employee " << index + 1 << " id : ";
+        cin  >> member_id;
+        details.team_members_id.push_back(member_id);
+    }
+
+    details.project_id = project_id;
+    details.project_name = project_name;
+    details.customer_name = customer_name;
+    details.team_member_count = team_members;
+    
+    emp.saveProjectData(details);
+}
+
+void Admin::updateProjectData(Employee& emp){
+    int proj_id, resp;
+
+    cout << "Enter the project id of the project : ";
+    cin  >> proj_id;
+
+    project_details* details = emp.getSpecificProjectData(proj_id);
+
+    if (details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "     Project not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
+    cout << "\nWhich field you want to update or edit ? \n" << endl;
+
+    string options[] = {
+        "Enter 1 to update project ID",
+        "Enter 2 to update project name",
+        "Enter 3 to update customer name",
+        "Enter 4 to add team member - employee ID",
+        "Enter 5 to remove team member - employee ID"
+    };
+
+    int numOptions = sizeof(options)/sizeof(options[0]);
+
+    for (int index = 0 ; index < numOptions; index++){
+        cout << options[index] << endl;
+    }
+
+    cout <<"\n\nEnter your choice - ";
+    cin >> resp;
+    
+    while ( (resp < 1 || resp > numOptions)){
+        cout << "\nWrong input given !!! Enter value from 1 to "<< numOptions << " - ";
+        cin >> resp;
+    }
+
+    if (resp == 1){
+        int new_proj_id;
+        cout << "\nEnter the updated project ID : ";
+        cin  >> new_proj_id;
+        details->project_id = new_proj_id;
+    }else if (resp == 2){
+        string new_name;
+        cout << "\nEnter the updated name of the project : ";
+        cin  >> new_name;
+        details->project_name = new_name;
+    }else if (resp == 3){
+        string new_customer_name;
+        cout << "\nEnter the updated name of the customer : ";
+        cin  >> new_customer_name;
+        details->customer_name = new_customer_name;
+    }else if (resp == 4){
+        int count;
+        cout << "\nEnter the number of team members you want to add : ";
+        cin  >> count;
+        int emp_id;
+        for(int index = 0 ; index < count ; index++){
+            cout << "Enter the Employee ID to add : ";
+            cin  >> emp_id;
+            details->team_members_id.push_back(emp_id);
+        }
+        details->team_member_count+=count;
+    }else if (resp == 5){
+        int count;
+        cout << "\nEnter the number of team members you want to remove : ";
+        cin  >> count;
+        int emp_id;
+        for(int index = 0 ; index < count ; index++){
+            cout << "Enter the Employee ID to remove : ";
+            cin  >> emp_id;
+            details->team_members_id.erase(remove(details->team_members_id.begin(), details->team_members_id.end(), emp_id), details->team_members_id.end());
+        }
+        details->team_member_count-=count;
+    }
+}
+
+void Admin::viewProjectDetails(Employee& emp){
+    vector<project_details> &project_info = emp.getProjectData();
+
+    for (auto& project : project_info) {
+        cout << "\n" << BORDER_LINES <<  endl;
+        cout << "Project ID                  :  " << project.project_id << endl;
+        cout << "Project Name                :  " << project.project_name << endl;
+        cout << "Customer Name               :  " << project.customer_name << endl;
+        
+        cout << "\nNumber of team members    :  " << project.team_member_count << endl;
+        cout << "Employee IDs are            :  ";
+        for (int member_id : project.team_members_id ) {
+            cout << member_id << " ";
+        }
+
+        cout << "\n" << BORDER_LINES <<  endl;
+    }
+}
+
+void Admin::removeProjectData(Employee& emp){
+    int project_id;
+    cout << "Enter the project id of the project to remove : ";
+    cin  >> project_id;
+    vector<project_details> &project_info = emp.getProjectData();
+    for (auto it = project_info.begin(); it != project_info.end(); ) {
+        if (it->project_id == project_id) {
+            it = project_info.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
