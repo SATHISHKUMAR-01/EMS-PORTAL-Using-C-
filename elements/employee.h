@@ -63,7 +63,14 @@ struct leave_details {
     string start_date;
     string end_date;
     int number_of_days;
-    string leave_status;
+    bool leave_status;
+
+    void print() const {
+        std::cout << "Leave Type: " << leave_type << ", Reason: " << reason
+                  << ", Start Date: " << start_date << ", End Date: " << end_date
+                  << ", Number of Days: " << number_of_days
+                  << ", Status: " << (leave_status ? "Approved" : "Pending") << std::endl;
+    }
 };
 
 class Employee {
@@ -75,7 +82,7 @@ class Employee {
     vector<project_details> project_data;
     map<int, int> emp_to_manager_map;
     map<int, int> emp_to_project_map;
-    map<int, leave_details> leave_data;
+    map<int, vector<leave_details>> leave_data;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
@@ -237,6 +244,7 @@ class Employee {
     void mapEmployeeToManager(int emp_id, int manager_id);
     void mapEmployeeToProject(int emp_id, int project_id);
     void viewManagerAndProjectDetails(int emp_id);
+    void applyLeave(int emp_id, struct leave_details details);
 };
 
 #endif

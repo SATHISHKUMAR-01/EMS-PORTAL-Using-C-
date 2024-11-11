@@ -26,6 +26,7 @@ class Login{
     void addEmployeeData(Employee& emp);
     void showHolidays();
     void addHoliday(string name, string date);
+    string getLeaveType(int type);
 };
 
 #endif

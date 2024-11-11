@@ -79,13 +79,13 @@ void Login::employeeLogin(Employee& emp){
     string options[] = {
         "Enter 01 to view holiday planners",
         "Enter 02 to view leave balances",
-        "Enter 03 to apply for a leave",
+        "Enter 03 to apply/cancel a leave",
         "Enter 04 to view payslip",
         "Enter 05 to view the people in the company",
         "Enter 06 to exit",
         "Enter 07 to view project and manager info",
         "Enter 08 to approve leave requests",
-        "Enter 09 to submit self-review",
+        "Enter 09 to submit/cancel self-review",
         "Enter 10 to approve the self-review of the employee",
     };
 
@@ -129,7 +129,62 @@ void Login::employeeLogin(Employee& emp){
             }
             cout << BORDER_LINES <<  endl;
         }else if(resp == 3){
-            
+            cout << BORDER_LINES <<  endl;
+            int leave_operation;
+            cout << "\nDo you want to apply for a leave/cancel a leave ? \n" << endl; 
+            cout << "Enter 01 to apply for a leave" << endl;
+            cout << "Enter 02 to cancel a leave " << endl;
+            cout << "\nEnter your choice : ";
+            cin  >> leave_operation;
+            cout << "\n" << BORDER_LINES <<  endl;
+            if(leave_operation == 1){
+                leave_details details;
+                int leave_type, numDays;
+                string reason, startDate, endDate;
+                bool leave_status;
+                cout << "Select the leave type";
+                cout << BORDER_LINES << "\n" <<endl;
+                cout << "Enter 01 to choose work from home " << endl;
+                cout << "Enter 02 to choose vacation leave " << endl;
+                cout << "Enter 03 to choose annual leave " << endl;
+                cout << "Enter 04 to choose team time off " << endl;
+                cout << "Enter 05 to choose paternity leave " << endl;
+                cout << "Enter 06 to choose maternity leave " << endl;
+                cout << "Enter 07 to choose marriage leave " << endl;
+                cout << "\nEnter your choice : " << endl;
+                cin  >> leave_type;
+
+                cout << "\nEnter the number of days you want to apply : ";
+                cin  >> numDays;
+
+                cout << "\nEnter the start date : ";
+                cin  >> startDate;
+
+                cout << "\nEnter the end date : ";
+                cin  >> endDate;
+
+                cout << "\nEnter the leave reason : ";
+                cin  >> reason;
+
+                details.leave_type = getLeaveType(leave_type);
+                details.end_date = endDate;
+                details.start_date = startDate;
+                details.number_of_days = numDays;
+                details.reason = reason;
+                
+                emp.applyLeave(emp_id, details);
+
+                cout << "\n" << BORDER_LINES << endl;
+                cout << "   Leave Applied Successfully   " << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+            }else if(leave_operation == 2){
+                cout << "\n" << BORDER_LINES << endl;
+                cout << " Your current pending leave requests" << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+                emp.getPendingLeaveRequest(emp_id);
+            }
         }else if(resp == 4){
             
         }else if(resp == 5){
@@ -139,6 +194,19 @@ void Login::employeeLogin(Employee& emp){
         }else if(resp == 6){
             cout << "           Exiting Employee Login    " << endl;
             cout << BORDER_LINES <<  endl;
+        }else if(resp == 7){
+            cout << " View Employee's manager and project data " << endl;
+            cout << BORDER_LINES <<  endl;
+            int emp_id;
+            cout << "Enter the employee id  :  ";
+            cin  >> emp_id;
+            emp.viewManagerAndProjectDetails(emp_id);
+        }else if(resp == 8){
+            
+        }else if(resp == 9){
+            
+        }else if(resp == 10){
+            
         }
     }while(resp != 6);
 }
@@ -465,4 +533,25 @@ void Login::showHolidays(){
     for (auto it = holidayCalendar.begin(); it != holidayCalendar.end(); ++it) {
         cout << "      " << it->first << " : " << it->second << '\n';
     }
+}
+
+string Login::getLeaveType(int type){
+    string leave_type;
+
+    if(type == 1){
+        leave_type = "WORK_FROM_HOME";
+    }else if(type == 2){
+        leave_type = "VACATION_LEAVE";
+    }else if(type == 3){
+        leave_type = "ANNUAL_LEAVE";
+    }else if(type == 4){
+        leave_type = "TEAM_TIME_OFF";
+    }else if(type == 5){
+        leave_type = "PATERNITY_LEAVE";
+    }else if(type == 6){
+        leave_type = "MATERNITY_LEAVE";
+    }else if(type == 7){
+        leave_type = "MARRIAGE_LEAVE";
+    }
+    return leave_type;
 }

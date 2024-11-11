@@ -60,12 +60,12 @@ void Admin::updateManagerData(Employee& emp){
     cout << "\nWhich field you want to update or edit ? \n" << endl;
 
     string options[] = {
-        "Enter 1 to update employee ID",
-        "Enter 2 to update manager name",
-        "Enter 3 to add project ID",
-        "Enter 4 to remove project ID",
-        "Enter 5 to add team member - employee ID",
-        "Enter 6 to remove team member - employee ID"
+        "Enter 01 to update employee ID",
+        "Enter 02 to update manager name",
+        "Enter 03 to add project ID",
+        "Enter 04 to remove project ID",
+        "Enter 05 to add team member - employee ID",
+        "Enter 06 to remove team member - employee ID"
     };
 
     int numOptions = sizeof(options)/sizeof(options[0]);

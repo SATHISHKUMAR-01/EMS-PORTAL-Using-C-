@@ -738,3 +738,7 @@ void Employee::viewManagerAndProjectDetails(int emp_id){
     cout << "Customer Name    :  " << proj_details->customer_name << endl;
     cout << BORDER_LINES <<  endl;
 }
+
+void Employee::applyLeave(int emp_id, struct leave_details details){
+    leave_data[emp_id].push_back(details);
+}
