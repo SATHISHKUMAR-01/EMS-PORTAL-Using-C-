@@ -80,28 +80,97 @@ class Employee {
 
     public:
     Employee(){
-        emp_details info[2];
-        info[0].emp_id = 1;
-        info[0].age = 22;
-        info[0].dob = "01/03/1998";
-        info[0].name = "Rahul";
-        info[0].role = "Intern";
-        info[0].department = "Admin";
-        info[0].fatherName = "Harish";
-        info[0].dateOfJoin = "03/12/2021";
-        info[0].sex = "Male";
-        employee.push_back(info[0]);
+        emp_details emp_info[5];
+        manager_details mngr_info[2];
+        project_details proj_info[2];
 
-        info[1].emp_id = 2;
-        info[1].age = 21;
-        info[1].dob = "01/12/2000";
-        info[1].name = "Francis";
-        info[1].role = "Senior";
-        info[1].department = "HR";
-        info[1].fatherName = "Venkatesh";
-        info[1].dateOfJoin = "03/02/2023";
-        info[1].sex = "Female";
-        employee.push_back(info[1]);
+        emp_info[0].emp_id = 1;
+        emp_info[0].age = 23;
+        emp_info[0].dob = "01/12/2001";
+        emp_info[0].name = "Sathish";
+        emp_info[0].role = "Senior";
+        emp_info[0].department = "Engineering";
+        emp_info[0].fatherName = "RTK";
+        emp_info[0].dateOfJoin = "26/12/2023";
+        emp_info[0].sex = "Male";
+        employee.push_back(emp_info[0]);
+
+        emp_info[1].emp_id = 2;
+        emp_info[1].age = 23;
+        emp_info[1].dob = "01/10/2000";
+        emp_info[1].name = "Nithya";
+        emp_info[1].role = "Senior";
+        emp_info[1].department = "Engineering";
+        emp_info[1].fatherName = "Bala";
+        emp_info[1].dateOfJoin = "03/06/2023";
+        emp_info[1].sex = "Female";
+        employee.push_back(emp_info[1]);
+
+        emp_info[2].emp_id = 3;
+        emp_info[2].age = 21;
+        emp_info[2].dob = "01/10/2002";
+        emp_info[2].name = "Roshan";
+        emp_info[2].role = "Intern";
+        emp_info[2].department = "HR";
+        emp_info[2].fatherName = "Vinoth";
+        emp_info[2].dateOfJoin = "03/06/2025";
+        emp_info[2].sex = "Male";
+        employee.push_back(emp_info[2]);
+
+        emp_info[3].emp_id = 4;
+        emp_info[3].age = 35;
+        emp_info[3].dob = "02/03/1990";
+        emp_info[3].name = "Nishanth";
+        emp_info[3].role = "Manager";
+        emp_info[3].department = "Engineering";
+        emp_info[3].fatherName = "John";
+        emp_info[3].dateOfJoin = "28/07/2011";
+        emp_info[3].sex = "Male";
+        employee.push_back(emp_info[3]);
+
+        emp_info[4].emp_id = 5;
+        emp_info[4].age = 34;
+        emp_info[4].dob = "24/12/1991";
+        emp_info[4].name = "Dinesh";
+        emp_info[4].role = "Manager";
+        emp_info[4].department = "Engineering";
+        emp_info[4].fatherName = "Vijay";
+        emp_info[4].dateOfJoin = "22/04/2013";
+        emp_info[4].sex = "Male";
+        employee.push_back(emp_info[4]);
+
+        mngr_info[0].emp_id = 4;
+        mngr_info[0].name = "Nishanth";
+        mngr_info[0].number_of_projects = 1;
+        mngr_info[0].project_id.push_back(1001);
+        mngr_info[0].team_member_count = 1;
+        mngr_info[0].team_members_id.push_back(1);
+        manager_data.push_back(mngr_info[0]);
+
+        mngr_info[1].emp_id = 5;
+        mngr_info[1].name = "Dinesh";
+        mngr_info[1].number_of_projects = 1;
+        mngr_info[1].project_id.push_back(1002);
+        mngr_info[1].team_member_count = 1;
+        mngr_info[1].team_members_id.push_back(2);
+        manager_data.push_back(mngr_info[1]);
+
+        proj_info[0].project_id = 1001;
+        proj_info[0].project_name = "Cisco CTO";
+        proj_info[0].customer_name = "Sri";
+        proj_info[0].team_member_count = 1;
+        proj_info[0].team_members_id.push_back(1);
+        project_data.push_back(proj_info[0]);
+
+        proj_info[1].project_id = 1002;
+        proj_info[1].project_name = "Cisco Security";
+        proj_info[1].customer_name = "BK";
+        proj_info[1].team_member_count = 1;
+        proj_info[1].team_members_id.push_back(2);
+        project_data.push_back(proj_info[1]);
+
+        emp_to_manager_map[1] = 4;
+        emp_to_project_map[1] = 1001; 
 
         defaultInternWFH = defaultSeniorWFH = defaultManagerWFH = defaultVacationLeave = defaultAnnualLeave = defaultTeamOff =  defaultPaternityLeave = defaultMaternityLeave = defaultMarriageLeave = 0;
     }
@@ -167,6 +236,7 @@ class Employee {
     project_details* getSpecificProjectData(int proj_id);
     void mapEmployeeToManager(int emp_id, int manager_id);
     void mapEmployeeToProject(int emp_id, int project_id);
+    void viewManagerAndProjectDetails(int emp_id);
 };
 
 #endif

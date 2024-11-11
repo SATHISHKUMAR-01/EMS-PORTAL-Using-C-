@@ -702,3 +702,39 @@ void Employee::mapEmployeeToManager(int emp_id, int manager_id){
 void Employee::mapEmployeeToProject(int emp_id, int project_id){
     emp_to_project_map[emp_id] = project_id;
 }
+
+void Employee::viewManagerAndProjectDetails(int emp_id){
+    int project_id = emp_to_project_map[emp_id];
+    int manager_id = emp_to_manager_map[emp_id];
+
+    manager_details* mngr_details = getSpecificManagerData(manager_id);
+    project_details* proj_details = getSpecificProjectData(project_id);
+    emp_details* emp_details = getEmployee(emp_id);
+
+    if (mngr_details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "     Manager not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
+    if (proj_details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "     Project not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+ 
+    if (emp_details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << "      Employee not found " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+    cout << BORDER_LINES <<  endl;
+    cout << "Employee Name    :  " << emp_details->name << endl;
+    cout << "Manager  Name    :  " << mngr_details->name << endl;
+    cout << "Project  Name    :  " << proj_details->project_name << endl;
+    cout << "Customer Name    :  " << proj_details->customer_name << endl;
+    cout << BORDER_LINES <<  endl;
+}

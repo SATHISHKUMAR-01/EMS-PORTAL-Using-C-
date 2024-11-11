@@ -444,7 +444,12 @@ void Login::adminLogin(Employee& emp){
             cin  >> project_id;
             emp.mapEmployeeToProject(emp_id, project_id);
         }else if (resp == 18){
-            
+            cout << " View Employee's manager and project data " << endl;
+            cout << BORDER_LINES <<  endl;
+            int emp_id;
+            cout << "Enter the employee id  :  ";
+            cin  >> emp_id;
+            emp.viewManagerAndProjectDetails(emp_id);
         }
 
     }while(resp != 5);
