@@ -73,6 +73,10 @@ void Employee::setSex(struct emp_details *detail, string sex){
     detail->sex = sex;
 }
 
+void Employee::setSalary(struct emp_details *detail, int salary){
+    detail->salary = salary;
+}
+
 int Employee::getEmpId(struct emp_details *detail){
     return detail->emp_id;
 }
@@ -145,6 +149,10 @@ string Employee::getSex(struct emp_details *detail){
     return detail->sex;
 }
 
+int Employee::getSalary(struct emp_details *detail){
+    return detail->salary;
+}
+
 void Employee::addEmployee(struct emp_details details){
     employee.push_back(details);
 }
@@ -162,6 +170,7 @@ void Employee::displayEmployee(){
         cout << "   Role          : " << getRole(&emp) << endl;
         cout << "   Department    : " << getDepartment(&emp) << endl;
         cout << "   Date of Join  : " << getDateOfJoin(&emp) << endl;
+        cout << "   Salary        : " << getSalary(&emp) << endl;
         cout << BORDER_LINES <<  endl;
     }
 }
@@ -180,6 +189,7 @@ void Employee::diplaySpecificEmployee(int emp_id){
             cout << "   Role          : " << getRole(&emp) << endl;
             cout << "   Department    : " << getDepartment(&emp) << endl;
             cout << "   Date of Join  : " << getDateOfJoin(&emp) << endl;
+            cout << "   Salary        : " << getSalary(&emp) << endl;
             dataFound = true;
             break;
         }

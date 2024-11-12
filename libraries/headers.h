@@ -14,3 +14,4 @@ using namespace std;
 #define EDIT_DEPARTMENT 7
 #define EDIT_DATE_OF_JOIN 8
 #define EDIT_SEX 9
+#define EDIT_SALARY 10

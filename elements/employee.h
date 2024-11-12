@@ -20,6 +20,7 @@ struct emp_details {
     string department;
     string dateOfJoin;
     string sex;
+    int salary;
 };
 
 struct leaveData {
@@ -192,6 +193,7 @@ class Employee {
     void setDepartment(struct emp_details *detail, string department);
     void setDateOfJoin(struct emp_details *detail, string dateOfJoin);
     void setSex(struct emp_details *detail, string sex);
+    void setSalary(struct emp_details *detail, int salary);
 
     void setSeniorWorkFromHome(int workFromHome);
     void setInternWorkFromHome(int workFromHome);
@@ -213,6 +215,7 @@ class Employee {
     string getDepartment(struct emp_details *detail);
     string getDateOfJoin(struct emp_details *detail);
     string getSex(struct emp_details *detail);
+    int getSalary(struct emp_details *detail);
 
     int getSeniorWorkFromHome();
     int getInternWorkFromHome();
