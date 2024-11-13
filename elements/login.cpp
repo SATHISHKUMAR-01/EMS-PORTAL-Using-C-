@@ -209,7 +209,8 @@ void Login::employeeLogin(Employee& emp){
                 }
             }
         }else if(resp == 4){
-            
+            cout << "\n<----- Salary Slip ----->\n" << endl;
+            cout << "Total Salary : Rs." << emp.getSalary(details) << endl;
         }else if(resp == 5){
             cout << "           People in the Company " << endl;
             cout << BORDER_LINES <<  endl;
