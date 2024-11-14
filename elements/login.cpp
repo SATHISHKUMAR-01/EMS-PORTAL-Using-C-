@@ -217,7 +217,8 @@ void Login::employeeLogin(Employee& emp){
                         cout << "End Date       : " << it->end_date << endl;
                         cout << "Number of Days : " << it->number_of_days << endl;
                         cout << "Reason         : " << it->reason << endl;
-                        cout << "Status         : " << it->leave_status ? "Approved" : "Pending";
+                        string status = it->leave_status ? "Approved" : "Pending";
+                        cout << "Status         : " << status << endl;
                     }
                 }else{
                     cout << "There is no pending leave request found !!!";
