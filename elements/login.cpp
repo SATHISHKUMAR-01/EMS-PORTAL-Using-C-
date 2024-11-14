@@ -134,6 +134,7 @@ void Login::employeeLogin(Employee& emp){
             cout << "\nDo you want to apply for a leave/cancel a leave ? \n" << endl; 
             cout << "Enter 01 to apply for a leave" << endl;
             cout << "Enter 02 to cancel a leave " << endl;
+            cout << "Enter 03 to view applied leave " << endl;
             cout << "\nEnter your choice : ";
             cin  >> leave_operation;
             cout << "\n" << BORDER_LINES <<  endl;
@@ -203,6 +204,20 @@ void Login::employeeLogin(Employee& emp){
                         } else {
                             ++it;
                         }
+                    }
+                }else{
+                    cout << "There is no pending leave request found !!!";
+                }
+            }else if(leave_operation == 3){
+                map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest();
+                if (pending_leave.count(emp_id)) {
+                    for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ++it ) {
+                        cout << "Leave Type     : " << it->leave_type << endl;
+                        cout << "Start Date     : " << it->start_date << endl;
+                        cout << "End Date       : " << it->end_date << endl;
+                        cout << "Number of Days : " << it->number_of_days << endl;
+                        cout << "Reason         : " << it->reason << endl;
+                        cout << "Status         : " << it->leave_status ? "Approved" : "Pending";
                     }
                 }else{
                     cout << "There is no pending leave request found !!!";
