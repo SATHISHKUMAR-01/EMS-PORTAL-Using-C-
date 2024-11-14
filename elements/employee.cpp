@@ -756,3 +756,11 @@ void Employee::applyLeave(int emp_id, struct leave_details details){
 map<int, vector<leave_details>>& Employee::getLeaveRequest(){
     return leave_data;
 }
+
+void Employee::addReview(int emp_id, struct review_details details){
+    review_data[emp_id].push_back(details);
+}
+
+map<int, vector<review_details>>& Employee::getReviewData(){
+    return review_data;
+}

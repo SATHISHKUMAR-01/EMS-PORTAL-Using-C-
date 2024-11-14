@@ -74,6 +74,19 @@ struct leave_details {
     }
 };
 
+struct review_details{
+    string emp_self_sufficiency_comments;
+    int emp_self_sufficieny_rating;
+    string emp_proficiency_comments;
+    int emp_proficiency_rating;
+    string mngr_self_sufficiency_comments;
+    int mngr_self_sufficieny_rating;
+    string mngr_proficiency_comments;
+    int mngr_proficiency_rating;
+    bool status;
+    int final_rating;
+};
+
 class Employee {
     private:
     vector<emp_details> employee;
@@ -84,6 +97,7 @@ class Employee {
     map<int, int> emp_to_manager_map;
     map<int, int> emp_to_project_map;
     map<int, vector<leave_details>> leave_data;
+    map<int, vector<review_details>> review_data;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
@@ -249,6 +263,8 @@ class Employee {
     void viewManagerAndProjectDetails(int emp_id);
     void applyLeave(int emp_id, struct leave_details details);
     map<int, vector<leave_details>>& getLeaveRequest();
+    void addReview(int emp_id, struct review_details details);
+    map<int, vector<review_details>>& getReviewData();
 };
 
 #endif

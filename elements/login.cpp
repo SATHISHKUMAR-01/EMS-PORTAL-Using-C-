@@ -79,7 +79,7 @@ void Login::employeeLogin(Employee& emp){
     string options[] = {
         "Enter 01 to view holiday planners",
         "Enter 02 to view leave balances",
-        "Enter 03 to apply/cancel a leave",
+        "Enter 03 to apply/cancel/view leave",
         "Enter 04 to view salary",
         "Enter 05 to view the people in the company",
         "Enter 06 to exit",
@@ -241,7 +241,7 @@ void Login::employeeLogin(Employee& emp){
                 if (pending_leave.count(id)) {
                     emp_details* emp_info =  emp.getEmployee(id);
                     for (auto it = pending_leave[id].begin(); it != pending_leave[id].end(); ++it) {
-                        cout << "Employee Name  : " << emp_info->name;
+                        cout << "Employee Name  : " << emp_info->name << endl;
                         cout << "Leave Type     : " << it->leave_type << endl;
                         cout << "Start Date     : " << it->start_date << endl;
                         cout << "End Date       : " << it->end_date << endl;
@@ -260,9 +260,112 @@ void Login::employeeLogin(Employee& emp){
                 }
             }
         }else if(resp == 9){
-            
+            cout << BORDER_LINES <<  endl;
+            int review_operation;
+            cout << "\nDo you want to submit comment for a review/cancel comments for a review ? \n" << endl; 
+            cout << "Enter 01 to submit comments for a review" << endl;
+            cout << "Enter 02 to cancel comments for a review " << endl;
+            cout << "\nEnter your choice : ";
+            cin  >> review_operation;
+            cout << "\n" << BORDER_LINES <<  endl;
+            if(review_operation == 1){
+                review_details details;
+
+                cout << "\nEnter your self sufficiency comments         : ";
+                cin  >> details.emp_self_sufficiency_comments;
+
+                cout << "\nAdd Rating for the category self sufficiency : ";
+                cin  >> details.emp_self_sufficieny_rating;
+
+                cout << "\nEnter your proficiency comments         : ";
+                cin  >> details.emp_proficiency_comments;
+
+                cout << "\nAdd Rating for the category proficiency : ";
+                cin  >> details.emp_proficiency_rating;
+
+                emp.addReview(emp_id, details);
+
+                cout << "\n" << BORDER_LINES << endl;
+                cout << "   Review Added Successfully   " << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+            }else if(review_operation == 2){
+                cout << "\n" << BORDER_LINES << endl;
+                cout << " Your current pending review" << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+                map<int, vector<review_details>>& pending_review = emp.getReviewData();
+               
+                if (pending_review.count(emp_id)) {
+                    for (auto it = pending_review[emp_id].begin(); it != pending_review[emp_id].end(); ) {
+                        cout << "Self Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
+                        cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
+                        cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
+                        cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
+
+                        char choice;
+                        cout << "Do you want to delete this review ? (y/n): ";
+                        cin >> choice;
+
+                        if (choice == 'y' || choice == 'Y') {
+                            it = pending_review[emp_id].erase(it);
+                            cout << "\n<----- Review Comments Deleted Successfully ----->\n" << endl;
+                        } else {
+                            ++it;
+                        }
+                    }
+                }else{
+                    cout << "There is no pending review found !!!";
+                }
+            }
         }else if(resp == 10){
-            
+            manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
+
+            if (mngr_details == nullptr) {
+                cout << BORDER_LINES <<  endl;
+                cout << "     Operation not permitted  " << endl;
+                cout << BORDER_LINES <<  endl;
+                return;
+            }
+
+            map<int, vector<review_details>>& review_info = emp.getReviewData();
+
+            for (int id : mngr_details->team_members_id){
+                if (review_info.count(id)) {
+                    emp_details* emp_info =  emp.getEmployee(id);
+                    for (auto it = review_info[id].begin(); it != review_info[id].end(); ++it) {
+                        cout << "\nEmployee Name  : " << emp_info->name << endl;
+                        cout << "\nSelf Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
+                        cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
+                        cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
+                        cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
+
+                        char choice;
+                        cout << "Do you want to add your comments to this review ? (y/n): ";
+                        cin >> choice;
+
+                        if (choice == 'y' || choice == 'Y') {
+                            cout << "Add your comments and rating !!!" << endl;
+
+                            cout << "\nEnter your self sufficiency comments         : ";
+                            cin  >> it->mngr_self_sufficiency_comments;
+
+                            cout << "\nAdd Rating for the category self sufficiency : ";
+                            cin  >> it->mngr_self_sufficieny_rating;
+
+                            cout << "\nEnter your proficiency comments         : ";
+                            cin  >> it->mngr_proficiency_comments;
+
+                            cout << "\nAdd Rating for the category proficiency : ";
+                            cin  >> it->mngr_proficiency_rating;
+
+                            it->status = true;
+                            it->final_rating = (it->mngr_self_sufficieny_rating + it->mngr_proficiency_rating) / 2;
+
+                        }
+                    }
+                }
+            }
         }
     }while(resp != 6);
 }
