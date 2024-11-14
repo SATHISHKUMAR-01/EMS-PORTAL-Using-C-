@@ -248,7 +248,7 @@ class Employee {
     void mapEmployeeToProject(int emp_id, int project_id);
     void viewManagerAndProjectDetails(int emp_id);
     void applyLeave(int emp_id, struct leave_details details);
-    map<int, vector<leave_details>>& getLeaveRequest(int emp_id);
+    map<int, vector<leave_details>>& getLeaveRequest();
 };
 
 #endif

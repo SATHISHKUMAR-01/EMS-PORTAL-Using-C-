@@ -753,6 +753,6 @@ void Employee::applyLeave(int emp_id, struct leave_details details){
     leave_data[emp_id].push_back(details);
 }
 
-map<int, vector<leave_details>>& Employee::getLeaveRequest(int emp_id){
+map<int, vector<leave_details>>& Employee::getLeaveRequest(){
     return leave_data;
 }

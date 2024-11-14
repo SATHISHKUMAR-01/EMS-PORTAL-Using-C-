@@ -183,7 +183,7 @@ void Login::employeeLogin(Employee& emp){
                 cout << " Your current pending leave requests" << endl;
                 cout << BORDER_LINES << "\n" << endl;
 
-                map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest(emp_id);
+                map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest();
                
                 if (pending_leave.count(emp_id)) {
                     for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ) {
@@ -226,7 +226,39 @@ void Login::employeeLogin(Employee& emp){
             cin  >> emp_id;
             emp.viewManagerAndProjectDetails(emp_id);
         }else if(resp == 8){
-            
+            manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
+
+            if (mngr_details == nullptr) {
+                cout << BORDER_LINES <<  endl;
+                cout << "     Operation not permitted  " << endl;
+                cout << BORDER_LINES <<  endl;
+                return;
+            }
+
+            map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest();
+
+            for (int id : mngr_details->team_members_id){
+                if (pending_leave.count(id)) {
+                    emp_details* emp_info =  emp.getEmployee(id);
+                    for (auto it = pending_leave[id].begin(); it != pending_leave[id].end(); ++it) {
+                        cout << "Employee Name  : " << emp_info->name;
+                        cout << "Leave Type     : " << it->leave_type << endl;
+                        cout << "Start Date     : " << it->start_date << endl;
+                        cout << "End Date       : " << it->end_date << endl;
+                        cout << "Number of Days : " << it->number_of_days << endl;
+                        cout << "Reason         : " << it->reason << endl;
+
+                        char choice;
+                        cout << "Do you want to approve this leave request? (y/n): ";
+                        cin >> choice;
+
+                        if (choice == 'y' || choice == 'Y') {
+                            it->leave_status = true;
+                            cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
+                        }
+                    }
+                }
+            }
         }else if(resp == 9){
             
         }else if(resp == 10){
