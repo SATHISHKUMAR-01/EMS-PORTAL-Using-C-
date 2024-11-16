@@ -188,22 +188,22 @@ void Login::employeeLogin(Employee& emp){
                 map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest();
                
                 if (pending_leave.count(emp_id)) {
-                    for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ) {
-                        cout << "Leave Type     : " << it->leave_type << endl;
-                        cout << "Start Date     : " << it->start_date << endl;
-                        cout << "End Date       : " << it->end_date << endl;
-                        cout << "Number of Days : " << it->number_of_days << endl;
-                        cout << "Reason         : " << it->reason << endl;
+                    for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ++it ) {
+                        if (!it->leave_status){
+                            cout << "Leave Type     : " << it->leave_type << endl;
+                            cout << "Start Date     : " << it->start_date << endl;
+                            cout << "End Date       : " << it->end_date << endl;
+                            cout << "Number of Days : " << it->number_of_days << endl;
+                            cout << "Reason         : " << it->reason << endl;
 
-                        char choice;
-                        cout << "\nDo you want to delete this leave request? (y/n): ";
-                        cin >> choice;
+                            char choice;
+                            cout << "\nDo you want to delete this leave request? (y/n): ";
+                            cin >> choice;
 
-                        if (choice == 'y' || choice == 'Y') {
-                            it = pending_leave[emp_id].erase(it);
-                            cout << "\n<----- Leave Request Cancelled Successfully ----->\n" << endl;
-                        } else {
-                            ++it;
+                            if (choice == 'y' || choice == 'Y') {
+                                it = pending_leave[emp_id].erase(it);
+                                cout << "\n<----- Leave Request Cancelled Successfully ----->\n" << endl;
+                            }
                         }
                     }
                 }else{

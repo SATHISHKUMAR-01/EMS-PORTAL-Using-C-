@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <vector>
 #include <map>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 #define EDIT_EMP_ID 1

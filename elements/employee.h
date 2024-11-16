@@ -1,6 +1,7 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 #include "../libraries/headers.h"
+#include "employeeLog.h"
 
 #define ADD_WFH 1
 #define ADD_ANNUAL_LEAVE 2
@@ -101,6 +102,7 @@ class Employee {
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
+    map<int, vector<EmployeeLog>> employee_login;
     Employee(){
         emp_details emp_info[5];
         manager_details mngr_info[2];
