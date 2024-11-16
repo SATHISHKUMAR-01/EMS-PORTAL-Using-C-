@@ -115,6 +115,7 @@ class Employee {
         emp_info[0].fatherName = "RTK";
         emp_info[0].dateOfJoin = "26/12/2023";
         emp_info[0].sex = "Male";
+        emp_info[0].salary = 800000;
         employee.push_back(emp_info[0]);
 
         emp_info[1].emp_id = 2;
@@ -126,6 +127,7 @@ class Employee {
         emp_info[1].fatherName = "Bala";
         emp_info[1].dateOfJoin = "03/06/2023";
         emp_info[1].sex = "Female";
+        emp_info[1].salary = 800000;
         employee.push_back(emp_info[1]);
 
         emp_info[2].emp_id = 3;
@@ -137,6 +139,7 @@ class Employee {
         emp_info[2].fatherName = "Vinoth";
         emp_info[2].dateOfJoin = "03/06/2025";
         emp_info[2].sex = "Male";
+        emp_info[2].salary = 600000;
         employee.push_back(emp_info[2]);
 
         emp_info[3].emp_id = 4;
@@ -148,6 +151,7 @@ class Employee {
         emp_info[3].fatherName = "John";
         emp_info[3].dateOfJoin = "28/07/2011";
         emp_info[3].sex = "Male";
+        emp_info[3].salary = 3000000;
         employee.push_back(emp_info[3]);
 
         emp_info[4].emp_id = 5;
@@ -159,6 +163,7 @@ class Employee {
         emp_info[4].fatherName = "Vijay";
         emp_info[4].dateOfJoin = "22/04/2013";
         emp_info[4].sex = "Male";
+        emp_info[4].salary = 2500000;
         employee.push_back(emp_info[4]);
 
         mngr_info[0].emp_id = 4;

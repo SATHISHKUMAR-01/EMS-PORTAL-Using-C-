@@ -143,7 +143,7 @@ void Login::employeeLogin(Employee& emp){
                 int leave_type, numDays;
                 string reason, startDate, endDate;
                 bool leave_status;
-                cout << "Select the leave type";
+                cout << "           Select the leave type" << endl;
                 cout << BORDER_LINES << "\n" <<endl;
                 cout << "Enter 01 to choose work from home " << endl;
                 cout << "Enter 02 to choose vacation leave " << endl;
@@ -152,7 +152,7 @@ void Login::employeeLogin(Employee& emp){
                 cout << "Enter 05 to choose paternity leave " << endl;
                 cout << "Enter 06 to choose maternity leave " << endl;
                 cout << "Enter 07 to choose marriage leave " << endl;
-                cout << "\nEnter your choice : " << endl;
+                cout << "\nEnter your choice : ";
                 cin  >> leave_type;
 
                 cout << "\nEnter the number of days you want to apply : ";
@@ -161,7 +161,7 @@ void Login::employeeLogin(Employee& emp){
                 cout << "\nEnter the start date : ";
                 cin  >> startDate;
 
-                cout << "\nEnter the end date : ";
+                cout << "\nEnter the end date   : ";
                 cin  >> endDate;
 
                 cout << "\nEnter the leave reason : ";
@@ -172,6 +172,7 @@ void Login::employeeLogin(Employee& emp){
                 details.start_date = startDate;
                 details.number_of_days = numDays;
                 details.reason = reason;
+                details.leave_status = false;
                 
                 emp.applyLeave(emp_id, details);
 
@@ -195,7 +196,7 @@ void Login::employeeLogin(Employee& emp){
                         cout << "Reason         : " << it->reason << endl;
 
                         char choice;
-                        cout << "Do you want to delete this leave request? (y/n): ";
+                        cout << "\nDo you want to delete this leave request? (y/n): ";
                         cin >> choice;
 
                         if (choice == 'y' || choice == 'Y') {
@@ -221,12 +222,12 @@ void Login::employeeLogin(Employee& emp){
                         cout << "Status         : " << status << endl;
                     }
                 }else{
-                    cout << "There is no pending leave request found !!!";
+                    cout << "There is no leave request found !!!" << endl;
                 }
             }
         }else if(resp == 4){
-            cout << "\n<----- Salary Slip ----->\n" << endl;
-            cout << "Total Salary : Rs." << emp.getSalary(details) << endl;
+            cout << "\n      <----- Salary Slip ----->\n" << endl;
+            cout << "        Total Salary : Rs." << emp.getSalary(details) << endl;
         }else if(resp == 5){
             cout << "           People in the Company " << endl;
             cout << BORDER_LINES <<  endl;
@@ -431,7 +432,7 @@ void Login::addEmployeeData(Employee& emp){
         cin >> department;
         cout << "\nEnter the Date of Join (DD/MM/YYYY) : ";
         cin >> dateOfJoin;
-        cout << "\nEnter the salary :";
+        cout << "\nEnter the salary : ";
         cin  >> salary;
 
         displayEmployeeData(emp_id,age,name,dob,role,fatherName,department,dateOfJoin,sex,salary);
@@ -624,7 +625,7 @@ void Login::adminLogin(Employee& emp){
             int emp_id;
             cout << "       Displaying specific Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
-            cout << "Enter the employee id : ";
+            cout << "\nEnter the employee id : ";
             cin  >> emp_id;
             emp.diplaySpecificEmployee(emp_id);
         }else if (resp == 5){

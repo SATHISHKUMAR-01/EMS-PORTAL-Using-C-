@@ -177,7 +177,8 @@ void Employee::displayEmployee(){
 
 void Employee::diplaySpecificEmployee(int emp_id){
     bool dataFound = false;
-    cout << "\n     Employee Details - ID : " << emp_id << endl;
+    cout << "\n" << BORDER_LINES <<  endl;
+    cout << "\n         Employee Details - ID : " << emp_id << endl;
     cout << BORDER_LINES <<  endl;
     for (auto& emp : employee) {
         if (emp_id == getEmpId(&emp) ){
@@ -195,7 +196,7 @@ void Employee::diplaySpecificEmployee(int emp_id){
         }
     }
     if(!dataFound){
-        cout << "     Employee Data not found !!!  " << endl;
+        cout << "         Employee Data not found !!!  " << endl;
     }
     cout << BORDER_LINES <<  endl;
 }
@@ -203,32 +204,33 @@ void Employee::diplaySpecificEmployee(int emp_id){
 void Employee::updateEmployeeData(Employee& emp){
     int emp_id;
     string resp;
-    cout << "Enter the employee id : ";
+    cout << "\nEnter the employee id : ";
     cin  >> emp_id;
 
     emp_details* details = emp.getEmployee(emp_id);
     
     if (details == nullptr) {
         cout << BORDER_LINES <<  endl;
-        cout << "      Employee not found " << endl;
+        cout << "           Employee not found " << endl;
         cout << BORDER_LINES <<  endl;
         return;
     }
 
     do {
         int editKey;
-        int new_emp_id, new_age;
+        int new_emp_id, new_age, new_salary;
         string new_dob, new_name, new_role, new_fatherName, new_department, new_dateOfJoin;
         cout << "\n" << BORDER_LINES <<  endl;
         cout << "   Which field you want to update ?\n\n";
-        cout << "     Enter 1 to update employee ID" << endl;
-        cout << "     Enter 2 to update name" << endl;
-        cout << "     Enter 3 to update father's name" << endl;
-        cout << "     Enter 4 to update date of birth" << endl;
-        cout << "     Enter 5 to update Age" << endl;
-        cout << "     Enter 6 to update Role" << endl;
-        cout << "     Enter 7 to update Department" << endl;
-        cout << "     Enter 8 to update Date of Join" << endl;
+        cout << "     Enter 01 to update employee ID" << endl;
+        cout << "     Enter 02 to update name" << endl;
+        cout << "     Enter 03 to update father's name" << endl;
+        cout << "     Enter 04 to update date of birth" << endl;
+        cout << "     Enter 05 to update Age" << endl;
+        cout << "     Enter 06 to update Role" << endl;
+        cout << "     Enter 07 to update Department" << endl;
+        cout << "     Enter 08 to update Date of Join" << endl;
+        cout << "     Enter 10 to update Salary" << endl;
         cout << BORDER_LINES <<  endl;
         cout << "Enter your choice - ";
         cin >> editKey;
@@ -266,6 +268,9 @@ void Employee::updateEmployeeData(Employee& emp){
                 cin  >> new_dateOfJoin;
                 setDateOfJoin(details,new_dateOfJoin);
                 break;
+            case EDIT_SALARY:
+                cin >> new_salary;
+                setSalary(details, new_salary);
             default:
                 cout << "Wrong Value Entered" << endl;
                 break;
@@ -430,6 +435,7 @@ void Employee::grantLeaveToEmployee(){
                 LeaveMap[emp_id] = leaveDetails;
                 cout << BORDER_LINES <<  endl;
                 cout << "   Default Leave Granted for ID -  " << emp_id << endl;
+                cout << BORDER_LINES <<  endl;
                 cout << "      Completed Sucessfully !!! " << endl;
                 cout << BORDER_LINES <<  endl;
             }else {
@@ -721,26 +727,27 @@ void Employee::viewManagerAndProjectDetails(int emp_id){
     project_details* proj_details = getSpecificProjectData(project_id);
     emp_details* emp_details = getEmployee(emp_id);
 
-    if (mngr_details == nullptr) {
-        cout << BORDER_LINES <<  endl;
-        cout << "     Manager not found " << endl;
-        cout << BORDER_LINES <<  endl;
-        return;
-    }
-
-    if (proj_details == nullptr) {
-        cout << BORDER_LINES <<  endl;
-        cout << "     Project not found " << endl;
-        cout << BORDER_LINES <<  endl;
-        return;
-    }
- 
     if (emp_details == nullptr) {
         cout << BORDER_LINES <<  endl;
         cout << "      Employee not found " << endl;
         cout << BORDER_LINES <<  endl;
         return;
     }
+
+    if (mngr_details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << " Employee is not mapped to any Manager " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
+    if (proj_details == nullptr) {
+        cout << BORDER_LINES <<  endl;
+        cout << " Employee is not mapped to any Project " << endl;
+        cout << BORDER_LINES <<  endl;
+        return;
+    }
+
     cout << BORDER_LINES <<  endl;
     cout << "Employee Name    :  " << emp_details->name << endl;
     cout << "Manager  Name    :  " << mngr_details->name << endl;
