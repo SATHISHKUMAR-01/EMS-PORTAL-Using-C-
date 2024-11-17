@@ -15,5 +15,7 @@ class Admin : Employee{
     void updateProjectData(Employee& emp);
     void viewProjectDetails(Employee& emp);
     void removeProjectData(Employee& emp);
+
+    void readCSVAndStore(const string& filename, Employee& emp);
 };
 #endif

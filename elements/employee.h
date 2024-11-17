@@ -272,6 +272,7 @@ class Employee {
     map<int, vector<leave_details>>& getLeaveRequest();
     void addReview(int emp_id, struct review_details details);
     map<int, vector<review_details>>& getReviewData();
+    vector<EmployeeLog> getAttendanceInfo(int emp_id);
 };
 
 #endif

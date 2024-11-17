@@ -771,3 +771,7 @@ void Employee::addReview(int emp_id, struct review_details details){
 map<int, vector<review_details>>& Employee::getReviewData(){
     return review_data;
 }
+
+vector<EmployeeLog> Employee::getAttendanceInfo(int emp_id){
+    return employee_login[emp_id];
+}

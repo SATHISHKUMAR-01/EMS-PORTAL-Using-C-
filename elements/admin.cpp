@@ -320,3 +320,43 @@ void Admin::removeProjectData(Employee& emp){
         }
     }
 }
+
+void Admin::readCSVAndStore(const string& filename, Employee& emp){
+    
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return;
+    }
+    string line;
+    getline(file, line);
+
+    cout << string(58, '-') << endl;
+    cout << left << setw(10) << "EMP_ID"
+    << setw(12) << "NAME"
+    << setw(12) << "DATE"
+    << setw(12) << "LOGIN_TIME"
+    << setw(12) << "LOGOUT_TIME" << endl;
+    cout << string(58, '-') << endl;
+    
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string emp_id_str, name, date, login_time, logout_time;
+        getline(ss, emp_id_str, ',');
+        getline(ss, name, ',');
+        getline(ss, date, ',');
+        getline(ss, login_time, ',');
+        getline(ss, logout_time, ',');
+        int emp_id = stoi(emp_id_str);
+        cout << left << setw(10) << emp_id_str
+        << setw(12) << name
+        << setw(12) << date
+        << setw(12) << login_time
+        << setw(12) << logout_time << endl;
+        // Create an EmployeeLog object and add it to the appropriate map entry
+        EmployeeLog log(emp_id, name, date, login_time, logout_time);
+        emp.employee_login[emp_id].push_back(log);
+    }
+    cout <<  "\n <--- The above details have been updated successfully --->" << endl;
+    file.close();
+}

@@ -2,6 +2,8 @@
 #include "admin.h"
 #include "../libraries/messages.h"
 
+#define ATTENDANCE_DIR "/Users/sathiska/Documents/c++/EMS-PORTAL-Using-CPlusPlus/attendance_record/"
+
 void Login::frontPage(){
     cout << "\n" << WELCOME_MESSAGE << " " << APP_NAME << endl;
     
@@ -87,6 +89,7 @@ void Login::employeeLogin(Employee& emp){
         "Enter 08 to approve leave requests",
         "Enter 09 to submit/cancel self-review",
         "Enter 10 to approve the self-review of the employee",
+        "Enter 11 to view attendance info"
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -383,6 +386,15 @@ void Login::employeeLogin(Employee& emp){
                     }
                 }
             }
+        }else if (resp == 11){
+            cout << "       Attendance Info   " << endl;
+            cout << BORDER_LINES <<  endl;
+            vector<EmployeeLog> attendance_details = emp.getAttendanceInfo(emp_id);
+            cout << "\n" << BORDER_LINES << endl;
+            for (const auto& attendance : attendance_details) {
+                attendance.display();
+            }
+            cout << BORDER_LINES << "\n" << endl;
         }
     }while(resp != 6);
 }
@@ -588,7 +600,8 @@ void Login::adminLogin(Employee& emp){
         "Enter 15 to update project details",
         "Enter 16 to map employee to the manager",
         "Enter 17 to map employee to the project",
-        "Enter 18 to view project and manager details of an employee"
+        "Enter 18 to view project and manager details of an employee",
+        "Enter 19 to add attendance entry"
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -704,6 +717,14 @@ void Login::adminLogin(Employee& emp){
             cout << "Enter the employee id  :  ";
             cin  >> emp_id;
             emp.viewManagerAndProjectDetails(emp_id);
+        }else if (resp == 19){
+            cout << "     Adding the attendance entry of the day " << endl;
+            cout << BORDER_LINES <<  endl;
+            string filename;
+            cout << "\nEnter the csv file name : ";
+            cin >> filename;
+            filename = ATTENDANCE_DIR+filename;
+            admin.readCSVAndStore(filename, emp);
         }
 
     }while(resp != 5);
