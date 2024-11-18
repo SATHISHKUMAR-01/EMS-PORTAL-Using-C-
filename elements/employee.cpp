@@ -775,3 +775,11 @@ map<int, vector<review_details>>& Employee::getReviewData(){
 vector<EmployeeLog> Employee::getAttendanceInfo(int emp_id){
     return employee_login[emp_id];
 }
+
+void Employee::addMessage(int emp_id, struct message_details details){
+    message_data[emp_id].push_back(details);
+}
+
+vector<message_details> Employee::getMessage(int emp_id){
+    return message_data[emp_id];
+}

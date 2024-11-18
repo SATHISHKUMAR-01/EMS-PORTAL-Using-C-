@@ -88,6 +88,14 @@ struct review_details{
     int final_rating;
 };
 
+struct message_details{
+    string info;
+    
+    void print() const {
+        cout << "\nInformation : " << info << endl;
+    }
+};
+
 class Employee {
     private:
     vector<emp_details> employee;
@@ -99,6 +107,7 @@ class Employee {
     map<int, int> emp_to_project_map;
     map<int, vector<leave_details>> leave_data;
     map<int, vector<review_details>> review_data;
+    map<int, vector<message_details>> message_data;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
@@ -273,6 +282,8 @@ class Employee {
     void addReview(int emp_id, struct review_details details);
     map<int, vector<review_details>>& getReviewData();
     vector<EmployeeLog> getAttendanceInfo(int emp_id);
+    void addMessage(int emp_id, struct message_details details);
+    vector<message_details> getMessage(int emp_id);
 };
 
 #endif

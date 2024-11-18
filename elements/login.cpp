@@ -87,9 +87,10 @@ void Login::employeeLogin(Employee& emp){
         "Enter 06 to exit",
         "Enter 07 to view project and manager info",
         "Enter 08 to approve leave requests",
-        "Enter 09 to submit/cancel self-review",
+        "Enter 09 to submit/cancel/view self-review",
         "Enter 10 to approve the self-review of the employee",
-        "Enter 11 to view attendance info"
+        "Enter 11 to view attendance info",
+        "Enter 12 to see notifications"
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -247,6 +248,8 @@ void Login::employeeLogin(Employee& emp){
             emp.viewManagerAndProjectDetails(emp_id);
         }else if(resp == 8){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
+            message_details message_info;
+            string subject;
 
             if (mngr_details == nullptr) {
                 cout << BORDER_LINES <<  endl;
@@ -275,6 +278,13 @@ void Login::employeeLogin(Employee& emp){
                         if (choice == 'y' || choice == 'Y') {
                             it->leave_status = true;
                             cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
+                            subject = "Your Leave Application has been Accepted.\n"
+                                      "Leave type: " + it->leave_type + "\n" +
+                                      "Start Date: " + it->start_date + "\n" +
+                                      "End Date: " + it->end_date + "\n" +
+                                      "Reason: " + it->reason + "\n";
+                            message_info.info = subject;
+                            emp.addMessage(id, message_info);
                         }
                     }
                 }
@@ -285,6 +295,7 @@ void Login::employeeLogin(Employee& emp){
             cout << "\nDo you want to submit comment for a review/cancel comments for a review ? \n" << endl; 
             cout << "Enter 01 to submit comments for a review" << endl;
             cout << "Enter 02 to cancel comments for a review " << endl;
+            cout << "Enter 03 to view added review comments " << endl;
             cout << "\nEnter your choice : ";
             cin  >> review_operation;
             cout << "\n" << BORDER_LINES <<  endl;
@@ -340,6 +351,8 @@ void Login::employeeLogin(Employee& emp){
             }
         }else if(resp == 10){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
+            message_details message_info;
+            string subject;
 
             if (mngr_details == nullptr) {
                 cout << BORDER_LINES <<  endl;
@@ -382,6 +395,10 @@ void Login::employeeLogin(Employee& emp){
                             it->status = true;
                             it->final_rating = (it->mngr_self_sufficieny_rating + it->mngr_proficiency_rating) / 2;
 
+                            subject = "Your Review has been Accepted.\n"
+                                      "Final Rating : " + it->final_rating + "\n";
+                            message_info.info = subject;
+                            emp.addMessage(id, message_info);
                         }
                     }
                 }
@@ -395,6 +412,8 @@ void Login::employeeLogin(Employee& emp){
                 attendance.display();
             }
             cout << BORDER_LINES << "\n" << endl;
+        }else if (resp == 12){
+            
         }
     }while(resp != 6);
 }
