@@ -249,6 +249,7 @@ void Login::employeeLogin(Employee& emp){
         }else if(resp == 8){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
             message_details message_info;
+            leaveData *leaveBalance;
             string subject;
 
             if (mngr_details == nullptr) {
@@ -277,6 +278,22 @@ void Login::employeeLogin(Employee& emp){
 
                         if (choice == 'y' || choice == 'Y') {
                             it->leave_status = true;
+                            leaveBalance = emp.viewLeaveBalance(emp_id);
+                            if (it->leave_type == "WORK_FROM_HOME"){
+                                leaveBalance->workFromHome-=it->number_of_days;
+                            }else if (it->leave_type == "VACATION_LEAVE"){
+                                leaveBalance->vacationLeave-=it->number_of_days;
+                            }else if (it->leave_type == "ANNUAL_LEAVE"){
+                                leaveBalance->annualLeave-=it->number_of_days;
+                            }else if (it->leave_type == "TEAM_TIME_OFF"){
+                                leaveBalance->teamOff-=it->number_of_days;
+                            }else if (it->leave_type == "PATERNITY_LEAVE"){
+                                leaveBalance->paternityLeave-=it->number_of_days;
+                            }else if (it->leave_type == "MATERNITY_LEAVE"){
+                                leaveBalance->maternityLeave-=it->number_of_days;
+                            }else if (it->leave_type == "MARRIAGE_LEAVE"){
+                                leaveBalance->marriageLeave-=it->number_of_days;
+                            }
                             cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
                             subject = "Your Leave Application has been Accepted.\n"
                                       "Leave type: " + it->leave_type + "\n" +
@@ -348,6 +365,32 @@ void Login::employeeLogin(Employee& emp){
                 }else{
                     cout << "There is no pending review found !!!";
                 }
+            }else if (review_operation == 3){
+                map<int, vector<review_details>>& pending_review = emp.getReviewData();
+                if (pending_review.count(emp_id)) {
+                    for (auto it = pending_review[emp_id].begin(); it != pending_review[emp_id].end(); ++it ) {
+                        cout << "Your Self Sufficiency Comments  :  " << it->emp_self_sufficiency_comments << endl;
+                        cout << "Your Self Sufficiency Rating    :  " << it->emp_proficiency_rating << endl;
+                        cout << "Your Proficiency Comments       :  " << it->emp_proficiency_comments << endl;
+                        cout << "Your Proficiency Rating         :  " << it->emp_proficiency_rating << endl;
+
+                        if (it->mngr_self_sufficiency_comments != ""){
+                            cout << "\nManager Self Sufficiency Comments  :  " << it->mngr_self_sufficiency_comments << endl;
+                            cout << "Manager Self Sufficiency Rating    :  " << it->mngr_self_sufficieny_rating << endl;
+                            cout << "Manager Proficiency Comments       :  " << it->mngr_proficiency_comments << endl;
+                            cout << "Manager Proficiency Rating         :  " << it->mngr_proficiency_rating << endl;
+                            cout << "\n" << BORDER_LINES << endl;
+                            cout << "     Final Rating  :   " << it->final_rating << endl;
+                            cout << BORDER_LINES << endl;
+                        }else {
+                            cout << "\n<------ Manager Review is Pending ------>" << endl;
+                        }
+                        string status = it->status ? "Approved" : "Pending";
+                        cout << "Status         : " << status << endl;
+                    }
+                }else{
+                    cout << "There is no review comments found !!!" << endl;
+                }
             }
         }else if(resp == 10){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
@@ -396,7 +439,7 @@ void Login::employeeLogin(Employee& emp){
                             it->final_rating = (it->mngr_self_sufficieny_rating + it->mngr_proficiency_rating) / 2;
 
                             subject = "Your Review has been Accepted.\n"
-                                      "Final Rating : " + it->final_rating + "\n";
+                                      "Final Rating : " + to_string(it->final_rating) + "\n";
                             message_info.info = subject;
                             emp.addMessage(id, message_info);
                         }
