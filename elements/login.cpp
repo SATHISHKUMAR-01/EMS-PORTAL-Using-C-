@@ -456,7 +456,14 @@ void Login::employeeLogin(Employee& emp){
             }
             cout << BORDER_LINES << "\n" << endl;
         }else if (resp == 12){
-            
+            vector<message_details> message_info = emp.getMessage(emp_id);
+            cout << "\n<------- Received Notifications ------->\n" << endl;
+            for (auto it = message_info.begin(); it!=message_info.end(); ++it ){
+                cout << BORDER_LINES << endl;
+                cout << it->info;
+                cout << BORDER_LINES << endl;
+            }
+            cout << "\n<-------------------------------------->\n" << endl;
         }
     }while(resp != 6);
 }
