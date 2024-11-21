@@ -662,7 +662,7 @@ void Login::adminLogin(Employee& emp){
         "Enter 08 to add new manager",
         "Enter 09 to remove manager details",
         "Enter 10 to view list of managers in the company",
-        "Enter 11 to view update manager details",
+        "Enter 11 to update manager details",
         "Enter 12 to add new project",
         "Enter 13 to remove project details",
         "Enter 14 to view list of  projects in the company",
@@ -807,7 +807,7 @@ void Login::showHolidays(){
     cout << "          HOLIDAY CALENDAR  -  2024   " <<  endl;
     cout << BORDER_LINES <<  endl;
     for (auto it = holidayCalendar.begin(); it != holidayCalendar.end(); ++it) {
-        cout << "      " << it->first << " : " << it->second << '\n';
+        cout << left << setw(20) << it->first << setw(5) <<  ":"  << setw(5) << it->second << '\n';
     }
 }
 
