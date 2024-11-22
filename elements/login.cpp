@@ -84,13 +84,13 @@ void Login::employeeLogin(Employee& emp){
         "Enter 03 to apply/cancel/view leave",
         "Enter 04 to view salary",
         "Enter 05 to view the people in the company",
-        "Enter 06 to exit",
-        "Enter 07 to view project and manager info",
-        "Enter 08 to approve leave requests",
-        "Enter 09 to submit/cancel/view self-review",
-        "Enter 10 to approve the self-review of the employee",
-        "Enter 11 to view attendance info",
-        "Enter 12 to see notifications"
+        "Enter 06 to view project and manager info",
+        "Enter 07 to approve leave requests",
+        "Enter 08 to submit/cancel/view self-review",
+        "Enter 09 to approve the self-review of the employee",
+        "Enter 10 to view attendance info",
+        "Enter 11 to see notifications",
+        "Enter 0 to exit",
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -113,10 +113,10 @@ void Login::employeeLogin(Employee& emp){
         }
 
         cout << "\n" << BORDER_LINES <<  endl;
-        if(resp == 1){
+        if(resp == VIEW_HOLIDAY){
             showHolidays();
             cout << BORDER_LINES <<  endl;
-        }else if(resp == 2){
+        }else if(resp == VIEW_LEAVE_BALANCE){
             leaveData *leaveBalance = emp.viewLeaveBalance(emp_id);
             cout << "           Leave Balances" << endl;
             cout << BORDER_LINES <<  endl;
@@ -132,7 +132,7 @@ void Login::employeeLogin(Employee& emp){
                 cout << "           Record not found !!!  " << endl;
             }
             cout << BORDER_LINES <<  endl;
-        }else if(resp == 3){
+        }else if(resp == LEAVE_OPERATIONS){
             cout << BORDER_LINES <<  endl;
             int leave_operation;
             cout << "\nDo you want to apply for a leave/cancel a leave ? \n" << endl; 
@@ -229,24 +229,24 @@ void Login::employeeLogin(Employee& emp){
                     cout << "There is no leave request found !!!" << endl;
                 }
             }
-        }else if(resp == 4){
+        }else if(resp == VIEW_SALARY){
             cout << "\n      <----- Salary Slip ----->\n" << endl;
             cout << "        Total Salary : Rs." << emp.getSalary(details) << endl;
-        }else if(resp == 5){
+        }else if(resp == VIEW_PEOPLE){
             cout << "           People in the Company " << endl;
             cout << BORDER_LINES <<  endl;
             emp.showPeopleData();
-        }else if(resp == 6){
+        }else if(resp == EXIT){
             cout << "           Exiting Employee Login    " << endl;
             cout << BORDER_LINES <<  endl;
-        }else if(resp == 7){
+        }else if(resp == VIEW_PROJECT_AND_MANAGER_INFO){
             cout << " View Employee's manager and project data " << endl;
             cout << BORDER_LINES <<  endl;
             int emp_id;
             cout << "Enter the employee id  :  ";
             cin  >> emp_id;
             emp.viewManagerAndProjectDetails(emp_id);
-        }else if(resp == 8){
+        }else if(resp == APPROVE_LEAVE_REQ){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
             message_details message_info;
             leaveData *leaveBalance;
@@ -306,7 +306,7 @@ void Login::employeeLogin(Employee& emp){
                     }
                 }
             }
-        }else if(resp == 9){
+        }else if(resp == REVIEW_OPERATIONS){
             cout << BORDER_LINES <<  endl;
             int review_operation;
             cout << "\nDo you want to submit comment for a review/cancel comments for a review ? \n" << endl; 
@@ -392,7 +392,7 @@ void Login::employeeLogin(Employee& emp){
                     cout << "There is no review comments found !!!" << endl;
                 }
             }
-        }else if(resp == 10){
+        }else if(resp == APPROVE_REVIEW){
             manager_details* mngr_details = emp.getSpecificManagerData(emp_id);
             message_details message_info;
             string subject;
@@ -446,7 +446,7 @@ void Login::employeeLogin(Employee& emp){
                     }
                 }
             }
-        }else if (resp == 11){
+        }else if(resp == VIEW_ATTENDANCE){
             cout << "       Attendance Info   " << endl;
             cout << BORDER_LINES <<  endl;
             vector<EmployeeLog> attendance_details = emp.getAttendanceInfo(emp_id);
@@ -455,7 +455,7 @@ void Login::employeeLogin(Employee& emp){
                 attendance.display();
             }
             cout << BORDER_LINES << "\n" << endl;
-        }else if (resp == 12){
+        }else if(resp == VIEW_NOTIFICATIONS){
             vector<message_details> message_info = emp.getMessage(emp_id);
             cout << "\n<------- Received Notifications ------->\n" << endl;
             for (auto it = message_info.begin(); it!=message_info.end(); ++it ){
@@ -465,7 +465,7 @@ void Login::employeeLogin(Employee& emp){
             }
             cout << "\n<-------------------------------------->\n" << endl;
         }
-    }while(resp != 6);
+    }while(resp != EXIT);
 }
 
 void Login::displayEmployeeData(int emp_id, int age, string name, string dob, string role, string fatherName, string department, string dateOfJoin, string sex, int salary){
@@ -656,21 +656,21 @@ void Login::adminLogin(Employee& emp){
         "Enter 02 to update existing employee data",
         "Enter 03 to view all employee details",
         "Enter 04 to view specific employee details",
-        "Enter 05 to exit",
-        "Enter 06 to grant leave to employee",
-        "Enter 07 to view the leave counts for all leave types",
-        "Enter 08 to add new manager",
-        "Enter 09 to remove manager details",
-        "Enter 10 to view list of managers in the company",
-        "Enter 11 to update manager details",
-        "Enter 12 to add new project",
-        "Enter 13 to remove project details",
-        "Enter 14 to view list of  projects in the company",
-        "Enter 15 to update project details",
-        "Enter 16 to map employee to the manager",
-        "Enter 17 to map employee to the project",
-        "Enter 18 to view project and manager details of an employee",
-        "Enter 19 to add attendance entry"
+        "Enter 05 to grant leave to employee",
+        "Enter 06 to view the leave counts for all leave types",
+        "Enter 07 to add new manager",
+        "Enter 08 to remove manager details",
+        "Enter 09 to view list of managers in the company",
+        "Enter 10 to update manager details",
+        "Enter 11 to add new project",
+        "Enter 12 to remove project details",
+        "Enter 13 to view list of  projects in the company",
+        "Enter 14 to update project details",
+        "Enter 15 to map employee to the manager",
+        "Enter 16 to map employee to the project",
+        "Enter 17 to view project and manager details of an employee",
+        "Enter 18 to add attendance entry",
+        "Enter 0 to exit",
     };
 
     int numOptions = sizeof(options) / sizeof(options[0]);
@@ -691,33 +691,33 @@ void Login::adminLogin(Employee& emp){
             cin >> resp;
         }
         cout << "\n" << BORDER_LINES <<  endl;
-        if (resp == 1) {
+        if (resp == ADD_NEW_EMPLOYEE) {
             cout << "           Adding new Employee Data     " << endl;
             cout << BORDER_LINES <<  endl;
             addEmployeeData(emp);
-        }else if (resp == 2){
+        }else if (resp == UPDATE_EMPLOYEE_DATA){
             cout << "           Updating Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.updateEmployeeData(emp);
-        }else if (resp == 3){
+        }else if (resp == VIEW_ALL_EMPLOYEE_DATA){
             cout << "         Displaying all Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.displayEmployee();
-        }else if (resp == 4){
+        }else if (resp == VIEW_SPECIFIC_EMPLOYEE_DATA){
             int emp_id;
             cout << "       Displaying specific Employee Data    " << endl;
             cout << BORDER_LINES <<  endl;
             cout << "\nEnter the employee id : ";
             cin  >> emp_id;
             emp.diplaySpecificEmployee(emp_id);
-        }else if (resp == 5){
+        }else if (resp == EXIT){
             cout << "           Exiting Admin Login    " << endl;
             cout << BORDER_LINES <<  endl;
-        }else if (resp == 6){
+        }else if (resp == GRANT_LEAVE){
             cout << "           Granting Leave to employees    " << endl;
             cout << BORDER_LINES <<  endl;
             emp.grantLeaveToEmployee();
-        }else if (resp == 7){
+        }else if (resp == VIEW_LEAVE_COUNTS){
             cout << "           Default Leave counts   " << endl;
             cout << BORDER_LINES <<  endl;
             cout << "   Intern Work from Home    -  " << emp.getInternWorkFromHome() << endl;
@@ -729,39 +729,39 @@ void Login::adminLogin(Employee& emp){
             cout << "   Maternity Leave          -  " << emp.getMaternityLeave() << endl;
             cout << "   Paternity Leave          -  " << emp.getPaternityLeave() << endl;
             cout << "   Marriage Leave           -  " << emp.getMarriageLeave() << endl;
-        }else if (resp == 8){
+        }else if (resp == ADD_MANAGER_DATA){
             cout << "         Adding new manager data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.addManagerData(emp);
-        }else if (resp == 9){
+        }else if (resp == REMOVE_MANAGER_DATA){
             cout << "         Remove Manager data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.removeManagerData(emp);
-        }else if (resp == 10){
+        }else if (resp == VIEW_MANAGER_DATA){
             cout << "         Viewing Manager details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.viewManagerDetails(emp);
-        }else if (resp == 11){
+        }else if (resp == UPDATE_MANAGER_DATA){
             cout << "         Updating Manager details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.updateManagerData(emp);
-        }else if (resp == 12){
+        }else if (resp == ADD_PROJECT_DATA){
             cout << "         Adding new project data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.addProjectData(emp);
-        }else if (resp == 13){
+        }else if (resp == REMOVE_PROJECT_DATA){
             cout << "         Viewing Project details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.removeProjectData(emp);
-        }else if (resp == 14){
+        }else if (resp == VIEW_PROJECT_DATA){
             cout << "         Updating Project details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.viewProjectDetails(emp);
-        }else if (resp == 15){
+        }else if (resp == UPDATE_PROJECT_DATA){
             cout << "         Remove Project data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.updateProjectData(emp);
-        }else if (resp == 16){
+        }else if (resp == MAP_EMPLOYEE_TO_MANAGER){
             cout << "         Mapping employee to manager  " << endl;
             cout << BORDER_LINES <<  endl;
             int emp_id,manager_id;
@@ -770,7 +770,7 @@ void Login::adminLogin(Employee& emp){
             cout << "\nEnter the manager - employee id   :  ";
             cin  >> manager_id;
             emp.mapEmployeeToManager(emp_id, manager_id);
-        }else if (resp == 17){
+        }else if (resp == MAP_EMPLOYEE_TO_PROJECT){
             cout << "         Mapping employee to project  " << endl;
             cout << BORDER_LINES <<  endl;
             int emp_id,project_id;
@@ -779,14 +779,14 @@ void Login::adminLogin(Employee& emp){
             cout << "Enter the project id   :  ";
             cin  >> project_id;
             emp.mapEmployeeToProject(emp_id, project_id);
-        }else if (resp == 18){
+        }else if (resp == VIEW_EMP_PROJECT_AND_MANAGER_INFO){
             cout << " View Employee's manager and project data " << endl;
             cout << BORDER_LINES <<  endl;
             int emp_id;
             cout << "Enter the employee id  :  ";
             cin  >> emp_id;
             emp.viewManagerAndProjectDetails(emp_id);
-        }else if (resp == 19){
+        }else if (resp == ADD_ATTENDANCE_ENTRY){
             cout << "     Adding the attendance entry of the day " << endl;
             cout << BORDER_LINES <<  endl;
             string filename;
@@ -796,7 +796,7 @@ void Login::adminLogin(Employee& emp){
             admin.readCSVAndStore(filename, emp);
         }
 
-    }while(resp != 5);
+    }while(resp != EXIT);
 }
 
 void Login::addHoliday(string name, string date){
@@ -814,19 +814,19 @@ void Login::showHolidays(){
 string Login::getLeaveType(int type){
     string leave_type;
 
-    if(type == 1){
+    if(type == WORK_FROM_HOME){
         leave_type = "WORK_FROM_HOME";
-    }else if(type == 2){
+    }else if(type == VACATION_LEAVE){
         leave_type = "VACATION_LEAVE";
-    }else if(type == 3){
+    }else if(type == ANNUAL_LEAVE){
         leave_type = "ANNUAL_LEAVE";
-    }else if(type == 4){
+    }else if(type == TEAM_TIME_OFF){
         leave_type = "TEAM_TIME_OFF";
-    }else if(type == 5){
+    }else if(type == PATERNITY_LEAVE){
         leave_type = "PATERNITY_LEAVE";
-    }else if(type == 6){
+    }else if(type == MATERNITY_LEAVE){
         leave_type = "MATERNITY_LEAVE";
-    }else if(type == 7){
+    }else if(type == MARRIAGE_LEAVE){
         leave_type = "MARRIAGE_LEAVE";
     }
     return leave_type;
