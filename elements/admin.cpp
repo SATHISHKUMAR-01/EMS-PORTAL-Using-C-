@@ -82,17 +82,17 @@ void Admin::updateManagerData(Employee& emp){
         cin >> resp;
     }
 
-    if (resp == 1){
+    if (resp == UPDATE_EMPLOYEE_ID){
         int new_emp_id;
         cout << "\nEnter the new employee ID : ";
         cin  >> new_emp_id;
         details->emp_id = new_emp_id;
-    }else if (resp == 2){
+    }else if (resp == UPDATE_MANAGER_NAME){
         string new_name;
         cout << "\nEnter the updated name of the manager : ";
         cin  >> new_name;
         details->name = new_name;
-    }else if (resp == 3){
+    }else if (resp == ADD_PROJECT_ID){
         int count;
         cout << "\nEnter the number of projects you want to add : ";
         cin  >> count;
@@ -103,7 +103,7 @@ void Admin::updateManagerData(Employee& emp){
             details->project_id.push_back(project_id);
         }
         details->number_of_projects += count;
-    }else if (resp == 4){
+    }else if (resp == REMOVE_PROJECT_ID){
         int count;
         cout << "\nEnter the number of projects you want to remove : ";
         cin  >> count;
@@ -114,7 +114,7 @@ void Admin::updateManagerData(Employee& emp){
             details->project_id.erase(remove(details->project_id.begin(), details->project_id.end(), project_id), details->project_id.end());
         }
         details->number_of_projects -= count;
-    }else if (resp == 5){
+    }else if (resp == ADD_TEAM_MEMBER_TO_MANAGER){
         int count;
         cout << "\nEnter the number of team members you want to add : ";
         cin  >> count;
@@ -125,7 +125,7 @@ void Admin::updateManagerData(Employee& emp){
             details->team_members_id.push_back(emp_id);
         }
         details->team_member_count+=count;
-    }else if (resp == 6){
+    }else if (resp == REMOVE_TEAM_MEMBER_TO_MANAGER){
         int count;
         cout << "\nEnter the number of team members you want to remove : ";
         cin  >> count;
@@ -248,22 +248,22 @@ void Admin::updateProjectData(Employee& emp){
         cin >> resp;
     }
 
-    if (resp == 1){
+    if (resp == UPDATE_PROJECT_ID){
         int new_proj_id;
         cout << "\nEnter the updated project ID : ";
         cin  >> new_proj_id;
         details->project_id = new_proj_id;
-    }else if (resp == 2){
+    }else if (resp == UPDATE_PROJECT_NAME){
         string new_name;
         cout << "\nEnter the updated name of the project : ";
         cin  >> new_name;
         details->project_name = new_name;
-    }else if (resp == 3){
+    }else if (resp == UPDATE_CUSTOMER_NAME){
         string new_customer_name;
         cout << "\nEnter the updated name of the customer : ";
         cin  >> new_customer_name;
         details->customer_name = new_customer_name;
-    }else if (resp == 4){
+    }else if (resp == ADD_TEAM_MEMBER_TO_PROJ){
         int count;
         cout << "\nEnter the number of team members you want to add : ";
         cin  >> count;
@@ -274,7 +274,7 @@ void Admin::updateProjectData(Employee& emp){
             details->team_members_id.push_back(emp_id);
         }
         details->team_member_count+=count;
-    }else if (resp == 5){
+    }else if (resp == REMOVE_TEAM_MEMBER_TO_PROJ){
         int count;
         cout << "\nEnter the number of team members you want to remove : ";
         cin  >> count;
