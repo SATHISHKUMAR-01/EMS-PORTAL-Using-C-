@@ -167,12 +167,18 @@ void Admin::removeManagerData(Employee& emp){
     cout << "Enter the employee id of the manager to remove : ";
     cin  >> emp_id;
     vector<manager_details> &manager_info = emp.getManagerData();
+    bool mngr_found = false;
     for (auto it = manager_info.begin(); it != manager_info.end(); ) {
         if (it->emp_id == emp_id) {
             it = manager_info.erase(it);
+            mngr_found = true;
+            cout << "\n<----- Manager Data Removed Successfully ----->\n" << endl;
         } else {
             ++it;
         }
+    }
+    if (!mngr_found){
+        cout << "\n<----- Manager Details not found ----->\n" << endl;
     }
 }
 
@@ -297,7 +303,7 @@ void Admin::viewProjectDetails(Employee& emp){
         cout << "Project Name                :  " << project.project_name << endl;
         cout << "Customer Name               :  " << project.customer_name << endl;
         
-        cout << "\nNumber of team members    :  " << project.team_member_count << endl;
+        cout << "\nNumber of team members      :  " << project.team_member_count << endl;
         cout << "Employee IDs are            :  ";
         for (int member_id : project.team_members_id ) {
             cout << member_id << " ";
@@ -312,12 +318,18 @@ void Admin::removeProjectData(Employee& emp){
     cout << "Enter the project id of the project to remove : ";
     cin  >> project_id;
     vector<project_details> &project_info = emp.getProjectData();
+    bool proj_found = false;
     for (auto it = project_info.begin(); it != project_info.end(); ) {
         if (it->project_id == project_id) {
             it = project_info.erase(it);
+            proj_found = true;
+            cout << "\n<----- Project Data Removed Successfully ----->\n" << endl;
         } else {
             ++it;
         }
+    }
+    if (!proj_found){
+        cout << "\n<----- Project Details not found ----->\n" << endl;
     }
 }
 

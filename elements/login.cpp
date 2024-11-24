@@ -107,7 +107,7 @@ void Login::employeeLogin(Employee& emp){
         cout << "\n\nEnter your choice - ";
         cin >> resp;
 
-        while ( (resp < 1 || resp > numOptions)){
+        while ( (resp < 0 || resp > numOptions-1)){
             cout << "\nWrong input given !!! Enter value from 1 to "<< numOptions << " - ";
             cin >> resp;
         }
@@ -240,10 +240,10 @@ void Login::employeeLogin(Employee& emp){
             cout << "           Exiting Employee Login    " << endl;
             cout << BORDER_LINES <<  endl;
         }else if(resp == VIEW_PROJECT_AND_MANAGER_INFO){
-            cout << " View Employee's manager and project data " << endl;
+            cout << "   View Employee's manager and project data " << endl;
             cout << BORDER_LINES <<  endl;
             int emp_id;
-            cout << "Enter the employee id  :  ";
+            cout << "\nEnter the employee id  :  ";
             cin  >> emp_id;
             emp.viewManagerAndProjectDetails(emp_id);
         }else if(resp == APPROVE_LEAVE_REQ){
@@ -686,7 +686,7 @@ void Login::adminLogin(Employee& emp){
 
         cout <<"\n\nEnter your choice - ";
         cin >> resp;
-        while ( (resp < 1 || resp > numOptions)){
+        while ( (resp < 0 || resp > numOptions-1)){
             cout << "\nWrong input given !!! Enter value from 1 to "<< numOptions << " - ";
             cin >> resp;
         }
@@ -750,15 +750,15 @@ void Login::adminLogin(Employee& emp){
             cout << BORDER_LINES <<  endl;
             admin.addProjectData(emp);
         }else if (resp == REMOVE_PROJECT_DATA){
-            cout << "         Viewing Project details   " << endl;
+            cout << "         Removing Project details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.removeProjectData(emp);
         }else if (resp == VIEW_PROJECT_DATA){
-            cout << "         Updating Project details   " << endl;
+            cout << "         Viewing Project details   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.viewProjectDetails(emp);
         }else if (resp == UPDATE_PROJECT_DATA){
-            cout << "         Remove Project data   " << endl;
+            cout << "         Updating Project data   " << endl;
             cout << BORDER_LINES <<  endl;
             admin.updateProjectData(emp);
         }else if (resp == MAP_EMPLOYEE_TO_MANAGER){
@@ -776,7 +776,7 @@ void Login::adminLogin(Employee& emp){
             int emp_id,project_id;
             cout << "Enter the employee id  :  ";
             cin  >> emp_id;
-            cout << "Enter the project id   :  ";
+            cout << "\nEnter the project id   :  ";
             cin  >> project_id;
             emp.mapEmployeeToProject(emp_id, project_id);
         }else if (resp == VIEW_EMP_PROJECT_AND_MANAGER_INFO){

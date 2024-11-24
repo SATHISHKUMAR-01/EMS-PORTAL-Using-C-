@@ -375,7 +375,7 @@ void Employee::grantLeaveToEmployee(){
                     leaveDetails.workFromHome = defaultInternWFH;
                 }else if(role == "Senior"){
                     leaveDetails.workFromHome = defaultSeniorWFH;
-                }else if(role == "Mananger"){
+                }else if(role == "Manager"){
                     leaveDetails.workFromHome = defaultManagerWFH;
                 }
                 leaveDetails.annualLeave = defaultAnnualLeave;
@@ -413,7 +413,12 @@ void Employee::grantLeaveToEmployee(){
                 employeeFound = false;
             }
 
+
             if(employeeFound){
+                if (LeaveMap.find(emp_id) != LeaveMap.end()){
+                    cout << "   Default Leave Already Granted for ID -  " << emp_id << endl;
+                    continue;
+                }
                 if(getRole(details) == "Intern"){
                     leaveDetails.workFromHome = defaultInternWFH;
                 }else if(getRole(details) == "Senior"){
@@ -713,10 +718,12 @@ project_details* Employee::getSpecificProjectData(int proj_id){
 
 void Employee::mapEmployeeToManager(int emp_id, int manager_id){
     emp_to_manager_map[emp_id] = manager_id;
+    cout << "\nEmployee ID : " << emp_id << " mapped to Manager ID : " << manager_id << " successfully " << endl;
 }
 
 void Employee::mapEmployeeToProject(int emp_id, int project_id){
     emp_to_project_map[emp_id] = project_id;
+    cout << "\nEmployee ID : " << emp_id << " mapped to Project ID : " << project_id << " successfully " << endl;
 }
 
 void Employee::viewManagerAndProjectDetails(int emp_id){
@@ -748,7 +755,7 @@ void Employee::viewManagerAndProjectDetails(int emp_id){
         return;
     }
 
-    cout << BORDER_LINES <<  endl;
+    cout << "\n" << BORDER_LINES <<  endl;
     cout << "Employee Name    :  " << emp_details->name << endl;
     cout << "Manager  Name    :  " << mngr_details->name << endl;
     cout << "Project  Name    :  " << proj_details->project_name << endl;
