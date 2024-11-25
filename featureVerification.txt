@@ -1,0 +1,21 @@
+1. Use the below command to execute the project :
+
+    g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
+
+2. By Default, there are some employee, project and manager information added to the class and employee to manager and project are mapped. Verify this.
+
+3. At start, all leave counts is set to zero and it is not assigned to any employee. Add the default leave counts and assign it to employee.
+
+4. Verify whether option to view holiday planner, salary slip, people in the company is working.
+
+5. Verify the option of adding new employee, manager_info and project data. Repeat Test 3 and 4 again.
+
+6. Map any two Employee to manager and project and verify it.
+
+7. Go to newly added employee login and verify whether leave counts, manager/project mapping works fine. Repeat Test 4 again.
+
+8. Added attendance entry to the employee.
+
+Resolve :
+
+1. Error in paternity leave/maternity for newly added employee
