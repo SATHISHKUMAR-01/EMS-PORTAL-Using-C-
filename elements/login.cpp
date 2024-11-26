@@ -90,6 +90,7 @@ void Login::employeeLogin(Employee& emp){
         "Enter 09 to approve the self-review of the employee",
         "Enter 10 to view attendance info",
         "Enter 11 to see notifications",
+        "Enter 12 to request for a additional leave",
         "Enter 0 to exit",
     };
 
@@ -133,6 +134,7 @@ void Login::employeeLogin(Employee& emp){
             }
             cout << BORDER_LINES <<  endl;
         }else if(resp == LEAVE_OPERATIONS){
+            cout << "    Apply for a Leave " << endl;
             cout << BORDER_LINES <<  endl;
             int leave_operation;
             cout << "\nDo you want to apply for a leave/cancel a leave ? \n" << endl; 
@@ -192,7 +194,7 @@ void Login::employeeLogin(Employee& emp){
                 map<int, vector<leave_details>>& pending_leave = emp.getLeaveRequest();
                
                 if (pending_leave.count(emp_id)) {
-                    for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ++it ) {
+                    for (auto it = pending_leave[emp_id].begin(); it != pending_leave[emp_id].end(); ) {
                         if (!it->leave_status){
                             cout << "Leave Type     : " << it->leave_type << endl;
                             cout << "Start Date     : " << it->start_date << endl;
@@ -207,7 +209,11 @@ void Login::employeeLogin(Employee& emp){
                             if (choice == 'y' || choice == 'Y') {
                                 it = pending_leave[emp_id].erase(it);
                                 cout << "\n<----- Leave Request Cancelled Successfully ----->\n" << endl;
+                            } else {
+                                ++it;
                             }
+                        }else{
+                            ++it;
                         }
                     }
                 }else{
@@ -224,6 +230,7 @@ void Login::employeeLogin(Employee& emp){
                         cout << "Reason         : " << it->reason << endl;
                         string status = it->leave_status ? "Approved" : "Pending";
                         cout << "Status         : " << status << endl;
+                        cout << "\n" << BORDER_LINES << "\n" << endl;
                     }
                 }else{
                     cout << "There is no leave request found !!!" << endl;
@@ -265,43 +272,46 @@ void Login::employeeLogin(Employee& emp){
                 if (pending_leave.count(id)) {
                     emp_details* emp_info =  emp.getEmployee(id);
                     for (auto it = pending_leave[id].begin(); it != pending_leave[id].end(); ++it) {
-                        cout << "Employee Name  : " << emp_info->name << endl;
-                        cout << "Leave Type     : " << it->leave_type << endl;
-                        cout << "Start Date     : " << it->start_date << endl;
-                        cout << "End Date       : " << it->end_date << endl;
-                        cout << "Number of Days : " << it->number_of_days << endl;
-                        cout << "Reason         : " << it->reason << endl;
 
-                        char choice;
-                        cout << "Do you want to approve this leave request? (y/n): ";
-                        cin >> choice;
+                        if (!it->leave_status){
+                            cout << "Employee Name  : " << emp_info->name << endl;
+                            cout << "Leave Type     : " << it->leave_type << endl;
+                            cout << "Start Date     : " << it->start_date << endl;
+                            cout << "End Date       : " << it->end_date << endl;
+                            cout << "Number of Days : " << it->number_of_days << endl;
+                            cout << "Reason         : " << it->reason << endl;
 
-                        if (choice == 'y' || choice == 'Y') {
-                            it->leave_status = true;
-                            leaveBalance = emp.viewLeaveBalance(emp_id);
-                            if (it->leave_type == "WORK_FROM_HOME"){
-                                leaveBalance->workFromHome-=it->number_of_days;
-                            }else if (it->leave_type == "VACATION_LEAVE"){
-                                leaveBalance->vacationLeave-=it->number_of_days;
-                            }else if (it->leave_type == "ANNUAL_LEAVE"){
-                                leaveBalance->annualLeave-=it->number_of_days;
-                            }else if (it->leave_type == "TEAM_TIME_OFF"){
-                                leaveBalance->teamOff-=it->number_of_days;
-                            }else if (it->leave_type == "PATERNITY_LEAVE"){
-                                leaveBalance->paternityLeave-=it->number_of_days;
-                            }else if (it->leave_type == "MATERNITY_LEAVE"){
-                                leaveBalance->maternityLeave-=it->number_of_days;
-                            }else if (it->leave_type == "MARRIAGE_LEAVE"){
-                                leaveBalance->marriageLeave-=it->number_of_days;
+                            char choice;
+                            cout << "Do you want to approve this leave request? (y/n): ";
+                            cin >> choice;
+
+                            if (choice == 'y' || choice == 'Y') {
+                                it->leave_status = true;
+                                leaveBalance = emp.viewLeaveBalance(emp_id);
+                                if (it->leave_type == "WORK_FROM_HOME"){
+                                    leaveBalance->workFromHome-=it->number_of_days;
+                                }else if (it->leave_type == "VACATION_LEAVE"){
+                                    leaveBalance->vacationLeave-=it->number_of_days;
+                                }else if (it->leave_type == "ANNUAL_LEAVE"){
+                                    leaveBalance->annualLeave-=it->number_of_days;
+                                }else if (it->leave_type == "TEAM_TIME_OFF"){
+                                    leaveBalance->teamOff-=it->number_of_days;
+                                }else if (it->leave_type == "PATERNITY_LEAVE"){
+                                    leaveBalance->paternityLeave-=it->number_of_days;
+                                }else if (it->leave_type == "MATERNITY_LEAVE"){
+                                    leaveBalance->maternityLeave-=it->number_of_days;
+                                }else if (it->leave_type == "MARRIAGE_LEAVE"){
+                                    leaveBalance->marriageLeave-=it->number_of_days;
+                                }
+                                cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
+                                subject = "Your Leave Application has been Accepted.\n"
+                                        "Leave type: " + it->leave_type + "\n" +
+                                        "Start Date: " + it->start_date + "\n" +
+                                        "End Date: " + it->end_date + "\n" +
+                                        "Reason: " + it->reason + "\n";
+                                message_info.info = subject;
+                                emp.addMessage(id, message_info);
                             }
-                            cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
-                            subject = "Your Leave Application has been Accepted.\n"
-                                      "Leave type: " + it->leave_type + "\n" +
-                                      "Start Date: " + it->start_date + "\n" +
-                                      "End Date: " + it->end_date + "\n" +
-                                      "Reason: " + it->reason + "\n";
-                            message_info.info = subject;
-                            emp.addMessage(id, message_info);
                         }
                     }
                 }
@@ -330,6 +340,8 @@ void Login::employeeLogin(Employee& emp){
 
                 cout << "\nAdd Rating for the category proficiency : ";
                 cin  >> details.emp_proficiency_rating;
+
+                details.status = false;
 
                 emp.addReview(emp_id, details);
 
@@ -369,24 +381,27 @@ void Login::employeeLogin(Employee& emp){
                 map<int, vector<review_details>>& pending_review = emp.getReviewData();
                 if (pending_review.count(emp_id)) {
                     for (auto it = pending_review[emp_id].begin(); it != pending_review[emp_id].end(); ++it ) {
-                        cout << "Your Self Sufficiency Comments  :  " << it->emp_self_sufficiency_comments << endl;
-                        cout << "Your Self Sufficiency Rating    :  " << it->emp_proficiency_rating << endl;
-                        cout << "Your Proficiency Comments       :  " << it->emp_proficiency_comments << endl;
-                        cout << "Your Proficiency Rating         :  " << it->emp_proficiency_rating << endl;
 
-                        if (it->mngr_self_sufficiency_comments != ""){
-                            cout << "\nManager Self Sufficiency Comments  :  " << it->mngr_self_sufficiency_comments << endl;
-                            cout << "Manager Self Sufficiency Rating    :  " << it->mngr_self_sufficieny_rating << endl;
-                            cout << "Manager Proficiency Comments       :  " << it->mngr_proficiency_comments << endl;
-                            cout << "Manager Proficiency Rating         :  " << it->mngr_proficiency_rating << endl;
-                            cout << "\n" << BORDER_LINES << endl;
-                            cout << "     Final Rating  :   " << it->final_rating << endl;
-                            cout << BORDER_LINES << endl;
-                        }else {
-                            cout << "\n<------ Manager Review is Pending ------>" << endl;
+                        if (!it->status){
+                            cout << "Your Self Sufficiency Comments  :  " << it->emp_self_sufficiency_comments << endl;
+                            cout << "Your Self Sufficiency Rating    :  " << it->emp_proficiency_rating << endl;
+                            cout << "Your Proficiency Comments       :  " << it->emp_proficiency_comments << endl;
+                            cout << "Your Proficiency Rating         :  " << it->emp_proficiency_rating << endl;
+
+                            if (it->mngr_self_sufficiency_comments != ""){
+                                cout << "\nManager Self Sufficiency Comments  :  " << it->mngr_self_sufficiency_comments << endl;
+                                cout << "Manager Self Sufficiency Rating    :  " << it->mngr_self_sufficieny_rating << endl;
+                                cout << "Manager Proficiency Comments       :  " << it->mngr_proficiency_comments << endl;
+                                cout << "Manager Proficiency Rating         :  " << it->mngr_proficiency_rating << endl;
+                                cout << "\n" << BORDER_LINES << endl;
+                                cout << "     Final Rating  :   " << it->final_rating << endl;
+                                cout << BORDER_LINES << endl;
+                            }else {
+                                cout << "\n<------ Manager Review is Pending ------>" << endl;
+                            }
+                            string status = it->status ? "Approved" : "Pending";
+                            cout << "Status         : " << status << endl;
                         }
-                        string status = it->status ? "Approved" : "Pending";
-                        cout << "Status         : " << status << endl;
                     }
                 }else{
                     cout << "There is no review comments found !!!" << endl;
@@ -421,7 +436,7 @@ void Login::employeeLogin(Employee& emp){
                         cin >> choice;
 
                         if (choice == 'y' || choice == 'Y') {
-                            cout << "Add your comments and rating !!!" << endl;
+                            cout << "\nAdd your comments and rating !!!" << endl;
 
                             cout << "\nEnter your self sufficiency comments         : ";
                             cin  >> it->mngr_self_sufficiency_comments;
