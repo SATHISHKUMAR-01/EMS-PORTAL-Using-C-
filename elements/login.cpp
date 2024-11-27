@@ -137,6 +137,10 @@ void Login::employeeLogin(Employee& emp){
             cout << "    Apply for a Leave " << endl;
             cout << BORDER_LINES <<  endl;
             int leave_operation;
+            leaveData *leaveBalance;
+            
+            leaveBalance = emp.viewLeaveBalance(emp_id);
+
             cout << "\nDo you want to apply for a leave/cancel a leave ? \n" << endl; 
             cout << "Enter 01 to apply for a leave" << endl;
             cout << "Enter 02 to cancel a leave " << endl;
@@ -163,6 +167,43 @@ void Login::employeeLogin(Employee& emp){
 
                 cout << "\nEnter the number of days you want to apply : ";
                 cin  >> numDays;
+
+                if (leave_type == 1){
+                    if (leaveBalance->workFromHome < numDays){
+                        cout << "\nYour work from home count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 2){
+                    if (leaveBalance->vacationLeave < numDays){
+                        cout << "\nYour vacation leave count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 3){
+                    if (leaveBalance->annualLeave < numDays){
+                        cout << "\nYour annual leave count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 4){
+                    if (leaveBalance->teamOff < numDays){
+                        cout << "\nYour team time off count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 5){
+                    if (leaveBalance->paternityLeave < numDays){
+                        cout << "\nYour paternity leave count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 6){
+                    if (leaveBalance->maternityLeave < numDays){
+                        cout << "\nYour maternity leave count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }else if (leave_type == 7){
+                    if (leaveBalance->marriageLeave < numDays){
+                        cout << "\nYour marriage leave count is less, Cant Apply !!!! \n" << endl;
+                        continue;
+                    }
+                }
 
                 cout << "\nEnter the start date : ";
                 cin  >> startDate;
@@ -287,7 +328,7 @@ void Login::employeeLogin(Employee& emp){
 
                             if (choice == 'y' || choice == 'Y') {
                                 it->leave_status = true;
-                                leaveBalance = emp.viewLeaveBalance(emp_id);
+                                leaveBalance = emp.viewLeaveBalance(id);
                                 if (it->leave_type == "WORK_FROM_HOME"){
                                     leaveBalance->workFromHome-=it->number_of_days;
                                 }else if (it->leave_type == "VACATION_LEAVE"){
@@ -479,6 +520,8 @@ void Login::employeeLogin(Employee& emp){
                 cout << BORDER_LINES << endl;
             }
             cout << "\n<-------------------------------------->\n" << endl;
+        }else if(resp == REQ_FOR_LEAVE){
+                  
         }
     }while(resp != EXIT);
 }
