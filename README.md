@@ -1,66 +1,72 @@
-Employee and Admin Management System
+**Employee and Admin Management System**
 
-Overview
+**Overview**
+
 The Employee and Admin Management System is a robust application designed to facilitate employee and administrator interactions. It supports features like leave management, attendance tracking, salary view, and project details for employees while enabling administrators to manage employees, projects, and other organizational data efficiently.
 
 
-Features
+**Features**
 
-Employee Features
+**Employee Features**
+
 Employees can use the system to:
 
-View holiday planners.
-View leave balances.
-Apply for, cancel, or view leave requests.
-View salary details.
-View the list of people in the company.
-View project and manager information.
-Approve leave requests (if applicable).
-Submit, cancel, or view self-reviews.
-Approve the self-review of employees (if applicable).
-View attendance information.
-See notifications.
-Request additional leave.
+1.  View holiday planners.
+2.  View leave balances.
+3.  Apply for, cancel, or view leave requests.
+4.  View salary details.
+5.  View the list of people in the company.
+6.  View project and manager information.
+7.  Approve leave requests (if applicable).
+8.  Submit, cancel, or view self-reviews.
+9.  Approve the self-review of employees (if applicable).
+10. View attendance information.
+11. See notifications.
+12. Request additional leave.
 
-Admin Features
+**Admin Features**
+
 Administrators can manage employees, projects, and attendance data using the following features:
 
-Add new employee data.
-Update existing employee data.
-View all employee details.
-View specific employee details.
-Grant leave to employees.
-View leave counts for all leave types.
-Add new manager.
-Remove manager details.
-View a list of managers in the company.
-Update manager details.
-Add new project.
-Remove project details.
-View a list of projects in the company.
-Update project details.
-Map employees to managers.
-Map employees to projects.
-View project and manager details of an employee.
-Add attendance entry.
+1.  Add new employee data.
+2.  Update existing employee data.
+3.  View all employee details.
+4.  View specific employee details.
+5.  Grant leave to employees.
+6.  View leave counts for all leave types.
+7.  Add new manager.
+8.  Remove manager details.
+9.  View a list of managers in the company.
+10. Update manager details.
+11. Add new project.
+12. Remove project details.
+13. View a list of projects in the company.
+14. Update project details.
+15. Map employees to managers.
+16. Map employees to projects.
+17. View project and manager details of an employee.
+18. Add attendance entry.
 
-How to Use
+**How to Use**
 
 Launch the application.
 Choose whether you are an Employee or an Admin.
 Follow the on-screen prompts to access the desired features.
 Enter the appropriate option number to proceed.
 
-Technology Stack
+**Technology Stack**
 Programming Language: [C++, C]
 
-Installation
+**Installation**
+
 Clone the repository:
-git clone https://github.com/SATHISHKUMAR-01/EMS-PORTAL-Using-CPlusPlus.git
+
+    git clone https://github.com/SATHISHKUMAR-01/EMS-PORTAL-Using-CPlusPlus.git
 
 Navigate to the project directory:
-cd EMS-PORTAL-Using-CPlusPlus
 
+    cd EMS-PORTAL-Using-CPlusPlus
 
 Compile the code (for compiled languages) or run the main script:
-g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
+
+    g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
