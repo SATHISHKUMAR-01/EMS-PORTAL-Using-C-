@@ -96,6 +96,13 @@ struct message_details{
     }
 };
 
+struct leave_req{
+    int number_of_days;
+    string leave_type;
+    bool status;
+    string comments;
+}
+
 class Employee {
     private:
     vector<emp_details> employee;
@@ -108,6 +115,7 @@ class Employee {
     map<int, vector<leave_details>> leave_data;
     map<int, vector<review_details>> review_data;
     map<int, vector<message_details>> message_data;
+    map<int, vector<leave_req>> leave_req_data;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
