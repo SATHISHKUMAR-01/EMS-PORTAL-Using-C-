@@ -819,6 +819,7 @@ void Login::adminLogin(Employee& emp){
         "Enter 16 to map employee to the project",
         "Enter 17 to view project and manager details of an employee",
         "Enter 18 to add attendance entry",
+        "Enter 19 to view additional leave req from employee",
         "Enter 0 to exit",
     };
 
@@ -943,6 +944,26 @@ void Login::adminLogin(Employee& emp){
             cin >> filename;
             filename = ATTENDANCE_DIR+filename;
             admin.readCSVAndStore(filename, emp);
+        }else if(resp == VIEW_ADDITIONAL_LEAVE_REQ){
+            map<int, vector<leave_req>>& pending_leave_req = emp.getPendingLeaveRequest();
+            if (pending_leave_req.count(emp_id)) {
+                for (auto it = pending_leave_req[emp_id].begin(); it != pending_leave_req[emp_id].end(); ++it ) {
+                    if(!it->status){
+                        cout << "Leave Type     : " << it->leave_type << endl;
+                        cout << "Number of Days : " << it->number_of_days << endl;
+                        cout << "Reason         : " << it->comments << endl;
+
+                        char choice;
+                        cout << "\nDo you want to approve this leave request? (y/n): ";
+                        cin >> choice;
+                        if (choice == 'y' || choice == 'Y') {
+                            it->status = true;
+                        }
+                    }
+                }
+            }else{
+                cout << "There is no leave request found !!!" << endl;
+            }
         }
 
     }while(resp != EXIT);
