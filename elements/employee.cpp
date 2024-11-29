@@ -790,3 +790,11 @@ void Employee::addMessage(int emp_id, struct message_details details){
 vector<message_details> Employee::getMessage(int emp_id){
     return message_data[emp_id];
 }
+
+void Employee::applyLeaveReq(int emp_id, struct leave_req details){
+    leave_req_data[emp_id].push_back(details);
+}
+
+map<int, vector<leave_req>>& Employee::getPendingLeaveRequest(){
+    return leave_req_data;
+}

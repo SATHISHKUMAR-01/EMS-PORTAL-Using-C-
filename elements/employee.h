@@ -101,7 +101,7 @@ struct leave_req{
     string leave_type;
     bool status;
     string comments;
-}
+};
 
 class Employee {
     private:
@@ -292,6 +292,8 @@ class Employee {
     vector<EmployeeLog> getAttendanceInfo(int emp_id);
     void addMessage(int emp_id, struct message_details details);
     vector<message_details> getMessage(int emp_id);
+    void applyLeaveReq(int emp_id, struct leave_req details);
+    map<int, vector<leave_req>>& getPendingLeaveRequest();
 };
 
 #endif

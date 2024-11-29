@@ -521,7 +521,98 @@ void Login::employeeLogin(Employee& emp){
             }
             cout << "\n<-------------------------------------->\n" << endl;
         }else if(resp == REQ_FOR_LEAVE){
-                  
+            cout << "    Requestion for a Leave " << endl;
+            cout << BORDER_LINES <<  endl;
+            int leave_req_operation;
+            
+            cout << "Enter 01 to apply for a leave request" << endl;
+            cout << "Enter 02 to cancel a leave request" << endl;
+            cout << "Enter 03 to view applied leave request" << endl;
+            cout << "\nEnter your choice : ";
+            cin  >> leave_req_operation;
+            cout << "\n" << BORDER_LINES <<  endl;
+
+            if(leave_req_operation == 1){
+                leave_req details;
+                int leave_type, numDays;
+                string reason;
+                bool leave_status;
+                cout << "           Select the leave type" << endl;
+                cout << BORDER_LINES << "\n" <<endl;
+                cout << "Enter 01 to choose work from home " << endl;
+                cout << "Enter 02 to choose vacation leave " << endl;
+                cout << "Enter 03 to choose annual leave " << endl;
+                cout << "Enter 04 to choose team time off " << endl;
+                cout << "Enter 05 to choose paternity leave " << endl;
+                cout << "Enter 06 to choose maternity leave " << endl;
+                cout << "Enter 07 to choose marriage leave " << endl;
+                cout << "\nEnter your choice : ";
+                cin  >> leave_type;
+
+                cout << "\nEnter the number of days you want to apply : ";
+                cin  >> numDays;
+
+            
+                cout << "\nEnter the leave reason : ";
+                cin  >> reason;
+
+                details.leave_type = getLeaveType(leave_type);
+                details.number_of_days = numDays;
+                details.comments = reason;
+                details.status = false;
+                
+                emp.applyLeaveReq(emp_id, details);
+
+                cout << "\n" << BORDER_LINES << endl;
+                cout << "  Leave Request has been Applied Successfully   " << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+            }else if(leave_req_operation == 2){
+                cout << "\n" << BORDER_LINES << endl;
+                cout << " Your current pending leave requests" << endl;
+                cout << BORDER_LINES << "\n" << endl;
+
+                map<int, vector<leave_req>>& pending_leave_req = emp.getPendingLeaveRequest();
+               
+                if (pending_leave_req.count(emp_id)) {
+                    for (auto it = pending_leave_req[emp_id].begin(); it != pending_leave_req[emp_id].end(); ) {
+                        if (!it->status){
+                            cout << "Leave Type     : " << it->leave_type << endl;
+                            cout << "Number of Days : " << it->number_of_days << endl;
+                            cout << "Reason         : " << it->comments << endl;
+
+                            char choice;
+                            cout << "\nDo you want to delete this leave request? (y/n): ";
+                            cin >> choice;
+
+                            if (choice == 'y' || choice == 'Y') {
+                                it = pending_leave_req[emp_id].erase(it);
+                                cout << "\n<----- Leave Request Cancelled Successfully ----->\n" << endl;
+                            } else {
+                                ++it;
+                            }
+                        }else{
+                            ++it;
+                        }
+                    }
+                }else{
+                    cout << "There is no pending leave request found !!!";
+                }
+            }else if(leave_req_operation == 3){
+                map<int, vector<leave_req>>& pending_leave_req = emp.getPendingLeaveRequest();
+                if (pending_leave_req.count(emp_id)) {
+                    for (auto it = pending_leave_req[emp_id].begin(); it != pending_leave_req[emp_id].end(); ++it ) {
+                        cout << "Leave Type     : " << it->leave_type << endl;
+                        cout << "Number of Days : " << it->number_of_days << endl;
+                        cout << "Reason         : " << it->comments << endl;
+                        string status = it->status ? "Approved" : "Pending";
+                        cout << "Status         : " << status << endl;
+                        cout << "\n" << BORDER_LINES << "\n" << endl;
+                    }
+                }else{
+                    cout << "There is no leave request found !!!" << endl;
+                }
+            }
         }
     }while(resp != EXIT);
 }
