@@ -46,6 +46,7 @@ Administrators can manage employees, projects, and attendance data using the fol
 16. Map employees to projects.
 17. View project and manager details of an employee.
 18. Add attendance entry.
+19. View additional leave req and make actions
 
 **How to Use**
 
@@ -69,4 +70,4 @@ Navigate to the project directory:
 
 Compile the code (for compiled languages) or run the main script:
 
-    g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
+    g++ -std=c++17 ./elements/*.cpp main.cpp && ./a.out

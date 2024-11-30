@@ -1,9 +1,6 @@
 #include "./elements/employee.h"
 #include "./elements/login.h"
 
-//g++ -std=c++11 ./elements/*.cpp main.cpp && ./a.out
-//g++ employee.cpp main.cpp && ./a.out
-
 int main(){
     Employee emp;
     Login log;
@@ -13,7 +10,7 @@ int main(){
         isContinue = isAdminLogin = isEmpLogin  = false ;
         log.loginPage(&isContinue, &isAdminLogin, &isEmpLogin);
         if (isAdminLogin){
-            emp.addAdminId(1);
+            emp.addAdminId(999);
             log.adminLogin(emp);
         } else if (isEmpLogin){
             log.employeeLogin(emp);

@@ -212,7 +212,8 @@ void Login::employeeLogin(Employee& emp){
                 cin  >> endDate;
 
                 cout << "\nEnter the leave reason : ";
-                cin  >> reason;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, reason);
 
                 details.leave_type = getLeaveType(leave_type);
                 details.end_date = endDate;
@@ -358,6 +359,7 @@ void Login::employeeLogin(Employee& emp){
                 }
             }
         }else if(resp == REVIEW_OPERATIONS){
+            cout << "     Review Operations   " << endl;
             cout << BORDER_LINES <<  endl;
             int review_operation;
             cout << "\nDo you want to submit comment for a review/cancel comments for a review ? \n" << endl; 
@@ -371,15 +373,17 @@ void Login::employeeLogin(Employee& emp){
                 review_details details;
 
                 cout << "\nEnter your self sufficiency comments         : ";
-                cin  >> details.emp_self_sufficiency_comments;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, details.emp_self_sufficiency_comments);
 
-                cout << "\nAdd Rating for the category self sufficiency : ";
+                cout << "\nAdd Rating for the category self sufficiency (out of 5) : ";
                 cin  >> details.emp_self_sufficieny_rating;
 
                 cout << "\nEnter your proficiency comments         : ";
-                cin  >> details.emp_proficiency_comments;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, details.emp_proficiency_comments);
 
-                cout << "\nAdd Rating for the category proficiency : ";
+                cout << "\nAdd Rating for the category proficiency (out of 5) : ";
                 cin  >> details.emp_proficiency_rating;
 
                 details.status = false;
@@ -399,19 +403,24 @@ void Login::employeeLogin(Employee& emp){
                
                 if (pending_review.count(emp_id)) {
                     for (auto it = pending_review[emp_id].begin(); it != pending_review[emp_id].end(); ) {
-                        cout << "Self Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
-                        cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
-                        cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
-                        cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
 
-                        char choice;
-                        cout << "Do you want to delete this review ? (y/n): ";
-                        cin >> choice;
+                        if(!it->status){
+                            cout << "Self Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
+                            cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
+                            cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
+                            cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
 
-                        if (choice == 'y' || choice == 'Y') {
-                            it = pending_review[emp_id].erase(it);
-                            cout << "\n<----- Review Comments Deleted Successfully ----->\n" << endl;
-                        } else {
+                            char choice;
+                            cout << "Do you want to delete this review ? (y/n): ";
+                            cin >> choice;
+
+                            if (choice == 'y' || choice == 'Y') {
+                                it = pending_review[emp_id].erase(it);
+                                cout << "\n<----- Review Comments Deleted Successfully ----->\n" << endl;
+                            } else {
+                                ++it;
+                            }
+                        }else{
                             ++it;
                         }
                     }
@@ -422,27 +431,24 @@ void Login::employeeLogin(Employee& emp){
                 map<int, vector<review_details>>& pending_review = emp.getReviewData();
                 if (pending_review.count(emp_id)) {
                     for (auto it = pending_review[emp_id].begin(); it != pending_review[emp_id].end(); ++it ) {
+                        cout << "Your Self Sufficiency Comments  :  " << it->emp_self_sufficiency_comments << endl;
+                        cout << "Your Self Sufficiency Rating    :  " << it->emp_self_sufficieny_rating << endl;
+                        cout << "Your Proficiency Comments       :  " << it->emp_proficiency_comments << endl;
+                        cout << "Your Proficiency Rating         :  " << it->emp_proficiency_rating << endl;
 
-                        if (!it->status){
-                            cout << "Your Self Sufficiency Comments  :  " << it->emp_self_sufficiency_comments << endl;
-                            cout << "Your Self Sufficiency Rating    :  " << it->emp_proficiency_rating << endl;
-                            cout << "Your Proficiency Comments       :  " << it->emp_proficiency_comments << endl;
-                            cout << "Your Proficiency Rating         :  " << it->emp_proficiency_rating << endl;
-
-                            if (it->mngr_self_sufficiency_comments != ""){
-                                cout << "\nManager Self Sufficiency Comments  :  " << it->mngr_self_sufficiency_comments << endl;
-                                cout << "Manager Self Sufficiency Rating    :  " << it->mngr_self_sufficieny_rating << endl;
-                                cout << "Manager Proficiency Comments       :  " << it->mngr_proficiency_comments << endl;
-                                cout << "Manager Proficiency Rating         :  " << it->mngr_proficiency_rating << endl;
-                                cout << "\n" << BORDER_LINES << endl;
-                                cout << "     Final Rating  :   " << it->final_rating << endl;
-                                cout << BORDER_LINES << endl;
-                            }else {
-                                cout << "\n<------ Manager Review is Pending ------>" << endl;
-                            }
-                            string status = it->status ? "Approved" : "Pending";
-                            cout << "Status         : " << status << endl;
+                        if (it->mngr_self_sufficiency_comments != ""){
+                            cout << "\nManager Self Sufficiency Comments  :  " << it->mngr_self_sufficiency_comments << endl;
+                            cout << "Manager Self Sufficiency Rating    :  " << it->mngr_self_sufficieny_rating << endl;
+                            cout << "Manager Proficiency Comments       :  " << it->mngr_proficiency_comments << endl;
+                            cout << "Manager Proficiency Rating         :  " << it->mngr_proficiency_rating << endl;
+                            cout << "\n" << BORDER_LINES << endl;
+                            cout << "     Final Rating  :   " << it->final_rating << endl;
+                            cout << BORDER_LINES << endl;
+                        }else {
+                            cout << "\n<------ Manager Review is Pending ------>" << endl;
                         }
+                        string status = it->status ? "Approved" : "Pending";
+                        cout << "Status         : " << status << endl;
                     }
                 }else{
                     cout << "There is no review comments found !!!" << endl;
@@ -466,38 +472,43 @@ void Login::employeeLogin(Employee& emp){
                 if (review_info.count(id)) {
                     emp_details* emp_info =  emp.getEmployee(id);
                     for (auto it = review_info[id].begin(); it != review_info[id].end(); ++it) {
-                        cout << "\nEmployee Name  : " << emp_info->name << endl;
-                        cout << "\nSelf Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
-                        cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
-                        cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
-                        cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
 
-                        char choice;
-                        cout << "Do you want to add your comments to this review ? (y/n): ";
-                        cin >> choice;
+                        if (!it->status){
+                            cout << "\nEmployee Name  : " << emp_info->name << endl;
+                            cout << "\nSelf Sufficieny Comments     : " << it->emp_self_sufficiency_comments << endl;
+                            cout << "Self Sufficieny Rating       : " << it->emp_self_sufficieny_rating << endl;
+                            cout << "Proficiency Comments         : " << it->emp_proficiency_comments << endl;
+                            cout << "Proficiency Rating           : " << it->emp_proficiency_rating << endl;
 
-                        if (choice == 'y' || choice == 'Y') {
-                            cout << "\nAdd your comments and rating !!!" << endl;
+                            char choice;
+                            cout << "Do you want to add your comments to this review ? (y/n): ";
+                            cin >> choice;
 
-                            cout << "\nEnter your self sufficiency comments         : ";
-                            cin  >> it->mngr_self_sufficiency_comments;
+                            if (choice == 'y' || choice == 'Y') {
+                                cout << "\nAdd your comments and rating !!!" << endl;
 
-                            cout << "\nAdd Rating for the category self sufficiency : ";
-                            cin  >> it->mngr_self_sufficieny_rating;
+                                cout << "\nEnter your self sufficiency comments         : ";
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                getline(cin, it->mngr_self_sufficiency_comments);
+                                
+                                cout << "\nAdd Rating for the category self sufficiency : ";
+                                cin  >> it->mngr_self_sufficieny_rating;
 
-                            cout << "\nEnter your proficiency comments         : ";
-                            cin  >> it->mngr_proficiency_comments;
+                                cout << "\nEnter your proficiency comments         : ";
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                getline(cin, it->mngr_proficiency_comments);
 
-                            cout << "\nAdd Rating for the category proficiency : ";
-                            cin  >> it->mngr_proficiency_rating;
+                                cout << "\nAdd Rating for the category proficiency : ";
+                                cin  >> it->mngr_proficiency_rating;
 
-                            it->status = true;
-                            it->final_rating = (it->mngr_self_sufficieny_rating + it->mngr_proficiency_rating) / 2;
+                                it->status = true;
+                                it->final_rating = (it->mngr_self_sufficieny_rating + it->mngr_proficiency_rating) / 2;
 
-                            subject = "Your Review has been Accepted.\n"
-                                      "Final Rating : " + to_string(it->final_rating) + "\n";
-                            message_info.info = subject;
-                            emp.addMessage(id, message_info);
+                                subject = "Your Review has been Accepted.\n"
+                                        "Final Rating : " + to_string(it->final_rating) + "\n";
+                                message_info.info = subject;
+                                emp.addMessage(id, message_info);
+                            }
                         }
                     }
                 }
@@ -552,9 +563,9 @@ void Login::employeeLogin(Employee& emp){
                 cout << "\nEnter the number of days you want to apply : ";
                 cin  >> numDays;
 
-            
                 cout << "\nEnter the leave reason : ";
-                cin  >> reason;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, reason);
 
                 details.leave_type = getLeaveType(leave_type);
                 details.number_of_days = numDays;
@@ -646,22 +657,35 @@ void Login::addEmployeeData(Employee& emp){
         string resp;
         cout << "\nEnter the employee ID : ";
         cin >> emp_id;
+
         cout << "\nEnter the name of the employee : ";
-        cin >> name;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, name);
+       
         cout << "\nEnter the father's name : ";
-        cin >> fatherName;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, fatherName);
+        
         cout << "\nEnter the age : ";
         cin >> age;
+
         cout << "\nEnter the sex (Male/Female/Others) : ";
         cin >> sex;
+
         cout << "\nEnter the Date of Birth (DD/MM/YYYY) : ";
-        cin >> dob;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, dob);
+
         cout << "\nEnter the employee role (Intern/Senior/Manager) : ";
         cin >> role;
+
         cout << "\nEnter the department belongs to (Admin/HR/IT/Engineering) : ";
         cin >> department;
+
         cout << "\nEnter the Date of Join (DD/MM/YYYY) : ";
-        cin >> dateOfJoin;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, dateOfJoin);
+
         cout << "\nEnter the salary : ";
         cin  >> salary;
 
@@ -703,17 +727,20 @@ void Login::addEmployeeData(Employee& emp){
                     case EDIT_NAME:
                         cout << "\nOld Name : " << name << endl;
                         cout << "Enter the new value : ";
-                        cin  >> name;
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        getline(cin, name);
                         break;
                     case EDIT_FATHER_NAME:
                         cout << "\nOld Father's name : " << fatherName << endl;
                         cout << "Enter the new value : ";
-                        cin  >> fatherName;
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        getline(cin, fatherName);
                         break;
                     case EDIT_DOB:
                         cout << "\nOld Date of Birth : " << dob << endl;
                         cout << "Enter the new value : ";
-                        cin  >> dob;
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        getline(cin, dob);
                         break;
                     case EDIT_AGE:
                         cout << "\nOld Age : " << age << endl;
@@ -733,7 +760,8 @@ void Login::addEmployeeData(Employee& emp){
                     case EDIT_DATE_OF_JOIN:
                         cout << "\nOld Date Of Join : " << dateOfJoin << endl;
                         cout << "Enter the new value : ";
-                        cin  >> dateOfJoin;
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        getline(cin, dateOfJoin);
                         break;
                     case EDIT_SEX:
                         cout << "\nOld Sex : " << sex << endl;
@@ -946,9 +974,12 @@ void Login::adminLogin(Employee& emp){
             admin.readCSVAndStore(filename, emp);
         }else if(resp == VIEW_ADDITIONAL_LEAVE_REQ){
             map<int, vector<leave_req>>& pending_leave_req = emp.getPendingLeaveRequest();
-            if (pending_leave_req.count(emp_id)) {
-                for (auto it = pending_leave_req[emp_id].begin(); it != pending_leave_req[emp_id].end(); ++it ) {
-                    if(!it->status){
+
+            for (auto& [key, leave_vector] : pending_leave_req) {
+                cout << "Processing leave requests for Employee ID: " << key << endl;
+
+                for (auto it = leave_vector.begin(); it != leave_vector.end(); ++it) {
+                    if (!it->status) {
                         cout << "Leave Type     : " << it->leave_type << endl;
                         cout << "Number of Days : " << it->number_of_days << endl;
                         cout << "Reason         : " << it->comments << endl;
@@ -958,11 +989,12 @@ void Login::adminLogin(Employee& emp){
                         cin >> choice;
                         if (choice == 'y' || choice == 'Y') {
                             it->status = true;
+                            cout << "Leave request approved.\n";
+                        } else {
+                            cout << "Leave request not approved.\n";
                         }
                     }
                 }
-            }else{
-                cout << "There is no leave request found !!!" << endl;
             }
         }
 

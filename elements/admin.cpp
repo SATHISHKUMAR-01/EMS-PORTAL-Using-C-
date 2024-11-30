@@ -12,7 +12,8 @@ void Admin::addManagerData(Employee& emp){
     cin  >> emp_id;
 
     cout << "Enter the manager name  : ";
-    cin  >> name;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, name);
 
     cout << "\nEnter the number of project managed : ";
     cin  >> number_of_projects;
@@ -192,11 +193,13 @@ void Admin::addProjectData(Employee& emp){
     cin  >> project_id;
 
     cout << "Enter the Project name   : ";
-    cin  >> project_name;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, project_name);
 
     cout << "Enter the Customer name  : ";
-    cin  >> customer_name;
-
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, customer_name);
+    
     cout << "\nEnter the team members count  : ";
     cin  >> team_members;
 

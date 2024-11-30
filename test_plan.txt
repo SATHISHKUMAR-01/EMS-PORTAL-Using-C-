@@ -16,6 +16,3 @@
 
 8. Added attendance entry to the employee.
 
-Resolve :
-
-1. Error in paternity leave/maternity for newly added employee
