@@ -54,6 +54,7 @@ void Login::loginPage(bool *isContinue, bool *isAdminLogin, bool *isEmpLogin){
 
 void Login::employeeLogin(Employee& emp){
     int emp_id;
+    string password;
     int resp;
     cout << "\n" << BORDER_LINES <<  endl;
     cout << "          Welcome to Employee Login" << endl;
@@ -61,6 +62,14 @@ void Login::employeeLogin(Employee& emp){
     
     cout << "\nEnter your employee ID : ";
     cin  >> emp_id;
+    cout << "\nEnter your password : ";
+    cin  >> password;
+
+    if (!emp.validateCredentials(emp_id, password)){
+        cout << "\n Username/Password mismatch !!!!!\n" << endl;
+        return;
+    }
+
     cout << "\nLoading" << endl;
     sleep(2);
     for (int index = 0 ; index < 3 ; index++){
@@ -75,6 +84,8 @@ void Login::employeeLogin(Employee& emp){
         cout << BORDER_LINES <<  endl;
         return;
     }
+
+    cout << "\n --- Login successfull --- " << endl;
 
     cout << "\nWelcome, " << emp.getName(details) << "\n" << endl;
 
@@ -220,7 +231,7 @@ void Login::employeeLogin(Employee& emp){
                 details.start_date = startDate;
                 details.number_of_days = numDays;
                 details.reason = reason;
-                details.leave_status = false;
+                details.leave_status = PENDING;
                 
                 emp.applyLeave(emp_id, details);
 
@@ -270,7 +281,14 @@ void Login::employeeLogin(Employee& emp){
                         cout << "End Date       : " << it->end_date << endl;
                         cout << "Number of Days : " << it->number_of_days << endl;
                         cout << "Reason         : " << it->reason << endl;
-                        string status = it->leave_status ? "Approved" : "Pending";
+                        string status;
+                        if (it->leave_status == PENDING){
+                            status = "Pending";
+                        }else if (it->leave_status == APPROVED){
+                            status = "Approved";
+                        }else if (it->leave_status == REJECTED){
+                            status = "Rejected";
+                        }
                         cout << "Status         : " << status << endl;
                         cout << "\n" << BORDER_LINES << "\n" << endl;
                     }
@@ -328,7 +346,7 @@ void Login::employeeLogin(Employee& emp){
                             cin >> choice;
 
                             if (choice == 'y' || choice == 'Y') {
-                                it->leave_status = true;
+                                it->leave_status = APPROVED;
                                 leaveBalance = emp.viewLeaveBalance(id);
                                 if (it->leave_type == "WORK_FROM_HOME"){
                                     leaveBalance->workFromHome-=it->number_of_days;
@@ -347,6 +365,16 @@ void Login::employeeLogin(Employee& emp){
                                 }
                                 cout << "\n<----- Leave Request Approved Successfully ----->\n" << endl;
                                 subject = "Your Leave Application has been Accepted.\n"
+                                        "Leave type: " + it->leave_type + "\n" +
+                                        "Start Date: " + it->start_date + "\n" +
+                                        "End Date: " + it->end_date + "\n" +
+                                        "Reason: " + it->reason + "\n";
+                                message_info.info = subject;
+                                emp.addMessage(id, message_info);
+                            }else if (choice == 'n' || choice == 'N'){
+                                it->leave_status = REJECTED;
+                                cout << "\n<----- Leave Request Rejected ----->\n" << endl;
+                                subject = "Your Leave Application has been Rejected.\n"
                                         "Leave type: " + it->leave_type + "\n" +
                                         "Start Date: " + it->start_date + "\n" +
                                         "End Date: " + it->end_date + "\n" +
@@ -570,7 +598,7 @@ void Login::employeeLogin(Employee& emp){
                 details.leave_type = getLeaveType(leave_type);
                 details.number_of_days = numDays;
                 details.comments = reason;
-                details.status = false;
+                details.status = PENDING;
                 
                 emp.applyLeaveReq(emp_id, details);
 
@@ -616,7 +644,14 @@ void Login::employeeLogin(Employee& emp){
                         cout << "Leave Type     : " << it->leave_type << endl;
                         cout << "Number of Days : " << it->number_of_days << endl;
                         cout << "Reason         : " << it->comments << endl;
-                        string status = it->status ? "Approved" : "Pending";
+                        string status;
+                        if (it->status == PENDING){
+                            status = "Pending";
+                        }else if (it->status == APPROVED){
+                            status = "Approved";
+                        }else if (it->status == REJECTED){
+                            status = "Rejected";
+                        }
                         cout << "Status         : " << status << endl;
                         cout << "\n" << BORDER_LINES << "\n" << endl;
                     }
@@ -648,6 +683,7 @@ void Login::displayEmployeeData(int emp_id, int age, string name, string dob, st
 void Login::addEmployeeData(Employee& emp){
     int emp_id, age, count, salary;
     string dob, name, role, fatherName, department, dateOfJoin, sex;
+    string password;
 
     cout << "\nEnter the count of employee data you want to add : ";
     cin >> count;
@@ -800,6 +836,8 @@ void Login::addEmployeeData(Employee& emp){
         details[index].salary = salary;
 
         emp.addEmployee(details[index]);
+        password = name.substr(0, 2) + role;
+        emp.addCredentials(emp_id, password);
 
         cout << "\n" << BORDER_LINES <<  endl;
         cout << "       Data Saved Successfully !!! " << endl;
@@ -974,6 +1012,8 @@ void Login::adminLogin(Employee& emp){
             admin.readCSVAndStore(filename, emp);
         }else if(resp == VIEW_ADDITIONAL_LEAVE_REQ){
             map<int, vector<leave_req>>& pending_leave_req = emp.getPendingLeaveRequest();
+            message_details message_info;
+            string subject;
 
             for (auto& [key, leave_vector] : pending_leave_req) {
                 cout << "Processing leave requests for Employee ID: " << key << endl;
@@ -988,10 +1028,27 @@ void Login::adminLogin(Employee& emp){
                         cout << "\nDo you want to approve this leave request? (y/n): ";
                         cin >> choice;
                         if (choice == 'y' || choice == 'Y') {
-                            it->status = true;
+                            it->status = APPROVED;
                             cout << "Leave request approved.\n";
-                        } else {
+
+                            subject = "Your Leave Request  has been Approved.\n"
+                                        "Leave type: " + it->leave_type + "\n" +
+                                        "Number of Days: " + to_string(it->number_of_days) + "\n" +
+                                        "Reason: " + it->comments + "\n";
+                            message_info.info = subject;
+
+                            emp.addMessage(key, message_info);
+                        } else if (choice == 'n' || choice == 'N'){
+                            it->status = REJECTED;
                             cout << "Leave request not approved.\n";
+
+                            subject = "Your Leave Request  has been Rejected.\n"
+                                        "Leave type: " + it->leave_type + "\n" +
+                                        "Number of Days: " + to_string(it->number_of_days) + "\n" +
+                                        "Reason: " + it->comments + "\n";
+                            message_info.info = subject;
+
+                            emp.addMessage(key, message_info);
                         }
                     }
                 }

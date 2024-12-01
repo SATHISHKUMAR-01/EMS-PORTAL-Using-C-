@@ -11,6 +11,12 @@
 #define ADD_PATERNITY_LEAVE 6
 #define ADD_MARRIAGE_LEAVE 7
 
+enum operations{
+    PENDING,
+    APPROVED,
+    REJECTED
+};
+
 struct emp_details {
     int emp_id;
     int age;
@@ -65,7 +71,7 @@ struct leave_details {
     string start_date;
     string end_date;
     int number_of_days;
-    bool leave_status;
+    operations leave_status;
 
     void print() const {
         std::cout << "Leave Type: " << leave_type << ", Reason: " << reason
@@ -99,7 +105,7 @@ struct message_details{
 struct leave_req{
     int number_of_days;
     string leave_type;
-    bool status;
+    operations status;
     string comments;
 };
 
@@ -116,6 +122,7 @@ class Employee {
     map<int, vector<review_details>> review_data;
     map<int, vector<message_details>> message_data;
     map<int, vector<leave_req>> leave_req_data;
+    map<int, string> emp_credentials;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
@@ -136,6 +143,7 @@ class Employee {
         emp_info[0].sex = "Male";
         emp_info[0].salary = 800000;
         employee.push_back(emp_info[0]);
+        emp_credentials[emp_info[0].emp_id] = "SaSenior";
 
         emp_info[1].emp_id = 2;
         emp_info[1].age = 23;
@@ -294,6 +302,8 @@ class Employee {
     vector<message_details> getMessage(int emp_id);
     void applyLeaveReq(int emp_id, struct leave_req details);
     map<int, vector<leave_req>>& getPendingLeaveRequest();
+    bool validateCredentials(int emp_id, string password);
+    void addCredentials(int emp_id, string password);
 };
 
 #endif

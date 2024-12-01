@@ -798,3 +798,15 @@ void Employee::applyLeaveReq(int emp_id, struct leave_req details){
 map<int, vector<leave_req>>& Employee::getPendingLeaveRequest(){
     return leave_req_data;
 }
+
+bool Employee::validateCredentials(int emp_id, string password){
+    if ( password == emp_credentials[emp_id]){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void Employee::addCredentials(int emp_id, string password){
+    emp_credentials[emp_id] = password;
+}
