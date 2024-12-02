@@ -102,6 +102,7 @@ void Login::employeeLogin(Employee& emp){
         "Enter 10 to view attendance info",
         "Enter 11 to see notifications",
         "Enter 12 to request for a additional leave",
+        "Enter 13 to see announcements",
         "Enter 0 to exit",
     };
 
@@ -659,6 +660,8 @@ void Login::employeeLogin(Employee& emp){
                     cout << "There is no leave request found !!!" << endl;
                 }
             }
+        }else if (resp == VIEW_ANNOUNCEMENTS){
+
         }
     }while(resp != EXIT);
 }
@@ -886,6 +889,7 @@ void Login::adminLogin(Employee& emp){
         "Enter 17 to view project and manager details of an employee",
         "Enter 18 to add attendance entry",
         "Enter 19 to view additional leave req from employee",
+        "Enter 20 to add announcements",
         "Enter 0 to exit",
     };
 
@@ -1053,6 +1057,8 @@ void Login::adminLogin(Employee& emp){
                     }
                 }
             }
+        }else if (resp == ADD_ANNOUNCEMENTS){
+
         }
 
     }while(resp != EXIT);
