@@ -661,7 +661,12 @@ void Login::employeeLogin(Employee& emp){
                 }
             }
         }else if (resp == VIEW_ANNOUNCEMENTS){
-
+            vector<string> message = emp.getAnnouncements();
+            for (auto it = message.begin(); it!=message.end(); it++){
+                cout << "\n" BORDER_LINES << endl;
+                cout << *it << "\n" << endl;
+                cout << BORDER_LINES << "\n" << endl;
+            }
         }
     }while(resp != EXIT);
 }
@@ -1058,7 +1063,14 @@ void Login::adminLogin(Employee& emp){
                 }
             }
         }else if (resp == ADD_ANNOUNCEMENTS){
+            string message;
+            cout << "Enter the message info : ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, message);
 
+            message = "Date : " + getCurrentDate() + "\n\n" + "Message : " + message;
+
+            emp.addAnnouncements(message);
         }
 
     }while(resp != EXIT);
@@ -1095,4 +1107,13 @@ string Login::getLeaveType(int type){
         leave_type = "MARRIAGE_LEAVE";
     }
     return leave_type;
+}
+
+string Login::getCurrentDate() {    
+    auto now = chrono::system_clock::now();
+    auto in_time_t = chrono::system_clock::to_time_t(now);
+
+    stringstream ss;
+    ss << put_time(localtime(&in_time_t), "%Y-%m-%d %H:%M:%S");
+    return ss.str();
 }

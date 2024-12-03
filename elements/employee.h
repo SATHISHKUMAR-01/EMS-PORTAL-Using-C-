@@ -123,6 +123,7 @@ class Employee {
     map<int, vector<message_details>> message_data;
     map<int, vector<leave_req>> leave_req_data;
     map<int, string> emp_credentials;
+    vector<string> announcements;
     int defaultInternWFH, defaultSeniorWFH, defaultManagerWFH, defaultVacationLeave, defaultAnnualLeave, defaultTeamOff, defaultPaternityLeave, defaultMaternityLeave, defaultMarriageLeave;
 
     public:
@@ -156,6 +157,7 @@ class Employee {
         emp_info[1].sex = "Female";
         emp_info[1].salary = 800000;
         employee.push_back(emp_info[1]);
+        emp_credentials[emp_info[1].emp_id] = "NiSenior";
 
         emp_info[2].emp_id = 3;
         emp_info[2].age = 21;
@@ -168,6 +170,7 @@ class Employee {
         emp_info[2].sex = "Male";
         emp_info[2].salary = 600000;
         employee.push_back(emp_info[2]);
+        emp_credentials[emp_info[2].emp_id] = "RoIntern";
 
         emp_info[3].emp_id = 4;
         emp_info[3].age = 35;
@@ -180,6 +183,7 @@ class Employee {
         emp_info[3].sex = "Male";
         emp_info[3].salary = 3000000;
         employee.push_back(emp_info[3]);
+        emp_credentials[emp_info[3].emp_id] = "NiManager";
 
         emp_info[4].emp_id = 5;
         emp_info[4].age = 34;
@@ -192,6 +196,7 @@ class Employee {
         emp_info[4].sex = "Male";
         emp_info[4].salary = 2500000;
         employee.push_back(emp_info[4]);
+        emp_credentials[emp_info[4].emp_id] = "DiManager";
 
         mngr_info[0].emp_id = 4;
         mngr_info[0].name = "Nishanth";
@@ -304,6 +309,8 @@ class Employee {
     map<int, vector<leave_req>>& getPendingLeaveRequest();
     bool validateCredentials(int emp_id, string password);
     void addCredentials(int emp_id, string password);
+    void addAnnouncements(string info);
+    vector<string>  getAnnouncements();
 };
 
 #endif

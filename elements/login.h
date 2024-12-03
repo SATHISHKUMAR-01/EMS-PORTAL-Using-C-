@@ -78,6 +78,7 @@ class Login{
     void showHolidays();
     void addHoliday(string name, string date);
     string getLeaveType(int type);
+    string getCurrentDate();
 };
 
 #endif

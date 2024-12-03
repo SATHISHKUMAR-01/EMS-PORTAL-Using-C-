@@ -810,3 +810,11 @@ bool Employee::validateCredentials(int emp_id, string password){
 void Employee::addCredentials(int emp_id, string password){
     emp_credentials[emp_id] = password;
 }
+
+void Employee::addAnnouncements(string info){
+    announcements.push_back(info);
+}
+
+vector<string> Employee::getAnnouncements(){
+    return announcements;
+}
