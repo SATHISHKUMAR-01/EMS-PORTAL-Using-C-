@@ -23,6 +23,7 @@ Employees can use the system to:
 10. View attendance information.
 11. See notifications.
 12. Request additional leave.
+13. Add annoucements info.
 
 **Admin Features**
 
@@ -46,7 +47,8 @@ Administrators can manage employees, projects, and attendance data using the fol
 16. Map employees to projects.
 17. View project and manager details of an employee.
 18. Add attendance entry.
-19. View additional leave req and make actions
+19. View additional leave req and make actions.
+20. View announcements from company.
 
 **How to Use**
 
